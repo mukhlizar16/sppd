@@ -14,7 +14,7 @@ class AsnController extends Controller
     {
         $asns = Asn::all();
         $title = 'Data Asn';
-        return view('dashboard.asn.index')->with(compact('title', 'asns'));
+        return view('admin.asn.index')->with(compact('title', 'asns'));
     }
 
     /**

@@ -14,7 +14,7 @@ class JenisTugasController extends Controller
     {
         $title = 'Data Jenis Tugas';
         $jenises = JenisTugas::all();
-        return view('dashboard.jenis-tugas.index')->with(compact('title', 'jenises'));
+        return view('admin.jenis-tugas.index')->with(compact('title', 'jenises'));
     }
 
     /**

@@ -13,7 +13,7 @@ class TiketPulangController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pulang';
-        return view('dashboard.sppd.total_pulang.create')->with(compact('title'));
+        return view('admin.sppd.total_pulang.create')->with(compact('title'));
     }
 
     /**

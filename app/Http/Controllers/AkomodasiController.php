@@ -13,7 +13,7 @@ class AkomodasiController extends Controller
     public function index()
     {
         $title = 'Data Akomodasi';
-        return view('dashboard.sppd.akomodasi.create')->with(compact('title'));
+        return view('admin.sppd.akomodasi.create')->with(compact('title'));
     }
 
     /**

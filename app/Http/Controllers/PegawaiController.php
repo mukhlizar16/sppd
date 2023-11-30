@@ -18,7 +18,7 @@ class PegawaiController extends Controller
     {
         $title = 'Data Pegawai';
         $pegawais = Pegawai::all();
-        return view('dashboard.pegawai.index')->with(compact('title', 'pegawais'));
+        return view('admin.pegawai.index')->with(compact('title', 'pegawais'));
     }
 
     /**
@@ -28,7 +28,7 @@ class PegawaiController extends Controller
     {
         $asns = Asn::all();
         $golongans = Golongan::all();
-        return view('dashboard.pegawai.create', [
+        return view('admin.pegawai.create', [
             'title' => 'Tambah Pegawai Baru',
         ])->with(compact('asns', 'golongans'));
     }
@@ -99,7 +99,7 @@ class PegawaiController extends Controller
     {
         $asns = Asn::all();
         $golongans = Golongan::all();
-        return view('dashboard.pegawai.view', [
+        return view('admin.pegawai.view', [
             'title' => 'Info Pegawai',
         ])->with(compact('asns', 'golongans', 'pegawai'));
     }
@@ -111,7 +111,7 @@ class PegawaiController extends Controller
     {
         $asns = Asn::all();
         $golongans = Golongan::all();
-        return view('dashboard.pegawai.edit', [
+        return view('admin.pegawai.edit', [
             'title' => 'Update Pegawai Baru',
         ])->with(compact('asns', 'golongans', 'pegawai'));
     }

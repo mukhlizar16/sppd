@@ -15,7 +15,7 @@ class SuratTugasController extends Controller
     {
         $title = 'Data Surat';
         $pegawais = Pegawai::select('id', 'nama')->get();
-        return view('dashboard.sppd.surat_tugas.create')->with(compact('title', 'pegawais'));
+        return view('admin.sppd.surat_tugas.create')->with(compact('title', 'pegawais'));
     }
 
     /**
