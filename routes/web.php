@@ -47,6 +47,7 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::resource('/surat', SuratTugasController::class)->parameters([
         'sppd' => 'id',
     ]);
+    Route::get('/surat/{sppd}/detail', [SuratTugasController::class, 'showDetail'])->name('surat.detail');
     Route::resource('/uang', UangHarianController::class)->parameters([
         'sppd' => 'id',
     ]);

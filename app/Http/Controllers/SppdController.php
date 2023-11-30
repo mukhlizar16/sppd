@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisTugas;
 use App\Models\Sppd;
+use App\Models\SuratTugas;
 use Illuminate\Http\Request;
 
 class SppdController extends Controller
@@ -49,9 +50,9 @@ class SppdController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Sppd $sppd)
     {
-        //
+
     }
 
     /**
@@ -90,6 +91,22 @@ class SppdController extends Controller
     public function destroy(Sppd $sppd)
     {
         try {
+            $sppd = Sppd::whereId($sppd->id)->first();
+            $sppd->SuratTugas->each(function ($SuratTugas) {
+                $SuratTugas->delete();
+              });
+            $sppd->Akomodasi->each(function ($Akomodasi) {
+                $Akomodasi->delete();
+              });
+            $sppd->UangHarian->each(function ($UangHarian) {
+                $UangHarian->delete();
+              });
+            $sppd->TotalPergi->each(function ($TotalPergi) {
+                $TotalPergi->delete();
+              });
+            $sppd->TotalPulang->each(function ($TotalPulang) {
+                $TotalPulang->delete();
+              });
             Sppd::destroy($sppd->id);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {

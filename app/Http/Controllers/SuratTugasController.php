@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Sppd;
 use App\Models\SuratTugas;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,10 @@ class SuratTugasController extends Controller
      */
     public function show(SuratTugas $suratTugas)
     {
-
+        $sppd = Sppd::where('id', $suratTugas->sppd_id)->get();
+        $title = 'Data Sppd Detail - ' . $sppd->name;
+        $surats = SuratTugas::where('sppd_id', $sppd->id)->get();
+        return view('dashboard.sppd.show')->with(compact('title', 'sppd', 'surats'));
     }
 
     /**
@@ -82,5 +86,18 @@ class SuratTugasController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showDetail($sppdId)
+    {
+        $sppd = Sppd::find($sppdId);
+        $title = 'Data Sppd Detail - ' . $sppd->name;
+
+        if (!$sppd) {
+            abort(404); // Or handle the case when the Sppd is not found
+        }
+
+        $surats = SuratTugas::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
+        return view('dashboard.sppd.surat_tugas.show', compact('surats', 'title', 'sppd'));
     }
 }

@@ -48,9 +48,10 @@
                                     <td>{{ $sppd->JenisTugas->name }}</td>
                                     <td>{{ $sppd->total_biaya }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info">
+                                        <a class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
+                                            data-bs-target="#detailSppd{{ $loop->iteration }}">
                                             <i class="fa-regular fa-plus"></i>
-                                        </button>
+                                        </a>
                                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">
                                             <i class="fa-regular fa-pen-to-square"></i>
@@ -82,8 +83,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="jenis_tugas_id" class="form-label">Jenis Tugas</label>
-                                        <select class="form-select @error('jenis_tugas_id') is-invalid @enderror" id="jenis_tugas_id"
-                                            name="jenis_tugas_id">
+                                        <select class="form-select @error('jenis_tugas_id') is-invalid @enderror"
+                                            id="jenis_tugas_id" name="jenis_tugas_id">
                                             @foreach ($jenises as $jenis)
                                                 <option value="{{ $jenis->id }}">
                                                     {{ $jenis->name }}
@@ -98,7 +99,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="total_biaya" class="form-label">Total Biaya</label>
-                                        <input type="total_biaya" class="form-control @error('total_biaya') is-invalid @enderror" id="total_biaya"
+                                        <input type="total_biaya"
+                                            class="form-control @error('total_biaya') is-invalid @enderror" id="total_biaya"
                                             name="total_biaya" value="{{ old('total_biaay', $sppd->total_biaya) }}">
                                         @error('total_biaya')
                                             <div class="invalid-feedback">
@@ -127,6 +129,45 @@
                                 </x-form_modal>
                                 {{-- / Modal Hapus sppd  --}}
 
+                                <!-- Modal -->
+                                <div class="modal fade" id="detailSppd{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Data Detail Sppd</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="fs-3">
+                                                    <b>{{ $sppd->name }}</b>
+                                                </p>
+                                                <div class="row d-flex justify-content-center align-items-center">
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white" href="{{ route('surat.detail', $sppd->id) }}">Surat Tugas</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white">Akomodasi</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white">Uang Harian</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white">Total Pergi</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white">Total Pulang</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -172,8 +213,8 @@
             </div>
             <div class="mb-3">
                 <label for="total_biaya" class="form-label">Total Biaya</label>
-                <input type="total_biaya" class="form-control @error('total_biaya') is-invalid @enderror" id="total_biaya"
-                    name="total_biaya" >
+                <input type="total_biaya" class="form-control @error('total_biaya') is-invalid @enderror"
+                    id="total_biaya" name="total_biaya">
                 @error('total_biaya')
                     <div class="invalid-feedback">
                         {{ $message }}
