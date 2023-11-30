@@ -44,21 +44,41 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/sppd', SppdController::class);
     Route::resource('/jenis', JenisTugasController::class);
+
+    // surat
     Route::resource('/surat', SuratTugasController::class)->parameters([
         'sppd' => 'id',
     ]);
     Route::get('/surat/{sppd}/detail', [SuratTugasController::class, 'showDetail'])->name('surat.detail');
+    Route::post('/surat/detail', [SuratTugasController::class, 'storeDetail'])->name('surat.detailStore');
+
+    // uang
     Route::resource('/uang', UangHarianController::class)->parameters([
         'sppd' => 'id',
     ]);
+    Route::get('/uang/{sppd}/detail', [UangHarianController::class, 'showDetail'])->name('uang.detail');
+    Route::post('/uang/detail', [UangHarianController::class, 'storeDetail'])->name('uang.detailStore');
+
+    // akomodasi
     Route::resource('/akomodasi', AkomodasiController::class)->parameters([
         'sppd' => 'id',
     ]);
+    Route::get('/akomodasi/{sppd}/detail', [AkomodasiController::class, 'showDetail'])->name('akomodasi.detail');
+    Route::post('/akomodasi/detail', [AkomodasiController::class, 'storeDetail'])->name('akomodasi.detailStore');
+
+    // pergi
     Route::resource('/pergi', TiketPergiController::class)->parameters([
         'sppd' => 'id',
     ]);
+    Route::get('/pergi/{sppd}/detail', [TiketPergiController::class, 'showDetail'])->name('pergi.detail');
+    Route::post('/pergi/detail', [TiketPergiController::class, 'storeDetail'])->name('pergi.detailStore');
+
+    // pulang
     Route::resource('/pulang', TiketPulangController::class)->parameters([
         'sppd' => 'id',
     ]);
+    Route::get('/pulang/{sppd}/detail', [TiketPulangController::class, 'showDetail'])->name('pulang.detail');
+    Route::post('/pulang/detail', [TiketPulangController::class, 'storeDetail'])->name('pulang.detailStore');
+
     Route::put('/resetpassword/{user}', [UserController::class, 'resetPasswordAdmin'])->name('resetpassword.resetPasswordAdmin')->middleware('auth');
 });

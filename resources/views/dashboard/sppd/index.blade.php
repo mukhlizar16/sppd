@@ -148,16 +148,16 @@
                                                         <a class="btn btn-primary text-white" href="{{ route('surat.detail', $sppd->id) }}">Surat Tugas</a>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <a class="btn btn-primary text-white">Akomodasi</a>
+                                                        <a class="btn btn-primary text-white" href="{{ route('akomodasi.detail', $sppd->id) }}">Akomodasi</a>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <a class="btn btn-primary text-white">Uang Harian</a>
+                                                        <a class="btn btn-primary text-white" href="{{ route('uang.detail', $sppd->id) }}">Uang Harian</a>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <a class="btn btn-primary text-white">Total Pergi</a>
+                                                        <a class="btn btn-primary text-white"  href="{{ route('pergi.detail', $sppd->id) }}">Tiket Pergi</a>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <a class="btn btn-primary text-white">Total Pulang</a>
+                                                        <a class="btn btn-primary text-white" href="{{ route('pulang.detail', $sppd->id) }}">Tiket Pulang</a>
                                                     </div>
                                                 </div>
                                             </div>

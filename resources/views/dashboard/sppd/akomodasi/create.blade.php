@@ -218,6 +218,4 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ asset('js/show-hide-password.js') }}"></script>
 @endsection
