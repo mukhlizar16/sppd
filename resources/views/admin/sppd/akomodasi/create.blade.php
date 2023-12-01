@@ -1,4 +1,21 @@
-<x-app-layout :$title>
+@extends('dashboard.layouts.main')
+
+@section('content')
+<div class="row">
+    <div class="col-sm-6 col-md">
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @elseif (session()->has('failed'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('failed') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+</div>
     <div class="row">
         <div class="col col-md-12">
             <div class="container mt-4">
@@ -16,7 +33,7 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary" disabled>
+                        <button class="btn btn-primary"  disabled>
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </button>
@@ -36,8 +53,8 @@
                 </div>
 
                 <div class="progress mt-4">
-                    <div class="progress-bar" role="progressbar" style="width: 54%;" aria-valuenow="20"
-                        aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" role="progressbar" style="width: 54%;" aria-valuenow="20" aria-valuemin="0"
+                        aria-valuemax="100">
                         60%
                     </div>
                 </div>
@@ -107,9 +124,8 @@
 
                         <div class="mb-3">
                             <label for="lama_inap" class="form-label">Lama Inap</label>
-                            <input type="number" max="50"
-                                class="form-control @error('lama_inap') is-invalid @enderror" name="lama_inap"
-                                id="lama_inap" value="{{ old('lama_inap') }}" required>
+                            <input type="number" max="50" class="form-control @error('lama_inap') is-invalid @enderror"
+                                name="lama_inap" id="lama_inap" value="{{ old('lama_inap') }}" required>
                             @error('lama_inap')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -131,8 +147,7 @@
                         <div class="mb-3">
                             <label for="harga_permalam" class="form-label">Harga Permalam</label>
                             <input type="number" class="form-control @error('harga_permalam') is-invalid @enderror"
-                                name="harga_permalam" id="harga_permalam" value="{{ old('harga_permalam') }}"
-                                required>
+                                name="harga_permalam" id="harga_permalam" value="{{ old('harga_permalam') }}" required>
                             @error('harga_permalam')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -143,8 +158,7 @@
                         <div class="mb-3">
                             <label for="harga_permalam2" class="form-label">Harga Permalam (30%)</label>
                             <input type="number" class="form-control @error('harga_permalam2') is-invalid @enderror"
-                                name="harga_permalam2" id="harga_permalam2" value="{{ old('harga_permalam2') }}"
-                                required>
+                                name="harga_permalam2" id="harga_permalam2" value="{{ old('harga_permalam2') }}" required>
                             @error('harga_permalam2')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -204,6 +218,4 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ asset('js/show-hide-password.js') }}"></script>
-</x-app-layout>
+@endsection

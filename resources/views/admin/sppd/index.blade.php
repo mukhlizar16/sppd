@@ -1,4 +1,6 @@
-<x-app-layout :$title>
+@extends('dashboard.layouts.main')
+
+@section('content')
     <div class="row">
         <div class="col">
             @if (session()->has('success'))
@@ -46,9 +48,10 @@
                                     <td>{{ $sppd->JenisTugas->name }}</td>
                                     <td>{{ $sppd->total_biaya }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info">
+                                        <a class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
+                                            data-bs-target="#detailSppd{{ $loop->iteration }}">
                                             <i class="fa-regular fa-plus"></i>
-                                        </button>
+                                        </a>
                                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">
                                             <i class="fa-regular fa-pen-to-square"></i>
@@ -70,8 +73,8 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama</label>
                                         <input type="name" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name', $sppd->name) }}"
-                                            autofocus required>
+                                            id="name" name="name" value="{{ old('name', $sppd->name) }}" autofocus
+                                            required>
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -97,16 +100,14 @@
                                     <div class="mb-3">
                                         <label for="total_biaya" class="form-label">Total Biaya</label>
                                         <input type="total_biaya"
-                                            class="form-control @error('total_biaya') is-invalid @enderror"
-                                            id="total_biaya" name="total_biaya"
-                                            value="{{ old('total_biaay', $sppd->total_biaya) }}">
+                                            class="form-control @error('total_biaya') is-invalid @enderror" id="total_biaya"
+                                            name="total_biaya" value="{{ old('total_biaay', $sppd->total_biaya) }}">
                                         @error('total_biaya')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <div class="form-text" id="basic-addon4">Kosongkan jika belum mempunyai total
-                                        </div>
+                                        <div class="form-text" id="basic-addon4">Kosongkan jika belum mempunyai total</div>
                                     </div>
                                 </x-form_modal>
                                 {{-- / Modal Edit sppd --}}
@@ -127,6 +128,46 @@
 
                                 </x-form_modal>
                                 {{-- / Modal Hapus sppd  --}}
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="detailSppd{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Data Detail Sppd</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="fs-3">
+                                                    <b>{{ $sppd->name }}</b>
+                                                </p>
+                                                <div class="row d-flex justify-content-center align-items-center">
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white" href="{{ route('surat.detail', $sppd->id) }}">Surat Tugas</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white" href="{{ route('akomodasi.detail', $sppd->id) }}">Akomodasi</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white" href="{{ route('uang.detail', $sppd->id) }}">Uang Harian</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white"  href="{{ route('pergi.detail', $sppd->id) }}">Tiket Pergi</a>
+                                                    </div>
+                                                    <div class="col-lg-4 mb-2">
+                                                        <a class="btn btn-primary text-white" href="{{ route('pulang.detail', $sppd->id) }}">Tiket Pulang</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -146,8 +187,8 @@
         <div class="row">
             <div class="mb-3">
                 <label for="name" class="form-label">Nama</label>
-                <input type="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" autofocus required>
+                <input type="name" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
+                    autofocus required>
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -184,4 +225,4 @@
         </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah jenis -->
-</x-app-layout>
+@endsection
