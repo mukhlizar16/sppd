@@ -14,7 +14,7 @@ class GolonganController extends Controller
     {
         $golongans = Golongan::all();
         $title = 'Data Golongan';
-        return view('dashboard.golongan.index')->with(compact('title', 'golongans'));
+        return view('admin.golongan.index')->with(compact('title', 'golongans'));
     }
 
     /**

@@ -14,7 +14,7 @@ class UangHarianController extends Controller
     public function index(Request $request)
     {
         $title = 'Data Uang Harian';
-        return view('dashboard.sppd.uang_harian.create')->with(compact('title'));
+        return view('admin.sppd.uang_harian.create')->with(compact('title'));
     }
 
     /**

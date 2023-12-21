@@ -14,7 +14,7 @@ class TiketPergiController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pergi';
-        return view('dashboard.sppd.total_pergi.create')->with(compact('title'));
+        return view('admin.sppd.total_pergi.create')->with(compact('title'));
     }
 
     /**

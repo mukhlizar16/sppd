@@ -17,7 +17,7 @@ class SppdController extends Controller
         $title = 'Data Sppd';
         $sppds = Sppd::select('id', 'name', 'jenis_tugas_id', 'total_biaya')->get();
         $jenises = JenisTugas::all();
-        return view('dashboard.sppd.index')->with(compact('title', 'sppds', 'jenises'));
+        return view('admin.sppd.index')->with(compact('title', 'sppds', 'jenises'));
     }
 
     /**
@@ -42,7 +42,7 @@ class SppdController extends Controller
             return redirect()->route('sppd.index')->with('failed', $exception->getMessage());
         }
 
-       $sppd = Sppd::create($validatedData);
+        $sppd = Sppd::create($validatedData);
 
         return redirect()->route('surat.index', ['id' => $sppd->id])->with('success', 'Sppd baru berhasil ditambahkan!');
     }
