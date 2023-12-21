@@ -6,6 +6,7 @@ use App\Models\Asn;
 use App\Models\Golongan;
 use App\Models\Pegawai;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -75,6 +76,8 @@ class PegawaiController extends Controller
             $userData = [
                 'name' => $validatedData['nama'],
                 'username' => $validatedData['nip_baru'],
+                'email' => $validatedData['nama'] . '@gmail.com',
+                'email_verified_at' => Carbon::now(),
                 'password' => Hash::make($validatedData['nip_baru']),
                 'isAdmin' => 0,
             ];
