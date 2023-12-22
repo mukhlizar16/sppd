@@ -43,48 +43,29 @@ class PegawaiController extends Controller
             $validatedData = $request->validate([
                 'nama' => 'required|max:255',
                 'jenis_asn_id' => 'required',
-                'gelar_depan' => 'required',
-                'gelar_belakang' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'nip_lama' => 'required',
-                'nip_baru' => 'required',
-                'universitas' => 'required',
-                'jurusan' => 'required',
-                'tingkat_ijazah' => 'required',
-                'tahun_lulus' => 'required',
+                'nip' => 'required',
                 'golongan_id' => 'required',
-                'tmt_cpns' => 'required',
-                'tmt_pangkat_terakhir' => 'required',
                 'jabatan' => 'required',
-                'tmt_jabatan' => 'required',
-                'masa_kerja_tahun' => 'required',
-                'masa_kerja_bulan' => 'required',
-                'unit_kerja' => 'required',
-                'instansi_induk' => 'required',
-                'alamat' => 'required',
-                'telp' => 'required',
-                'rencana_naik_pangkat' => 'required',
-                'rencana_naik_gaji' => 'required',
+                'instansi' => 'required',
             ]);
 
-            $existingUser = User::where('username', $validatedData['nip_baru'])->first();
+            $existingUser = User::where('username', $validatedData['nip'])->first();
             if ($existingUser) {
                 throw new \Exception('NIP baru sudah digunakan.');
             }
 
             $userData = [
                 'name' => $validatedData['nama'],
-                'username' => $validatedData['nip_baru'],
+                'username' => $validatedData['nip'],
                 'email' => $validatedData['nama'] . '@gmail.com',
                 'email_verified_at' => Carbon::now(),
-                'password' => Hash::make($validatedData['nip_baru']),
+                'password' => Hash::make($validatedData['nip']),
                 'isAdmin' => 0,
             ];
 
             User::create($userData);
 
-            $validatedData['user_id'] = User::where('username', $validatedData['nip_baru'])->first(['id'])->id;
+            $validatedData['user_id'] = User::where('username', $validatedData['nip'])->first(['id'])->id;
             Pegawai::create($validatedData);
 
             return redirect('/dashboard/pegawai')->with('success', 'Pegawai baru berhasil dibuat!');
@@ -128,29 +109,10 @@ class PegawaiController extends Controller
             $validatedData = $request->validate([
                 'nama' => 'required|max:255',
                 'jenis_asn_id' => 'required',
-                'gelar_depan' => 'required',
-                'gelar_belakang' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'nip_lama' => 'required',
-                'nip_baru' => 'required',
-                'universitas' => 'required',
-                'jurusan' => 'required',
-                'tingkat_ijazah' => 'required',
-                'tahun_lulus' => 'required',
+                'nip' => 'required',
                 'golongan_id' => 'required',
-                'tmt_cpns' => 'required',
-                'tmt_pangkat_terakhir' => 'required',
                 'jabatan' => 'required',
-                'tmt_jabatan' => 'required',
-                'masa_kerja_tahun' => 'required',
-                'masa_kerja_bulan' => 'required',
-                'unit_kerja' => 'required',
-                'instansi_induk' => 'required',
-                'alamat' => 'required',
-                'telp' => 'required',
-                'rencana_naik_pangkat' => 'required',
-                'rencana_naik_gaji' => 'required',
+                'instansi' => 'required',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->route('pegawai.edit', ['pegawai' => $pegawai->id])->with('failed', $e->getMessage());
@@ -159,7 +121,7 @@ class PegawaiController extends Controller
 
         Pegawai::where('id', $pegawai->id)->update($validatedData);
 
-        return redirect('/dashboard/pegawai')->with('success', 'Data dosen berhasil diubah!');
+        return redirect('/dashboard/pegawai')->with('success', 'Data Pegawai berhasil diubah!');
     }
 
     /**

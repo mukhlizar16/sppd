@@ -36,8 +36,8 @@
                                 <th>Nip</th>
                                 <th>Jenis Asn</th>
                                 <th>Golongan</th>
-                                <th>Telp</th>
                                 <th>Jabatan</th>
+                                <th>Instansi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,16 +46,16 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pegawai->nama }}</td>
-                                    <td>{{ $pegawai->nip_baru }}</td>
+                                    <td>{{ $pegawai->nip }}</td>
                                     <td>{{ $pegawai->Asn->name }}</td>
                                     <td>{{ $pegawai->Golongan->name }}</td>
-                                    <td>{{ $pegawai->telp }}</td>
                                     <td>{{ $pegawai->jabatan }}</td>
+                                    <td>{{ $pegawai->instansi }}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-info"
+                                        {{-- <a class="btn btn-sm btn-info"
                                             href="{{ route('pegawai.show', $loop->iteration) }}">
                                             <i class="fa-regular fa-scroll"></i>
-                                        </a>
+                                        </a> --}}
                                         <a class="btn btn-sm btn-warning"
                                             href="{{ route('pegawai.edit', $loop->iteration) }}">
                                             <i class="fa-regular fa-pen-to-square"></i>

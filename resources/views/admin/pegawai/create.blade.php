@@ -29,7 +29,7 @@
                     <form action="{{ route('pegawai.store') }}" method="post">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <label for="name" class="form-label">Nama Lengkap dengan Gelar</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 name="nama" id="name" value="{{ old('nama') }}" autofocus required>
                             @error('name')
@@ -78,6 +78,27 @@
                                 @endforeach
                             </select>
                             @error('golongan_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">jabatan</label>
+                            <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan"
+                                id="jabatan" value="{{ old('jabatan') }}" autofocus required>
+                            @error('jabatan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="instansi" class="form-label">instansi</label>
+                            <input type="text" class="form-control @error('instansi') is-invalid @enderror" name="instansi"
+                                id="instansi" value="{{ old('instansi') }}" autofocus required>
+                            @error('instansi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
