@@ -29,7 +29,6 @@
                                     <th>NO</th>
                                     <th>NAMA</th>
                                     <th>USERNAME</th>
-                                    <th>ROLE</th>
                                     <th class="text-end"></th>
                                 </tr>
                             </thead>
@@ -39,9 +38,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->username }}</td>
-                                        <td>
-                                            {{ $user->roles->first()->name }}
-                                        </td>
                                         <td class="text-end">
                                             <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editUser{{ $loop->iteration }}">
@@ -89,16 +85,6 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="role-edit" class="form-label">Role</label>
-                                            <select class="form-select" id="role-edit" name="role">
-                                                @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}" @selected(old('role', $user->roles->first()->id) == $role->id)>
-                                                        {{ $role->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
                                         </div>
                                     </x-form_modal>
                                     {{-- / Modal Edit User --}}

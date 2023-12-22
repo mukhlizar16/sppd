@@ -1,6 +1,4 @@
-@extends('dashboard.layouts.main')
-
-@section('content')
+<x-app-layout :$title>
     <div class="row">
         <div class="col">
             @if (session()->has('success'))
@@ -225,4 +223,4 @@
         </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah jenis -->
-@endsection
+</x-app-layout>
