@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisTugas;
+use App\Models\Pegawai;
 use App\Models\Sppd;
-use App\Models\SuratTugas;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class SppdController extends Controller
 {
@@ -15,17 +17,11 @@ class SppdController extends Controller
     public function index()
     {
         $title = 'Data Sppd';
-        $sppds = Sppd::select('id', 'name', 'jenis_tugas_id', 'total_biaya')->get();
+        $sppds = Sppd::with('pegawai')->get();
         $jenises = JenisTugas::all();
-        return view('admin.sppd.index')->with(compact('title', 'sppds', 'jenises'));
-    }
+        $users = Pegawai::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.sppd.index')->with(compact('title', 'sppds', 'jenises', 'users'));
     }
 
     /**
@@ -35,16 +31,29 @@ class SppdController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|max:255',
+                'pegawai' => 'required',
                 'jenis_tugas_id' => 'required',
+                'total_biaya' => 'required|numeric'
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->route('sppd.index')->with('failed', $exception->getMessage());
         }
 
-        $sppd = Sppd::create($validatedData);
+        $sppd = Sppd::create([
+            'pegawai_id' => $validatedData['pegawai'],
+            'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
+            'total_biaya' => $validatedData['total_biaya']
+        ]);
 
         return redirect()->route('surat.index', ['id' => $sppd->id])->with('success', 'Sppd baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -80,7 +89,7 @@ class SppdController extends Controller
             Sppd::where('id', $sppd->id)->update($validatedData);
 
             return redirect()->route('sppd.index')->with('success', "Data Sppd $sppd->name berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
@@ -94,21 +103,21 @@ class SppdController extends Controller
             $sppd = Sppd::whereId($sppd->id)->first();
             $sppd->SuratTugas->each(function ($SuratTugas) {
                 $SuratTugas->delete();
-              });
+            });
             $sppd->Akomodasi->each(function ($Akomodasi) {
                 $Akomodasi->delete();
-              });
+            });
             $sppd->UangHarian->each(function ($UangHarian) {
                 $UangHarian->delete();
-              });
+            });
             $sppd->TotalPergi->each(function ($TotalPergi) {
                 $TotalPergi->delete();
-              });
+            });
             $sppd->TotalPulang->each(function ($TotalPulang) {
                 $TotalPulang->delete();
-              });
+            });
             Sppd::destroy($sppd->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->route('sppd.index')->with('failed', "Sppd $sppd->name tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -117,5 +126,4 @@ class SppdController extends Controller
 
         return redirect()->route('sppd.index')->with('success', "sppd $sppd->name berhasil dihapus!");
     }
-
 }

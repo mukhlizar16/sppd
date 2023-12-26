@@ -1,19 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AsnController;
-use App\Http\Controllers\SppdController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AkomodasiController;
+use App\Http\Controllers\JenisTugasController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GolonganController;
-use App\Http\Controllers\AkomodasiController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JenisTugasController;
+use App\Http\Controllers\SppdController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\TiketPergiController;
-use App\Http\Controllers\UangHarianController;
 use App\Http\Controllers\TiketPulangController;
+use App\Http\Controllers\UangHarianController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +25,13 @@ use App\Http\Controllers\TiketPulangController;
 
 Route::get('/', function () {
     $title = __('Welcome');
+
     return view('welcome', compact('title'));
 });
 
 Route::get('/dashboard', function () {
     $title = __('Dashboard');
+
     return view('dashboard', compact('title'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -44,8 +43,6 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::resource('/user', UserController::class);
-    Route::resource('/asn', AsnController::class);
-    Route::resource('/golongan', GolonganController::class);
     Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/sppd', SppdController::class);
     Route::resource('/jenis', JenisTugasController::class);
@@ -87,4 +84,4 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
 
     Route::put('/resetpassword/{user}', [UserController::class, 'resetPasswordAdmin'])->name('resetpassword.resetPasswordAdmin')->middleware('auth');
 });
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

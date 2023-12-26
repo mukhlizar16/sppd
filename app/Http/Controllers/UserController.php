@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
+use Illuminate\Validation\ValidationException;
+use Laratrust\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,15 +20,8 @@ class UserController extends Controller
         $users = User::with('roles')->get();
         $title = 'Data User';
         $roles = Role::all();
-        return view('admin.user.index')->with(compact('title', 'users', 'roles'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.user.index')->with(compact('title', 'users', 'roles'));
     }
 
     /**
@@ -40,7 +36,7 @@ class UserController extends Controller
                 'password' => 'required|min:5|max:255',
                 'isAdmin' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->route('user.index')->with('failed', $exception->getMessage());
         }
 
@@ -49,6 +45,14 @@ class UserController extends Controller
         User::create($validatedData);
 
         return redirect()->route('user.index')->with('success', 'User baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -68,35 +72,13 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        try {
-            $rules = [
-                'name' => 'required|max:255',
-                'username' => 'required|min:5|max:16|unique:users,username,' . $user->id,
-                'isAdmin' => 'required',
-            ];
-
-            $validatedData = $this->validate($request, $rules);
-
-            User::where('id', $user->id)->update($validatedData);
-
-            return redirect()->route('user.index')->with('success', "Data User $user->name berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->route('user.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
-        }
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
     {
         try {
             User::destroy($user->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->route('user.index')->with('failed', "User $user->name tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -119,8 +101,30 @@ class UserController extends Controller
             User::where('id', $user->id)->update($validatedData);
 
             return redirect()->route('user.index')->with('success', 'Password berhasil diubah!');
-        } catch (\Exception $e) {
-            return back()->with('failed', 'Terjadi kesalahan: ' . $e->getMessage());
+        } catch (Exception $e) {
+            return back()->with('failed', 'Terjadi kesalahan: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        try {
+            $rules = [
+                'name' => 'required|max:255',
+                'username' => 'required|min:5|max:16|unique:users,username,'.$user->id,
+                'isAdmin' => 'required',
+            ];
+
+            $validatedData = $this->validate($request, $rules);
+
+            User::where('id', $user->id)->update($validatedData);
+
+            return redirect()->route('user.index')->with('success', "Data User $user->name berhasil diperbarui!");
+        } catch (ValidationException $exception) {
+            return redirect()->route('user.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 }

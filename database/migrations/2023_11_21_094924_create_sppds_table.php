@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,11 @@ return new class extends Migration
     {
         Schema::create('sppds', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('pegawai_id')
+                ->index()
+                ->constrained('kepegawaian')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('jenis_tugas_id')->constrained('jenis_tugas')->onUpdate('cascade')->onDelete('restrict');
             $table->integer('total_biaya')->nullable();
             $table->timestamps();

@@ -1,5 +1,5 @@
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-    id="layout-navbar">
+     id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
             <i class="fa-regular fa-bars fa-lg"></i>
@@ -13,7 +13,7 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
                         <img src="{{ asset('images/avatar.png') }}" class="w-px-40 h-auto rounded-circle"
-                            alt="img" />
+                             alt="img"/>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -28,13 +28,14 @@
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
                                     @role('admin')
-                                        <small class="text-muted">
-                                            Admin
-                                        </small>
-                                    @else
-                                        <small class="text-muted">
-                                            Karyawan
-                                        </small>
+                                    <small class="text-muted">
+                                        Admin
+                                    </small>
+                                    @endrole
+                                    @role('user')
+                                    <small class="text-muted">
+                                        Karyawan
+                                    </small>
                                     @endrole
                                 </div>
                             </div>

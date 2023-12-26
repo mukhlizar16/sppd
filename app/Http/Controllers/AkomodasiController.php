@@ -14,6 +14,7 @@ class AkomodasiController extends Controller
     public function index()
     {
         $title = 'Data Akomodasi';
+
         return view('admin.sppd.akomodasi.create')->with(compact('title'));
     }
 
@@ -103,7 +104,7 @@ class AkomodasiController extends Controller
 
             return redirect()->back()->with('success', "Data Akomodasi $akomodasi->name_hotel berhasil diperbarui!");
         } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -127,12 +128,13 @@ class AkomodasiController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - ' . $sppd->name;
-        if (!$sppd) {
+        $title = 'Data Sppd Detail - '.$sppd->name;
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
         $akomodasis = Akomodasi::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
+
         return view('dashboard.sppd.akomodasi.show', compact('akomodasis', 'title', 'sppd'));
     }
 

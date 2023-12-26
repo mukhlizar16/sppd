@@ -5,26 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use App\Models\Sppd;
 use App\Models\SuratTugas;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class SuratTugasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $title = 'Data Surat';
         $pegawais = Pegawai::select('id', 'nama')->get();
-        return view('admin.sppd.surat_tugas.create')->with(compact('title', 'pegawais'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.sppd.surat_tugas.create')->with(compact('title', 'pegawais'));
     }
 
     /**
@@ -44,13 +39,21 @@ class SuratTugasController extends Controller
                 'tanggal_berangkat' => 'required',
                 'tanggal_kembali' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 
         SuratTugas::create($validatedData);
 
         return redirect()->route('uang.index', ['id' => $request->sppd_id])->with('success', 'Surat tugas baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -95,8 +98,8 @@ class SuratTugasController extends Controller
             SuratTugas::where('id', $surat->id)->update($validatedData);
 
             return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+        } catch (ValidationException $exception) {
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -107,7 +110,7 @@ class SuratTugasController extends Controller
     {
         try {
             SuratTugas::destroy($surat->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->back()->with('failed', "Surat Tugas $surat->nomor_sp2d tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -120,14 +123,15 @@ class SuratTugasController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - ' . $sppd->name;
+        $title = 'Data Sppd Detail - '.$sppd->name;
         $pegawais = Pegawai::select('id', 'nama')->get();
-        if (!$sppd) {
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
         $surats = SuratTugas::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
-        return view('dashboard.sppd.surat_tugas.show', compact('surats', 'title', 'sppd', 'pegawais'));
+
+        return view('sppd.surat_tugas.show', compact('surats', 'title', 'sppd', 'pegawais'));
     }
 
     public function storeDetail(Request $request)
@@ -144,7 +148,7 @@ class SuratTugasController extends Controller
                 'tanggal_berangkat' => 'required',
                 'tanggal_kembali' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 

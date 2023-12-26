@@ -19,73 +19,35 @@
 
     <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="{{ route('pegawai.create') }}">
-                <i class="fa-regular fa-plus me-2"></i>
-                Tambah
-            </a>
-
             <div class="card mt-3">
-                <div class="card-body">
-                    {{-- Table --}}
+                <div class="card-body table-responsive">
                     <table id="myTable" class="table responsive nowrap table-bordered table-striped align-middle"
-                        style="width:100%">
+                           style="width:100%">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Nip</th>
-                                <th>Jenis Asn</th>
-                                <th>Golongan</th>
-                                <th>Jabatan</th>
-                                <th>Instansi</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama</th>
+                            <th>Nip</th>
+                            <th>Jenis Asn</th>
+                            <th>Golongan</th>
+                            <th>Jabatan</th>
+                            <th>Instansi</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pegawais as $pegawai)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pegawai->nama }}</td>
-                                    <td>{{ $pegawai->nip }}</td>
-                                    <td>{{ $pegawai->Asn->name }}</td>
-                                    <td>{{ $pegawai->Golongan->name }}</td>
-                                    <td>{{ $pegawai->jabatan }}</td>
-                                    <td>{{ $pegawai->instansi }}</td>
-                                    <td>
-                                        {{-- <a class="btn btn-sm btn-info"
-                                            href="{{ route('pegawai.show', $loop->iteration) }}">
-                                            <i class="fa-regular fa-scroll"></i>
-                                        </a> --}}
-                                        <a class="btn btn-sm btn-warning"
-                                            href="{{ route('pegawai.edit', $loop->iteration) }}">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalHapus{{ $loop->iteration }}">
-                                            <i class="fa-regular fa-trash-can fa-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                {{-- Modal Hapus pegawai --}}
-                                <x-form_modal>
-                                    @slot('id', "modalHapus$loop->iteration")
-                                    @slot('title', 'Hapus Data Pegawai')
-                                    @slot('route', route('pegawai.destroy', $pegawai->id))
-                                    @slot('method') @method('delete') @endslot
-                                    @slot('btnPrimaryClass', 'btn-outline-danger')
-                                    @slot('btnSecondaryClass', 'btn-secondary')
-                                    @slot('btnPrimaryTitle', 'Hapus')
-
-                                    <p class="fs-5">Apakah anda yakin akan menghapus data pegawai
-                                        <b>{{ $pegawai->nama }}</b>?
-                                    </p>
-
-                                </x-form_modal>
-                                {{-- / Modal Hapus pegawai  --}}
-                            @endforeach
+                        @foreach ($pegawais as $pegawai)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pegawai->nama_lengkap }}</td>
+                                <td>{{ $pegawai->nip_baru }}</td>
+                                <td>{{ $pegawai->jenisAsn?->nama }}</td>
+                                <td>{{ $pegawai->Golongan->nama }}</td>
+                                <td>{{ $pegawai->jabatan }}</td>
+                                <td>{{ $pegawai->unit_kerja }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
-                    {{-- End Table --}}
                 </div>
             </div>
         </div>

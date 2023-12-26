@@ -14,6 +14,7 @@ class TiketPulangController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pulang';
+
         return view('admin.sppd.total_pulang.create')->with(compact('title'));
     }
 
@@ -93,7 +94,7 @@ class TiketPulangController extends Controller
 
             return redirect()->back()->with('success', "Data Tiket Pulang $pulang->asal berhasil diperbarui!");
         } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -117,12 +118,13 @@ class TiketPulangController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - ' . $sppd->name;
-        if (!$sppd) {
+        $title = 'Data Sppd Detail - '.$sppd->name;
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
         $pulangs = TotalPulang::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
+
         return view('dashboard.sppd.total_pulang.show', compact('pulangs', 'title', 'sppd'));
     }
 
