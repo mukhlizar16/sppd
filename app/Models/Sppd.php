@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Sppd extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['pegawai_id', 'jenis_tugas_id', 'total_biaya'];
 
     public function JenisTugas()
     {
@@ -39,5 +40,10 @@ class Sppd extends Model
     public function Akomodasi()
     {
         return $this->hasMany(Akomodasi::class, 'sppd_id');
+    }
+
+    public function pegawai(): BelongsTo
+    {
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 }

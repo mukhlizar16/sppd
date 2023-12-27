@@ -14,6 +14,7 @@ class TiketPulangController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pulang';
+
         return view('admin.sppd.total_pulang.create')->with(compact('title'));
     }
 
@@ -123,7 +124,8 @@ class TiketPulangController extends Controller
         }
 
         $pulangs = TotalPulang::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
-        return view('dashboard.sppd.total_pulang.show', compact('pulangs', 'title', 'sppd'));
+
+        return view('admin.sppd.total_pulang.show', compact('pulangs', 'title', 'sppd'));
     }
 
     public function storeDetail(Request $request)

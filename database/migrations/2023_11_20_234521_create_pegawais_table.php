@@ -11,15 +11,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pegawais', function (Blueprint $table) {
+        Schema::create('kepegawaian', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('jenis_asn_id')->constrained('asns')->onUpdate('cascade')->onDelete('restrict');
-            $table->string('nip');
-            $table->foreignId('golongan_id')->constrained('golongans')->onUpdate('cascade')->onDelete('restrict');
+            $table->string('gelar_depan');
+            $table->string('gelar_belakang');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('nip_lama');
+            $table->string('nip_baru');
+            $table->string('universitas');
+            $table->string('jurusan');
+            $table->string('tingkat_ijazah');
+            $table->string('tahun_lulus');
+            $table->foreignId('golongan_id')->constrained('golongan');
+            $table->date('tmt_cpns');
+            $table->date('tmt_pangkat_terakhir');
             $table->string('jabatan');
-            $table->string('instansi');
-            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->date('tmt_jabatan');
+            $table->integer('masa_kerja_tahun');
+            $table->integer('masa_kerja_bulan');
+            $table->string('unit_kerja');
+            $table->string('instansi_induk');
+            $table->string('alamat');
+            $table->string('telp');
+            $table->date('rencana_naik_pangkat');
+            $table->date('rencana_naik_gaji');
             $table->timestamps();
         });
     }
@@ -29,6 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pegawais');
+        Schema::dropIfExists('kepegawaian');
     }
 };

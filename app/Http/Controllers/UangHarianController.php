@@ -14,6 +14,7 @@ class UangHarianController extends Controller
     public function index(Request $request)
     {
         $title = 'Data Uang Harian';
+
         return view('admin.sppd.uang_harian.create')->with(compact('title'));
     }
 
@@ -123,7 +124,8 @@ class UangHarianController extends Controller
         }
 
         $uangs = UangHarian::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
-        return view('dashboard.sppd.uang_harian.show', compact('uangs', 'title', 'sppd'));
+
+        return view('admin.sppd.uang_harian.show', compact('uangs', 'title', 'sppd'));
     }
 
     public function storeDetail(Request $request)

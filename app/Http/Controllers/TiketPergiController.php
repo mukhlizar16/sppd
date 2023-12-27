@@ -14,6 +14,7 @@ class TiketPergiController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pergi';
+
         return view('admin.sppd.total_pergi.create')->with(compact('title'));
     }
 
@@ -123,7 +124,8 @@ class TiketPergiController extends Controller
         }
 
         $pergis = TotalPergi::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
-        return view('dashboard.sppd.total_pergi.show', compact('pergis', 'title', 'sppd'));
+
+        return view('admin.sppd.total_pergi.show', compact('pergis', 'title', 'sppd'));
     }
 
     public function storeDetail(Request $request)

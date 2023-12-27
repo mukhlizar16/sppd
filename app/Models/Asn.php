@@ -9,12 +9,11 @@ class Asn extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $table = 'jenis_asn';
+    protected $fillable = ['nama'];
 
     public function Pegawai()
     {
         return $this->hasMany(Pegawai::class, 'jenis_asn_id');
     }
-
-
 }

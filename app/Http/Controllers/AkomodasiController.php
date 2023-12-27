@@ -14,6 +14,7 @@ class AkomodasiController extends Controller
     public function index()
     {
         $title = 'Data Akomodasi';
+
         return view('admin.sppd.akomodasi.create')->with(compact('title'));
     }
 
@@ -133,7 +134,8 @@ class AkomodasiController extends Controller
         }
 
         $akomodasis = Akomodasi::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
-        return view('dashboard.sppd.akomodasi.show', compact('akomodasis', 'title', 'sppd'));
+
+        return view('admin.sppd.akomodasi.show', compact('akomodasis', 'title', 'sppd'));
     }
 
     public function storeDetail(Request $request)

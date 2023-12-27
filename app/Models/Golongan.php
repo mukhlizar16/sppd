@@ -10,9 +10,10 @@ class Golongan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $table = 'golongan';
 
     public function Pegawai()
     {
-        return $this->hasMany(Pegawai::class, 'jenis_asn_id');
+        return $this->hasMany(Pegawai::class, 'golongan_id');
     }
 }

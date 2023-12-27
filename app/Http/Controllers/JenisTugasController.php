@@ -14,6 +14,7 @@ class JenisTugasController extends Controller
     {
         $title = 'Data Jenis Tugas';
         $jenises = JenisTugas::all();
+
         return view('admin.jenis-tugas.index')->with(compact('title', 'jenises'));
     }
 
@@ -75,7 +76,7 @@ class JenisTugasController extends Controller
 
             return redirect()->route('jenis.index')->with('success', "Data Jenis Tugas $jeni->name berhasil diperbarui!");
         } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->route('jenis.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->route('jenis.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 

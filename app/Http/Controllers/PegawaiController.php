@@ -7,8 +7,11 @@ use App\Models\Golongan;
 use App\Models\Pegawai;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class PegawaiController extends Controller
 {
@@ -18,20 +21,9 @@ class PegawaiController extends Controller
     public function index()
     {
         $title = 'Data Pegawai';
-        $pegawais = Pegawai::all();
-        return view('admin.pegawai.index')->with(compact('title', 'pegawais'));
-    }
+        $pegawais = Pegawai::with('jenisAsn', 'Golongan')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $asns = Asn::all();
-        $golongans = Golongan::all();
-        return view('admin.pegawai.create', [
-            'title' => 'Tambah Pegawai Baru',
-        ])->with(compact('asns', 'golongans'));
+        return view('admin.pegawai.index')->with(compact('title', 'pegawais'));
     }
 
     /**
@@ -51,7 +43,7 @@ class PegawaiController extends Controller
 
             $existingUser = User::where('username', $validatedData['nip'])->first();
             if ($existingUser) {
-                throw new \Exception('NIP baru sudah digunakan.');
+                throw new Exception('NIP baru sudah digunakan.');
             }
 
             $userData = [
@@ -69,11 +61,24 @@ class PegawaiController extends Controller
             Pegawai::create($validatedData);
 
             return redirect('/dashboard/pegawai')->with('success', 'Pegawai baru berhasil dibuat!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             return redirect('/dashboard/pegawai/create')->with('failed', $e->getMessage())->withInput();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect('/dashboard/pegawai/create')->with('failed', $e->getMessage())->withInput();
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $asns = Asn::all();
+        $golongans = Golongan::all();
+
+        return view('admin.pegawai.create', [
+            'title' => 'Tambah Pegawai Baru',
+        ])->with(compact('asns', 'golongans'));
     }
 
     /**
@@ -83,6 +88,7 @@ class PegawaiController extends Controller
     {
         $asns = Asn::all();
         $golongans = Golongan::all();
+
         return view('admin.pegawai.view', [
             'title' => 'Info Pegawai',
         ])->with(compact('asns', 'golongans', 'pegawai'));
@@ -95,6 +101,7 @@ class PegawaiController extends Controller
     {
         $asns = Asn::all();
         $golongans = Golongan::all();
+
         return view('admin.pegawai.edit', [
             'title' => 'Update Pegawai Baru',
         ])->with(compact('asns', 'golongans', 'pegawai'));
@@ -114,10 +121,9 @@ class PegawaiController extends Controller
                 'jabatan' => 'required',
                 'instansi' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             return redirect()->route('pegawai.edit', ['pegawai' => $pegawai->id])->with('failed', $e->getMessage());
         }
-
 
         Pegawai::where('id', $pegawai->id)->update($validatedData);
 
@@ -131,7 +137,7 @@ class PegawaiController extends Controller
     {
         try {
             Pegawai::destroy($pegawai->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->route('pegawai.index')->with('failed', "Pegawai $pegawai->nama tidak dapat dihapus, karena sedang digunakan pada tabel lain!");

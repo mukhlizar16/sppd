@@ -1,6 +1,4 @@
-@extends('dashboard.layouts.main')
-
-@section('content')
+<x-app-layout>
     <div class="row">
         <div class="col">
             @if (session()->has('success'))
@@ -25,15 +23,15 @@
                 <i class="fa-regular fa-chevron-left me-2"></i>
                 Kembali
             </a>
-            <a class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#tambahSppd">
+            <a class="text-white btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahSppd">
                 <i class="fa-regular fa-plus me-2"></i>
                 Tambah
             </a>
 
-            <div class="card mt-3">
+            <div class="mt-3 card">
                 <div class="card-body">
                     {{-- Table --}}
-                    <table id="myTable" class="table responsive nowrap table-bordered table-striped align-middle"
+                    <table id="myTable" class="table align-middle responsive nowrap table-bordered table-striped"
                         style="width:100%">
                         <thead>
                             <tr>
@@ -83,7 +81,8 @@
 
                                     <div class="mb-3">
                                         <label for="nomor_sp2d" class="form-label">Nomor Sp2d</label>
-                                        <input type="number" class="form-control @error('nomor_sp2d') is-invalid @enderror"
+                                        <input type="number"
+                                            class="form-control @error('nomor_sp2d') is-invalid @enderror"
                                             name="nomor_sp2d" id="nomor_sp2d"
                                             value="{{ old('nomor_sp2d', $surat->nomor_sp2d) }}" autofocus required>
                                         @error('nomor_sp2d')
@@ -112,9 +111,10 @@
 
                                     <div class="mb-3">
                                         <label for="nomor_st" class="form-label">Nomor ST/SPT</label>
-                                        <input type="number" class="form-control @error('nomor_st') is-invalid @enderror"
-                                            name="nomor_st" id="nomor_st" value="{{ old('nomor_st', $surat->nomor_st) }}"
-                                            autofocus required>
+                                        <input type="number"
+                                            class="form-control @error('nomor_st') is-invalid @enderror" name="nomor_st"
+                                            id="nomor_st" value="{{ old('nomor_st', $surat->nomor_st) }}" autofocus
+                                            required>
                                         @error('nomor_st')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -124,9 +124,9 @@
 
                                     <div class="mb-3">
                                         <label for="kegiatan" class="form-label">Kegiatan</label>
-                                        <input type="text" class="form-control @error('kegiatan') is-invalid @enderror"
-                                            name="kegiatan" id="kegiatan" value="{{ old('kegiatan', $surat->kegiatan) }}"
-                                            required>
+                                        <input type="text"
+                                            class="form-control @error('kegiatan') is-invalid @enderror" name="kegiatan"
+                                            id="kegiatan" value="{{ old('kegiatan', $surat->kegiatan) }}" required>
                                         @error('kegiatan')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -136,7 +136,8 @@
 
                                     <div class="mb-3">
                                         <label for="lama_tugas" class="form-label">Lama Tugas</label>
-                                        <input type="number" class="form-control @error('lama_tugas') is-invalid @enderror"
+                                        <input type="number"
+                                            class="form-control @error('lama_tugas') is-invalid @enderror"
                                             name="lama_tugas" id="lama_tugas"
                                             value="{{ old('lama_tugas', $surat->lama_tugas) }}" required>
                                         @error('lama_tugas')
@@ -148,9 +149,9 @@
 
                                     <div class="mb-3">
                                         <label for="tanggal" class="form-label">Tanggal</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                            name="tanggal" id="tanggal" value="{{ old('tanggal', $surat->tanggal) }}"
-                                            required>
+                                        <input type="date"
+                                            class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
+                                            id="tanggal" value="{{ old('tanggal', $surat->tanggal) }}" required>
                                         @error('tanggal')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -223,8 +224,8 @@
             <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
             <div class="mb-3">
                 <label for="nomor_sp2d" class="form-label">Nomor Sp2d</label>
-                <input type="number" class="form-control @error('nomor_sp2d') is-invalid @enderror" name="nomor_sp2d"
-                    id="nomor_sp2d" value="{{ old('nomor_sp2d') }}" autofocus required>
+                <input type="number" class="form-control @error('nomor_sp2d') is-invalid @enderror"
+                    name="nomor_sp2d" id="nomor_sp2d" value="{{ old('nomor_sp2d') }}" autofocus required>
                 @error('nomor_sp2d')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -234,7 +235,8 @@
 
             <div class="mb-3">
                 <label for="pegawai_id" class="form-label">Pegawai</label>
-                <select class="form-select @error('pegawai_id') is-invalid @enderror" id="pegawai_id" name="pegawai_id">
+                <select class="form-select @error('pegawai_id') is-invalid @enderror" id="pegawai_id"
+                    name="pegawai_id">
                     @foreach ($pegawais as $pegawai)
                         <option value="{{ $pegawai->id }}">
                             {{ $pegawai->nama }}
@@ -272,8 +274,8 @@
 
             <div class="mb-3">
                 <label for="lama_tugas" class="form-label">Lama Tugas</label>
-                <input type="number" class="form-control @error('lama_tugas') is-invalid @enderror" name="lama_tugas"
-                    id="lama_tugas" value="{{ old('lama_tugas') }}" required>
+                <input type="number" class="form-control @error('lama_tugas') is-invalid @enderror"
+                    name="lama_tugas" id="lama_tugas" value="{{ old('lama_tugas') }}" required>
                 @error('lama_tugas')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -316,4 +318,4 @@
         </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah surat -->
-@endsection
+</x-app-layout>

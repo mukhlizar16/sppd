@@ -14,6 +14,7 @@ class GolonganController extends Controller
     {
         $golongans = Golongan::all();
         $title = 'Data Golongan';
+
         return view('admin.golongan.index')->with(compact('title', 'golongans'));
     }
 
@@ -75,7 +76,7 @@ class GolonganController extends Controller
 
             return redirect()->route('golongan.index')->with('success', "Data Golongan $golongan->name berhasil diperbarui!");
         } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->route('golongan.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->route('golongan.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 

@@ -14,6 +14,7 @@ class AsnController extends Controller
     {
         $asns = Asn::all();
         $title = 'Data Asn';
+
         return view('admin.asn.index')->with(compact('title', 'asns'));
     }
 
@@ -75,7 +76,7 @@ class AsnController extends Controller
 
             return redirect()->route('asn.index')->with('success', "Data Asn $asn->name berhasil diperbarui!");
         } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->route('asn.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->route('asn.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
