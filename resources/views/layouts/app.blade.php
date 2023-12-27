@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
 
+    @stack('css')
+
     {{-- trix css --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/trix.css') }}">
 
@@ -57,7 +59,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <div class="col">
-                                <h1 class="fw-bold fs-2 mb-2">{{ $title }}</h1>
+                                <h1 class="mb-2 fw-bold fs-2">{{ $title }}</h1>
                             </div>
                         </div>
                         <main>
@@ -82,6 +84,7 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
+    @stack('script')
 </body>
 
 </html>

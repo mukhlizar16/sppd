@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
@@ -27,17 +28,9 @@ class SppdController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSppdRequest $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'pegawai' => 'required',
-                'jenis_tugas_id' => 'required',
-                'total_biaya' => 'required|numeric'
-            ]);
-        } catch (ValidationException $exception) {
-            return redirect()->route('sppd.index')->with('failed', $exception->getMessage());
-        }
+        $validatedData = $request->validated();
 
         $sppd = Sppd::create([
             'pegawai_id' => $validatedData['pegawai'],

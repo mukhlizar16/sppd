@@ -99,7 +99,7 @@ class SuratTugasController extends Controller
 
             return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
 
@@ -123,15 +123,15 @@ class SuratTugasController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - '.$sppd->name;
+        $title = 'Data Sppd Detail - ' . $sppd->name;
         $pegawais = Pegawai::select('id', 'nama')->get();
-        if (! $sppd) {
+        if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
         $surats = SuratTugas::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
 
-        return view('sppd.surat_tugas.show', compact('surats', 'title', 'sppd', 'pegawais'));
+        return view('admin.sppd.surat_tugas.show', compact('surats', 'title', 'sppd', 'pegawais'));
     }
 
     public function storeDetail(Request $request)
