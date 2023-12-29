@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('dashboard.layouts.main')
+
+@section('content')
 <div class="row">
     <div class="col-sm-6 col-md">
         @if (session()->has('success'))
@@ -50,16 +52,16 @@
                     </div>
                 </div>
 
-                <div class="progress mt-4">
-                    <div class="progress-bar" role="progressbar" style="width: 34%;" aria-valuenow="20" aria-valuemin="0"
-                        aria-valuemax="100">
+                <div class="mt-4 progress">
+                    <div class="progress-bar" role="progressbar" style="width: 34%;" aria-valuenow="20"
+                        aria-valuemin="0" aria-valuemax="100">
                         40%
                     </div>
                 </div>
             </div>
 
 
-            <div class="card mt-3">
+            <div class="mt-3 card">
                 <div class="card-body">
                     {{-- Form Berita --}}
                     <form action="{{ route('uang.store') }}" method="post">
@@ -79,7 +81,8 @@
                         <div class="mb-3">
                             <label for="total_harian" class="form-label">Total Harian</label>
                             <input type="number" class="form-control @error('total_harian') is-invalid @enderror"
-                                name="total_harian" id="total_harian" value="{{ old('total_harian') }}" autofocus required>
+                                name="total_harian" id="total_harian" value="{{ old('total_harian') }}" autofocus
+                                required>
                             @error('total_harian')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -101,7 +104,8 @@
                         <div class="mb-3">
                             <label for="total_konsumsi" class="form-label">Total Konsumsi</label>
                             <input type="number" class="form-control @error('total_konsumsi') is-invalid @enderror"
-                                name="total_konsumsi" id="total_konsumsi" value="{{ old('total_konsumsi') }}" autofocus required>
+                                name="total_konsumsi" id="total_konsumsi" value="{{ old('total_konsumsi') }}" autofocus
+                                required>
                             @error('total_konsumsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -112,7 +116,8 @@
                         <div class="mb-3">
                             <label for="transportasi" class="form-label">Transportasi</label>
                             <input type="number" class="form-control @error('transportasi') is-invalid @enderror"
-                                name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus required>
+                                name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus
+                                required>
                             @error('transportasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -123,7 +128,8 @@
                         <div class="mb-3">
                             <label for="total_transportasi" class="form-label">Total Transportasi</label>
                             <input type="number" class="form-control @error('total_transportasi') is-invalid @enderror"
-                                name="total_transportasi" id="total_transportasi" value="{{ old('total_transportasi') }}" autofocus required>
+                                name="total_transportasi" id="total_transportasi"
+                                value="{{ old('total_transportasi') }}" autofocus required>
                             @error('total_transportasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -134,7 +140,8 @@
                         <div class="mb-3">
                             <label for="representasi" class="form-label">Representasi</label>
                             <input type="number" class="form-control @error('representasi') is-invalid @enderror"
-                                name="representasi" id="representasi" value="{{ old('representasi') }}" autofocus required>
+                                name="representasi" id="representasi" value="{{ old('representasi') }}" autofocus
+                                required>
                             @error('representasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -144,8 +151,10 @@
 
                         <div class="mb-3">
                             <label for="total_representasi" class="form-label">Total Representasi</label>
-                            <input type="number" class="form-control @error('total_representasi') is-invalid @enderror"
-                                name="total_representasi" id="total_representasi" value="{{ old('total_representasi') }}" autofocus required>
+                            <input type="number"
+                                class="form-control @error('total_representasi') is-invalid @enderror"
+                                name="total_representasi" id="total_representasi"
+                                value="{{ old('total_representasi') }}" autofocus required>
                             @error('total_representasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -163,4 +172,4 @@
         </div>
     </div>
 
-</x-app-layout>
+@endsection
