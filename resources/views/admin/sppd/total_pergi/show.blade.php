@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$title>
     <div class="row">
         <div class="col">
             @if (session()->has('success'))
