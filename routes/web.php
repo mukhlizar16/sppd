@@ -33,6 +33,8 @@ Route::get('/export', function () {
     return view('export.sppd');
 });
 
+// Export Data Excel
+Route::get('/export-sppd', [SppdController::class, 'exportAll'])->name('sppd.export-all');
 Route::post('/export-excel/{sppdId}', [SppdController::class, 'exportExcel'])->name('sppd.export');
 
 Route::get('/dashboard', function () {
@@ -90,4 +92,5 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
 
     Route::put('/resetpassword/{user}', [UserController::class, 'resetPasswordAdmin'])->name('resetpassword.resetPasswordAdmin')->middleware('auth');
 });
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';

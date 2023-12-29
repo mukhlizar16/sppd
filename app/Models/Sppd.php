@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sppd extends Model
 {
@@ -12,34 +13,34 @@ class Sppd extends Model
 
     protected $fillable = ['pegawai_id', 'jenis_tugas_id', 'total_biaya'];
 
-    public function JenisTugas()
+    public function jenisTugas()
     {
         return $this->belongsTo(JenisTugas::class, 'jenis_tugas_id');
     }
 
-    public function SuratTugas()
+    public function suratTugas(): HasOne
     {
-        return $this->hasMany(SuratTugas::class, 'sppd_id');
+        return $this->hasOne(SuratTugas::class, 'sppd_id');
     }
 
-    public function TotalPergi()
+    public function totalPergi(): HasOne
     {
-        return $this->hasMany(TotalPergi::class, 'sppd_id');
+        return $this->hasOne(TotalPergi::class, 'sppd_id');
     }
 
-    public function TotalPulang()
+    public function totalPulang(): HasOne
     {
-        return $this->hasMany(TotalPulang::class, 'sppd_id');
+        return $this->hasOne(TotalPulang::class, 'sppd_id');
     }
 
-    public function UangHarian()
+    public function uangHarian(): HasOne
     {
-        return $this->hasMany(UangHarian::class, 'sppd_id');
+        return $this->hasOne(UangHarian::class, 'sppd_id');
     }
 
-    public function Akomodasi()
+    public function akomodasi(): HasOne
     {
-        return $this->hasMany(Akomodasi::class, 'sppd_id');
+        return $this->hasOne(Akomodasi::class, 'sppd_id');
     }
 
     public function pegawai(): BelongsTo

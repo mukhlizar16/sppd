@@ -10,7 +10,7 @@ class Golongan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'golongans';
+    protected $table = 'golongan';
 
     public function Pegawai()
     {
