@@ -128,7 +128,7 @@ class AkomodasiController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - ' . $sppd->name;
+        $title = 'Data Sppd Detail - Akomodasi ';
         if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }

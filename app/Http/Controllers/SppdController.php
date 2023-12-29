@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SppdDataExport;
 use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
+use App\Models\SuratTugas;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SppdController extends Controller
 {
@@ -119,4 +122,14 @@ class SppdController extends Controller
 
         return redirect()->route('sppd.index')->with('success', "sppd $sppd->name berhasil dihapus!");
     }
+
+    public function showTemplate(Sppd $sppd)
+    {
+
+    }
+
+    public function exportExcel($sppdId)
+{
+    return Excel::download(new SppdDataExport($sppdId), 'sppd-data.xlsx');
+}
 }

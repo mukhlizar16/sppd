@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('jurusan');
             $table->string('tingkat_ijazah');
             $table->string('tahun_lulus');
-            $table->foreignId('golongan_id')->constrained('golongan');
+            $table->foreignId('golongan_id')->constrained('golongans');
             $table->date('tmt_cpns');
             $table->date('tmt_pangkat_terakhir');
             $table->string('jabatan');

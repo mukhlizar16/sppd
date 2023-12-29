@@ -48,7 +48,7 @@
                                     <td>
                                         <a class="text-white btn btn-sm btn-info" data-bs-toggle="modal"
                                             data-bs-target="#detailSppd{{ $loop->iteration }}">
-                                            <i class="fa-regular fa-plus"></i>
+                                            <i class="fa-regular fa-list"></i>
                                         </a>
                                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">
@@ -60,6 +60,7 @@
                                         </button>
                                     </td>
                                 </tr>
+
                                 {{-- Modal Edit sppd --}}
                                 <x-form_modal>
                                     @slot('id', "editSppd$loop->iteration")
@@ -140,7 +141,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Data Detail Sppd
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Action Sppd
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -151,35 +152,43 @@
                                                 </p>
                                                 <div class="row d-flex justify-content-center align-items-center">
                                                     <div class="mb-2 col-lg-4">
-                                                        <a class="text-white btn btn-primary"
+                                                        <a class="btn btn-outline-dark"
                                                             href="{{ route('surat.detail', $sppd->id) }}">Surat
                                                             Tugas</a>
                                                     </div>
                                                     <div class="mb-2 col-lg-4">
-                                                        <a class="text-white btn btn-primary"
+                                                        <a class="btn btn-outline-dark"
                                                             href="{{ route('akomodasi.detail', $sppd->id) }}">Akomodasi</a>
                                                     </div>
                                                     <div class="mb-2 col-lg-4">
-                                                        <a class="text-white btn btn-primary"
+                                                        <a class="btn btn-outline-dark"
                                                             href="{{ route('uang.detail', $sppd->id) }}">Uang
                                                             Harian</a>
                                                     </div>
-                                                    <div class="mb-2 col-lg-4">
-                                                        <a class="text-white btn btn-primary"
+                                                    <div class="mb-2 col-lg-4 mt-3">
+                                                        <a class="btn btn-outline-dark"
                                                             href="{{ route('pergi.detail', $sppd->id) }}">Tiket
                                                             Pergi</a>
                                                     </div>
-                                                    <div class="mb-2 col-lg-4">
-                                                        <a class="text-white btn btn-primary"
+                                                    <div class="mb-2 col-lg-4 mt-3">
+                                                        <a class="btn btn-outline-dark"
                                                             href="{{ route('pulang.detail', $sppd->id) }}">Tiket
                                                             Pulang</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close
-                                                </button>
+                                                <form action="{{ route('sppd.export', ['sppdId' => $sppd->id]) }}" method="POST" target="_blank">
+                                                    @csrf
+                                                    <button type="submit" class="text-white btn btn-success">
+                                                        <i class="fa-regular fa-print"></i> Unduh
+                                                    </button>
+                                                </form>
+                                                <a class="text-white btn btn-primary"
+                                                    href="{{ route('surat.index', ['id' => $sppd->id]) }}">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Tambah
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -192,6 +201,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal Tambah jenis -->
     <x-form_modal>
         @slot('id', 'tambahSppd')
@@ -206,6 +216,7 @@
                 <select style="width: 100%" class="form-control form-select @error('pegawai') is-invalid @enderror"
                     id="pegawai" name="pegawai" required>
                     <option value="">-- pilih pegawai --</option>
+
                     @foreach ($users as $pegawai)
                         <option value="{{ $pegawai->id }}">{{ $pegawai->nama_lengkap }}</option>
                     @endforeach

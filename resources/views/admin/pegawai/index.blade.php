@@ -28,7 +28,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Nip</th>
-                                <th>Jenis Asn</th>
+                                <th>Jabatan</th>
                                 <th>Golongan</th>
                                 <th>Jabatan</th>
                                 <th>Instansi</th>
@@ -39,9 +39,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pegawai->nama_lengkap }}</td>
-                                    <td class="text-center">{{ $pegawai->nip_baru }}</td>
-                                    <td class="text-center">{{ $pegawai->jenisAsn->nama }}</td>
-                                    <td>{{ $pegawai->Golongan->nama }}</td>
+                                    <td>{{ $pegawai->nip_baru }}</td>
+                                    <td>{{ $pegawai->jabatan }}</td>
+                                    <td>{{ $pegawai->Golongan->name }}</td>
                                     <td>{{ $pegawai->jabatan }}</td>
                                     <td>{{ $pegawai->unit_kerja }}</td>
                                 </tr>

@@ -1,6 +1,4 @@
-@extends('dashboard.layouts.main')
-
-@section('content')
+<x-app-layout>
 <div class="row">
     <div class="col-sm-6 col-md">
         @if (session()->has('success'))
@@ -218,4 +216,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

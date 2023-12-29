@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sppd_id')->constrained('sppds')->onUpdate('cascade')->onDelete('restrict');
             $table->integer('nomor_sp2d');
-            $table->foreignId('pegawai_id')->constrained('pegawais')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('pegawai_id')->constrained('kepegawaian')->onUpdate('cascade')->onDelete('restrict');
             $table->integer('nomor_st');
+            $table->integer('nomor_spd');
             $table->string('kegiatan');
+            $table->string('dari');
+            $table->string('tujuan');
+            $table->string('nama_kegiatan');
             $table->tinyInteger('lama_tugas');
             $table->date('tanggal');
             $table->date('tanggal_berangkat');

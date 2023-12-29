@@ -34,6 +34,9 @@ class SuratTugasController extends Controller
                 'pegawai_id' => 'required',
                 'nomor_st' => 'required',
                 'kegiatan' => 'required',
+                'dari' => 'required',
+                'tujuan' => 'required',
+                'nama_kegiatan' => 'required',
                 'lama_tugas' => 'required',
                 'tanggal' => 'required',
                 'tanggal_berangkat' => 'required',
@@ -84,6 +87,9 @@ class SuratTugasController extends Controller
                 'pegawai_id' => 'required',
                 'nomor_st' => 'required|integer',
                 'kegiatan' => 'required',
+                'dari' => 'required',
+                'tujuan' => 'required',
+                'nama_kegiatan' => 'required',
                 'lama_tugas' => 'required',
                 'tanggal' => 'required',
                 'tanggal_berangkat' => 'required',
@@ -123,7 +129,7 @@ class SuratTugasController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - ' . $sppd->name;
+        $title = 'Data Sppd Detail - Surat Tugas';
         $pegawais = Pegawai::select('id', 'nama')->get();
         if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
@@ -143,6 +149,9 @@ class SuratTugasController extends Controller
                 'pegawai_id' => 'required',
                 'nomor_st' => 'required',
                 'kegiatan' => 'required',
+                'dari' => 'required',
+                'tujuan' => 'required',
+                'nama_kegiatan' => 'required',
                 'lama_tugas' => 'required',
                 'tanggal' => 'required',
                 'tanggal_berangkat' => 'required',

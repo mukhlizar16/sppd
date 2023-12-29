@@ -105,10 +105,54 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="nomor_spd" class="form-label">Nomor SPD</label>
+                            <input type="number" class="form-control @error('nomor_spd') is-invalid @enderror"
+                                name="nomor_spd" id="nomor_spd" value="{{ old('nomor_spd') }}" autofocus required>
+                            @error('nomor_spd')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="kegiatan" class="form-label">Kegiatan</label>
                             <input type="text" class="form-control @error('kegiatan') is-invalid @enderror"
                                 name="kegiatan" id="kegiatan" value="{{ old('kegiatan') }}" required>
                             @error('kegiatan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dari" class="form-label">Dari</label>
+                            <input type="text" class="form-control @error('dari') is-invalid @enderror"
+                                name="dari" id="dari" value="{{ old('dari') }}" required>
+                            @error('dari')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tujuan" class="form-label">Tujuan</label>
+                            <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
+                                name="tujuan" id="tujuan" value="{{ old('tujuan') }}" required>
+                            @error('tujuan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
+                            <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" required>
+                            @error('nama_kegiatan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
