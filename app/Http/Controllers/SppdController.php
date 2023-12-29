@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportSppdById;
 use App\Exports\SppdDataExport;
 use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
-use App\Models\SuratTugas;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -129,7 +129,12 @@ class SppdController extends Controller
     }
 
     public function exportExcel($sppdId)
-{
-    return Excel::download(new SppdDataExport($sppdId), 'sppd-data.xlsx');
-}
+    {
+        return Excel::download(new ExportSppdById($sppdId), 'sppd-data.xlsx');
+    }
+
+    public function exportAll()
+    {
+        return Excel::download(new SppdDataExport, 'Data SPPD.xlsx');
+    }
 }

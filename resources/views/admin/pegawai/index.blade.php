@@ -22,30 +22,30 @@
             <div class="mt-3 card">
                 <div class="card-body table-responsive">
                     <table id="myTable" class="table align-middle responsive nowrap table-bordered table-striped"
-                        style="width:100%">
+                           style="width:100%">
                         <thead class="text-center">
-                            <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Nip</th>
-                                <th>Jabatan</th>
-                                <th>Golongan</th>
-                                <th>Jabatan</th>
-                                <th>Instansi</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama</th>
+                            <th>Nip</th>
+                            <th>Jabatan</th>
+                            <th>Golongan</th>
+                            <th>Jabatan</th>
+                            <th>Instansi</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pegawais as $pegawai)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pegawai->nama_lengkap }}</td>
-                                    <td>{{ $pegawai->nip_baru }}</td>
-                                    <td>{{ $pegawai->jabatan }}</td>
-                                    <td>{{ $pegawai->Golongan->name }}</td>
-                                    <td>{{ $pegawai->jabatan }}</td>
-                                    <td>{{ $pegawai->unit_kerja }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($pegawais as $pegawai)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pegawai->nama_lengkap }}</td>
+                                <td>{{ $pegawai->nip_baru }}</td>
+                                <td>{{ $pegawai->jabatan }}</td>
+                                <td>{{ $pegawai->Golongan->nama }}</td>
+                                <td>{{ $pegawai->jabatan }}</td>
+                                <td>{{ $pegawai->unit_kerja }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
