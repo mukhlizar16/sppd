@@ -157,12 +157,11 @@ class SuratTugasController extends Controller
                 'tanggal_berangkat' => 'required',
                 'tanggal_kembali' => 'required',
             ]);
+            SuratTugas::create($validatedData);
+
+            return redirect()->back()->with('success', 'Surat tugas baru berhasil ditambahkan!');
         } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
-
-        SuratTugas::create($validatedData);
-
-        return redirect()->back()->with('success', 'Surat tugas baru berhasil ditambahkan!');
     }
 }

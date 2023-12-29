@@ -51,6 +51,12 @@
                                        data-bs-target="#detailSppd{{ $loop->iteration }}">
                                         <i class="fa-regular fa-plus"></i>
                                     </a>
+                                    <form action="{{ route('sppd.export', $sppd->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fa-regular fa-file"></i>
+                                        </button>
+                                    </form>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
@@ -152,24 +158,49 @@
                                             </p>
                                             <div class="row d-flex justify-content-center align-items-center">
                                                 <div class="col-lg-4 mb-2">
-                                                    <a class="btn btn-primary text-white"
-                                                       href="{{ route('surat.detail', $sppd->id) }}">Surat Tugas</a>
+                                                    <a href="{{ route('surat.detail', $sppd->id) }}">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                Surat Tugas
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-2">
-                                                    <a class="btn btn-primary text-white"
-                                                       href="{{ route('akomodasi.detail', $sppd->id) }}">Akomodasi</a>
+                                                    <a href="{{ route('akomodasi.detail', $sppd->id) }}">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                Akomodasi
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-2">
-                                                    <a class="btn btn-primary text-white"
-                                                       href="{{ route('uang.detail', $sppd->id) }}">Uang Harian</a>
+                                                    <a href="{{ route('uang.detail', $sppd->id) }}">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                Uang Harian
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-2">
-                                                    <a class="btn btn-primary text-white"
-                                                       href="{{ route('pergi.detail', $sppd->id) }}">Tiket Pergi</a>
+                                                    <a href="{{ route('pergi.detail', $sppd->id) }}">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                Tiket Pergi
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-2">
-                                                    <a class="btn btn-primary text-white"
-                                                       href="{{ route('pulang.detail', $sppd->id) }}">Tiket Pulang</a>
+                                                    <a href="{{ route('pulang.detail', $sppd->id) }}">
+                                                        <div class="card">
+                                                            <div class="card-body text-center">
+                                                                Tiket Pulang
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
