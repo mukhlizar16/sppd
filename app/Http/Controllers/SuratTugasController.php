@@ -7,6 +7,7 @@ use App\Models\Sppd;
 use App\Models\SuratTugas;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SuratTugasController extends Controller
@@ -129,7 +130,8 @@ class SuratTugasController extends Controller
     public function showDetail($sppdId)
     {
         $sppd = Sppd::find($sppdId);
-        $title = 'Data Sppd Detail - Surat Tugas';
+        $title = 'Surat Tugas';
+        $subtitle = 'Data Sppd Detail - Surat Tugas';
         $pegawais = Pegawai::select('id', 'nama')->get();
         if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
@@ -137,30 +139,28 @@ class SuratTugasController extends Controller
 
         $surats = SuratTugas::where('sppd_id', $sppdId)->get(); // Assuming there's a relationship between Sppd and SuratTugas
 
-        return view('admin.sppd.surat_tugas.show', compact('surats', 'title', 'sppd', 'pegawais'));
+        return view('admin.sppd.surat_tugas.show', compact('surats', 'title', 'subtitle', 'sppd', 'pegawais'));
     }
 
     public function storeDetail(Request $request)
     {
+        $validatedData = $request->validate([
+            'sppd_id' => 'required',
+            'nomor_spd' => 'required',
+            'nomor' => 'required',
+            'kegiatan' => 'required',
+            'lama_tugas' => 'required',
+            'tanggal' => 'required',
+            'tanggal_berangkat' => 'required',
+            'tanggal_kembali' => 'required',
+        ]);
+        DB::beginTransaction();
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'nomor_sp2d' => 'required',
-                'pegawai_id' => 'required',
-                'nomor_st' => 'required',
-                'kegiatan' => 'required',
-                'dari' => 'required',
-                'tujuan' => 'required',
-                'nama_kegiatan' => 'required',
-                'lama_tugas' => 'required',
-                'tanggal' => 'required',
-                'tanggal_berangkat' => 'required',
-                'tanggal_kembali' => 'required',
-            ]);
             SuratTugas::create($validatedData);
-
+            DB::commit();
             return redirect()->back()->with('success', 'Surat tugas baru berhasil ditambahkan!');
         } catch (ValidationException $exception) {
+            DB::rollBack();
             return redirect()->back()->with('failed', $exception->getMessage());
         }
     }

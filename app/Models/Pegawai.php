@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pegawai extends Model
 {
@@ -28,10 +29,10 @@ class Pegawai extends Model
     {
         return Attribute::make(
             get: fn($value) => ($this->attributes['gelar_depan'] != null ?
-                    $this->attributes['gelar_depan'] . ' '
-                    : '') . $this->attributes['nama'] . ($this->attributes['gelar_belakang'] != null ?
-                    ', ' . $this->attributes['gelar_belakang']
-                    : ''),
+                $this->attributes['gelar_depan'] . ' '
+                : '') . $this->attributes['nama'] . ($this->attributes['gelar_belakang'] != null ?
+                ', ' . $this->attributes['gelar_belakang']
+                : ''),
         );
     }
 
@@ -43,5 +44,10 @@ class Pegawai extends Model
     public function jenisAsn(): BelongsTo
     {
         return $this->belongsTo(Asn::class, 'jenis_asn_id');
+    }
+
+    public function sppds(): BelongsToMany
+    {
+        return $this->belongsToMany(Sppd::class, 'sppd_pegawai', 'pegawai_id', 'sppd_id');
     }
 }

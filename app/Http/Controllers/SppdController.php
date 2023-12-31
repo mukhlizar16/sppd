@@ -22,7 +22,7 @@ class SppdController extends Controller
     public function index()
     {
         $title = 'Data Sppd';
-        $sppds = Sppd::with('pegawai')->get();
+        $sppds = Sppd::with('pegawais')->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
 
@@ -35,12 +35,24 @@ class SppdController extends Controller
     public function store(StoreSppdRequest $request)
     {
         $validatedData = $request->validated();
-
-        $sppd = Sppd::create([
-            'pegawai_id' => $validatedData['pegawai'],
-            'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
-            'total_biaya' => $validatedData['total_biaya']
-        ]);
+        DB::beginTransaction();
+        try {
+            $sppd = Sppd::create([
+                'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
+                'nomor_sp2d' => $validatedData['nomor_sp2d'],
+                'kegiatan' => $validatedData['kegiatan'],
+                'dari' => $validatedData['dari'],
+                'tujuan' => $validatedData['tujuan'],
+                'total_biaya' => $validatedData['total_biaya']
+            ]);
+            foreach ($request->pegawai as $pegawai) {
+                $sppd->pegawais()->attach($pegawai);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
         return redirect()->route('surat.index', ['id' => $sppd->id])->with('success', 'Sppd baru berhasil ditambahkan!');
     }

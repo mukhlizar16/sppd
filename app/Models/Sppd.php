@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sppd extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pegawai_id', 'jenis_tugas_id', 'total_biaya'];
+    protected $table = 'sppd';
+    protected $fillable = ['jenis_tugas_id', 'nomor_sp2d', 'kegiatan', 'dari', 'tujuan', 'total_biaya'];
 
     public function jenisTugas()
     {
@@ -43,8 +46,8 @@ class Sppd extends Model
         return $this->hasOne(Akomodasi::class, 'sppd_id');
     }
 
-    public function pegawai(): BelongsTo
+    public function pegawais(): BelongsToMany
     {
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsToMany(Pegawai::class, 'sppd_pegawai', 'sppd_id', 'pegawai_id');
     }
 }

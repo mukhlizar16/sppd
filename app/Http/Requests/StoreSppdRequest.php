@@ -22,8 +22,11 @@ class StoreSppdRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pegawai' => 'required',
+            'nomor_sp2d' => 'required',
             'jenis_tugas_id' => 'required',
+            'kegiatan' => 'required',
+            'dari' => 'required',
+            'tujuan' => 'required',
             'total_biaya' => 'required|numeric'
         ];
     }

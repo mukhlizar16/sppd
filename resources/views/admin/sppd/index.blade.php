@@ -33,7 +33,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nama</th>
+                                <th>Nomor SP2D</th>
+                                <th>Pegawai</th>
                                 <th>Jenis Tugas</th>
                                 <th>Total Biaya</th>
                                 <th>Action</th>
@@ -43,7 +44,14 @@
                             @foreach ($sppds as $sppd)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $sppd->pegawai->nama_lengkap }}</td>
+                                    <td>{{ $sppd->nomor_sp2d }}</td>
+                                    <td>
+                                        <ul class="mb-0 list-unstyled" style="list-style-type: -">
+                                            @foreach ($sppd->pegawais as $pegawai)
+                                                <li>- {{ $pegawai->nama_lengkap }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
                                     <td>{{ $sppd->JenisTugas->name }}</td>
                                     <td>Rp. {{ number_format($sppd->total_biaya, 0, ',', '.') }}</td>
                                     <td>
@@ -258,7 +266,7 @@
             <div class="mb-3">
                 <label for="pegawai" class="form-label">Nama</label>
                 <select class="form-select select2 @error('pegawai') is-invalid @enderror" id="pegawai"
-                    multiple="multiple" name="pegawai" style="width: 100%" required>
+                    multiple="multiple" name="pegawai[]" style="width: 100%" required>
                     <option value="">-- pilih pegawai --</option>
                     @foreach ($users as $pegawai)
                         <option value="{{ $pegawai->id }}">{{ $pegawai->nama_lengkap }}</option>
@@ -273,7 +281,7 @@
             <div class="mb-3">
                 <label for="kegiatan" class="form-label">Kegiatan</label>
                 <input type="text" name="kegiatan" id="kegiatan"
-                    class="form-control @error('kegiatan') is-invalid @enderror">
+                    class="form-control @error('kegiatan') is-invalid @enderror" required>
                 @error('kegiatan')
                     <div class="invalid_feedback">{{ $message }}</div>
                 @enderror
@@ -281,7 +289,7 @@
             <div class="mb-3">
                 <label for="dari" class="form-label">Dari</label>
                 <input type="text" name="dari" id="dari"
-                    class="form-control @error('dari') is-invalid @enderror">
+                    class="form-control @error('dari') is-invalid @enderror" required>
                 @error('dari')
                     <div class="invalid_feedback">{{ $message }}</div>
                 @enderror
@@ -289,20 +297,19 @@
             <div class="mb-3">
                 <label for="tujuan" class="form-label">Tujuan</label>
                 <input type="text" name="tujuan" id="tujuan"
-                    class="form-control @error('tujuan') is-invalid @enderror">
+                    class="form-control @error('tujuan') is-invalid @enderror" required>
                 @error('tujuan')
                     <div class="invalid_feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="total_biaya" class="form-label">Total Biaya</label>
+                <label for="biaya" class="form-label">Total Biaya</label>
                 <div class="input-group">
                     <div class="input-group-text">
                         Rp.
                     </div>
-                    <input type="number" min="0" step="1"
-                        class="form-control @error('total_biaya') is-invalid @enderror" id="total_biaya"
-                        name="total_biaya">
+                    <input type="text" class="form-control @error('total_biaya') is-invalid @enderror"
+                        id="biaya" name="total_biaya" required>
                 </div>
                 @error('total_biaya')
                     <div class="invalid-feedback">
@@ -320,14 +327,21 @@
     @endpush
     @push('script')
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{ asset('libs/mask-money/jquery.maskMoney.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('.select2').select2({
                     dropdownParent: $('#tambahSppd'),
                     placeholder: '-- pilih pegawai --',
                     allowClear: true
-                })
-            })
+                });
+                $('#biaya, #total_biaya').maskMoney({
+                    thousands: '.',
+                    decimal: ',',
+                    allowZero: true,
+                    precision: 0
+                });
+            });
         </script>
     @endpush
 </x-app-layout>
