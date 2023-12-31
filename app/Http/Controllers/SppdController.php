@@ -10,6 +10,7 @@ use App\Models\Pegawai;
 use App\Models\Sppd;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -96,23 +97,8 @@ class SppdController extends Controller
     public function destroy(Sppd $sppd)
     {
         try {
-            $sppd = Sppd::whereId($sppd->id)->first();
-            $sppd->SuratTugas->each(function ($SuratTugas) {
-                $SuratTugas->delete();
-            });
-            $sppd->Akomodasi->each(function ($Akomodasi) {
-                $Akomodasi->delete();
-            });
-            $sppd->UangHarian->each(function ($UangHarian) {
-                $UangHarian->delete();
-            });
-            $sppd->TotalPergi->each(function ($TotalPergi) {
-                $TotalPergi->delete();
-            });
-            $sppd->TotalPulang->each(function ($TotalPulang) {
-                $TotalPulang->delete();
-            });
-            Sppd::destroy($sppd->id);
+            $sppd->delete();
+            DB::statement('ALTER TABLE sppd AUTO_INCREMENT=1');
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
