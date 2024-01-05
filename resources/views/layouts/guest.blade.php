@@ -5,8 +5,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="sijadin">
+    <meta name="description" content="Sistem informasi layanan sppd">
+
+    <meta name="og:description" content="Sistem informasi layanan sppd">
+    <meta name="og:author" content="sijadin">
+    <meta name="og:site_name" content="SIJADIN">
 
     <!-- Favicon icon-->
+    <link rel="canonical" href="https://kedap.pupr-acehbaratkab.com/">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
     <!-- Fonts -->
