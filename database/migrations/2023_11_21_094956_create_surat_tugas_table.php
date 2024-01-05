@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('nomor_st');
             $table->string('nomor_spd');
             $table->text('kegiatan');
+            $table->string('dari');
+            $table->string('tujuan');
             $table->tinyInteger('lama_tugas');
             $table->date('tanggal');
             $table->date('tanggal_berangkat');

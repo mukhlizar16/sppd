@@ -8,12 +8,11 @@
                         <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid mb-6" alt="logo"
                              style="width: 100px">
                     </a>
-                    <div class="d-flex justify-content-center align-items-center flex-column mb-5">
-                        <h2>Welcome to</h2>
-                        <h4 class="mb-2 fw-bold text-primary">SIJADIN</h4>
-                        <p>Sistem Informasi Data Perjalanan Dinas</p>
+                    <div class="mb-5">
+                        <h3>Selamat Datang di Layanan SPPD</h3>
+                        <h4 class="mb-2">Dinas PUPR Aceh Barat</h4>
                     </div>
-                    <a href="{{ route('login') }}" class="btn btn-success d-block">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                 </div>
             </div>
         </div>

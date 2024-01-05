@@ -29,14 +29,14 @@ class Pegawai extends Model
     {
         return Attribute::make(
             get: fn($value) => ($this->attributes['gelar_depan'] != null ?
-                $this->attributes['gelar_depan'] . ' '
-                : '') . $this->attributes['nama'] . ($this->attributes['gelar_belakang'] != null ?
-                ', ' . $this->attributes['gelar_belakang']
-                : ''),
+                    $this->attributes['gelar_depan'] . ' '
+                    : '') . $this->attributes['nama'] . ($this->attributes['gelar_belakang'] != null ?
+                    ', ' . $this->attributes['gelar_belakang']
+                    : ''),
         );
     }
 
-    public function Golongan(): BelongsTo
+    public function golongan(): BelongsTo
     {
         return $this->belongsTo(Golongan::class, 'golongan_id');
     }

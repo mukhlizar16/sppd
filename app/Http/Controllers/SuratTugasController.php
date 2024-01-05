@@ -148,9 +148,11 @@ class SuratTugasController extends Controller
             'sppd_id' => 'required',
             'nomor_spd' => 'required',
             'nomor' => 'required',
-            'kegiatan' => 'required',
+            'kegiatan' => 'required|max:255',
+            'dari' => 'required|max:255',
+            'tujuan' => 'required|max:255',
             'lama_tugas' => 'required',
-            'tanggal' => 'required',
+            'tanggal_st' => 'required',
             'tanggal_berangkat' => 'required',
             'tanggal_kembali' => 'required',
         ]);

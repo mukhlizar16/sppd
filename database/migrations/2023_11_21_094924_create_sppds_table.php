@@ -19,8 +19,6 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('nomor_sp2d');
             $table->string('kegiatan');
-            $table->string('dari');
-            $table->string('tujuan');
             $table->integer('total_biaya')->nullable();
             $table->timestamps();
         });
