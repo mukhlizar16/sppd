@@ -8,6 +8,7 @@ use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class SppdController extends Controller
                 $sppd->pegawais()->attach($pegawai);
             }
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -94,10 +95,13 @@ class SppdController extends Controller
             ];
 
             $validatedData = $this->validate($request, $rules);
+            $sppd->update($validatedData);
 
-            Sppd::where('id', $sppd->id)->update($validatedData);
+//            foreach ($request->name as $name) {
+//                $sppd->pegawais()->sync($name);
+//            }
 
-            return redirect()->route('sppd.index')->with('success', "Data Sppd $sppd->name berhasil diperbarui!");
+            return redirect()->route('sppd.index')->with('success', "Data Sppd $sppd->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
             return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }

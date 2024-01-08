@@ -47,7 +47,7 @@
                             <th>Nomor SPD</th>
                             <th>Nama Kegiatan</th>
                             <th>Lama Tugas</th>
-                            <th>Tanggal</th>
+                            <th>Tanggal ST</th>
                             <th>Tanggal Berangkat</th>
                             <th>Tanggal Kembali</th>
                             <th>Action</th>
@@ -61,8 +61,8 @@
                                 <td>{{ $surat->nomor_spd }}</td>
                                 <td>{{ $surat->kegiatan }}</td>
                                 <td>{{ $surat->lama_tugas }}</td>
-                                <td>{{ $surat->tanggal }}</td>
-                                <td>{{ $surat->tanggal_berangkat }}</td>
+                                <td>{{ $surat->tanggal_st }}</td>
+                                <td>{{ Carbon\Carbon::parse($surat->tanggal_berangkat)->format('d/m/Y') }}</td>
                                 <td>{{ $surat->tanggal_kembali }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal"

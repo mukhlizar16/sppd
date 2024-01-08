@@ -239,8 +239,6 @@
         @slot('title', 'Tambah Data Sppd')
         @slot('overflow', 'overflow-auto')
         @slot('route', route('sppd.store'))
-
-        @csrf
         <div class="row">
             <div class="mb-3">
                 <label for="jenis_tugas_id" class="form-label">Jenis Tugas</label>
