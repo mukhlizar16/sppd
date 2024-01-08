@@ -17,13 +17,14 @@ class ExportSppdById implements FromView, ShouldAutoSize
     public function __construct($sppdId)
     {
         $this->sppdId = $sppdId;
-        $this->sppd = Sppd::findOrFail($sppdId)->with('SuratTugas', 'UangHarian', 'Akomodasi', 'TotalPergi', 'TotalPulang')->get();
+        $this->sppd = Sppd::with('pegawais.golongan', 'SuratTugas', 'UangHarian', 'Akomodasi', 'TotalPergi', 'TotalPulang')->findOrFail($sppdId);
     }
 
     public function view(): View
     {
-        return view('export.sppd', [
-            'spdds' => $this->sppd,
+//        dd($this->sppd);
+        return view('export.export-single', [
+            'sppd' => $this->sppd,
         ]);
     }
 }
