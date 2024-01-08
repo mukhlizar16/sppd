@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TotalPulang extends Model
 {
     use HasFactory;
-
+    protected $table = 'total_pulang';
     protected $guarded = ['id'];
 
     public function Sppd()

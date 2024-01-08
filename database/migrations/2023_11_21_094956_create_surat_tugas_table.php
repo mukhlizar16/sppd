@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,15 +12,16 @@ return new class extends Migration
     {
         Schema::create('surat_tugas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sppd_id')->constrained('sppds')->onUpdate('cascade')->onDelete('restrict');
-            $table->integer('nomor_sp2d');
-            $table->foreignId('pegawai_id')->constrained('kepegawaian')->onUpdate('cascade')->onDelete('restrict');
-            $table->integer('nomor_st');
-            $table->integer('nomor_spd');
-            $table->string('kegiatan');
+            $table->foreignId('sppd_id')
+                ->index()
+                ->constrained('sppd')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('nomor_st');
+            $table->string('nomor_spd');
+            $table->text('kegiatan');
             $table->string('dari');
             $table->string('tujuan');
-            $table->string('nama_kegiatan');
             $table->tinyInteger('lama_tugas');
             $table->date('tanggal');
             $table->date('tanggal_berangkat');

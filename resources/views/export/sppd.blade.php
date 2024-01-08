@@ -187,67 +187,69 @@
 
     <tbody>
     @foreach ($spdds as $sppd)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $sppd->suratTugas?->first()->nomor_sp2d }}</td>
-            <td>{{ $sppd->suratTugas?->first()->pegawai->nama }}</td>
-            <td>{{ $sppd->suratTugas?->first()->pegawai->jabatan }}</td>
-            <td>{{ $sppd->suratTugas?->first()->Pegawai->Golongan->name }}</td>
-            <td>{{ $sppd->suratTugas?->first()->nomor_st }}</td>
-            <td>{{ $sppd->suratTugas?->first()->nomor_spd }}</td>
-            <td>{{ $sppd->suratTugas?->first()->kegiatan }}</td>
-            <td>{{ $sppd->suratTugas?->first()->dari }}</td>
-            <td>{{ $sppd->suratTugas?->first()->tujuan }}</td>
-            <td>{{ $sppd->suratTugas?->first()->nama_kegiatan }}</td>
-            <td>{{ $sppd->suratTugas?->first()->lama_tugas }}</td>
-            <td>{{ $sppd->suratTugas?->first()->tanggal }}</td>
-            <td>{{ $sppd->suratTugas?->first()->tanggal_berangkat }}</td>
-            <td>{{ $sppd->suratTugas?->first()->tanggal_kembali }}</td>
-            <td>{{ $sppd->uangHarian?->first()->harian }}</td>
-            <td>{{ $sppd->uangHarian?->first()->total_harian }}</td>
-            <td>{{ $sppd->uangHarian?->first()->konsumsi }}</td>
-            <td>{{ $sppd->uangHarian?->first()->total_konsumsi }}</td>
-            <td>{{ $sppd->uangHarian?->first()->transportasi }}</td>
-            <td>{{ $sppd->uangHarian?->first()->total_transportasi }}</td>
-            <td>{{ $sppd->uangHarian?->first()->representasi }}</td>
-            <td>{{ $sppd->uangHarian?->first()->total_representasi }}</td>
-            <td>{{ $sppd->akomodasi?->first()->name_hotel }}</td>
-            <td>{{ $sppd->akomodasi?->first()->tgl_masuk }}</td>
-            <td>{{ $sppd->akomodasi?->first()->tgl_keluar }}</td>
-            <td>{{ $sppd->akomodasi?->first()->no_invoice }}</td>
-            <td>{{ $sppd->akomodasi?->first()->no_kamar }}</td>
-            <td>{{ $sppd->akomodasi?->first()->lama_inap }}</td>
-            <td>{{ $sppd->akomodasi?->first()->nama_kwitansi }}</td>
-            <td>{{ $sppd->akomodasi?->first()->harga_permalam }}</td>
-            <td>{{ $sppd->akomodasi?->first()->harga_permalam2 }}</td>
-            <td>{{ $sppd->akomodasi?->first()->total_uang }}</td>
-            <td>{{ $sppd->akomodasi?->first()->bbm }}</td>
-            <td>{{ $sppd->akomodasi?->first()->dari }}</td>
-            <td>{{ $sppd->akomodasi?->first()->ke }}</td>
-            <td>{{ $sppd->totalPergi?->first()->asal }}</td>
-            <td>{{ $sppd->totalPergi?->first()->tujuan }}</td>
-            <td>{{ $sppd->totalPergi?->first()->tgl_penerbangan }}</td>
-            <td>{{ $sppd->totalPergi?->first()->maskapai }}</td>
-            <td>{{ $sppd->totalPergi?->first()->booking_reference }}</td>
-            <td>{{ $sppd->totalPergi?->first()->no_eticket }}</td>
-            <td>{{ $sppd->totalPergi?->first()->no_penerbangan }}</td>
-            <td>{{ $sppd->totalPergi?->first()->total_harga }}</td>
-            <td>{{ $sppd->totalPulang?->first()->asal }}</td>
-            <td>{{ $sppd->totalPulang?->first()->tujuan }}</td>
-            <td>{{ $sppd->totalPulang?->first()->tgl_penerbangan }}</td>
-            <td>{{ $sppd->totalPulang?->first()->maskapai }}</td>
-            <td>{{ $sppd->totalPulang?->first()->booking_reference }}</td>
-            <td>{{ $sppd->totalPulang?->first()->no_eticket }}</td>
-            <td>{{ $sppd->totalPulang?->first()->no_penerbangan }}</td>
-            <td>{{ $sppd->totalPulang?->first()->total_harga }}</td>
-            @php
-                $total = $sppd->uangHarian?->first()->total_harian + $sppd->uangHarian?->first()->total_konsumsi
-                         + $sppd->uangHarian?->first()->total_transportasi + $sppd->uangHarian?->first()->total_representasi
-                         + $sppd->akomodasi?->first()->total_uang + $sppd->totalPergi?->first()->total_harga
-                         + $sppd->totalPulang?->first()->total_harga;
-            @endphp
-            <td>{{ $total }}</td>
-        </tr>
+        @foreach($sppd->pegawais as $pegawai)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $sppd->suratTugas?->first()->nomor_sp2d }}</td>
+                <td>{{ $pegawai->nama }}</td>
+                <td>{{ $pegawai->jabatan }}</td>
+                <td>{{ $pegawai->golongan->kode }}</td>
+                <td>{{ $sppd->suratTugas?->first()->nomor_st }}</td>
+                <td>{{ $sppd->suratTugas?->first()->nomor_spd }}</td>
+                <td>{{ $sppd->suratTugas?->first()->kegiatan }}</td>
+                <td>{{ $sppd->suratTugas?->first()->dari }}</td>
+                <td>{{ $sppd->suratTugas?->first()->tujuan }}</td>
+                <td>{{ $sppd->suratTugas?->first()->nama_kegiatan }}</td>
+                <td>{{ $sppd->suratTugas?->first()->lama_tugas }}</td>
+                <td>{{ $sppd->suratTugas?->first()->tanggal }}</td>
+                <td>{{ $sppd->suratTugas?->first()->tanggal_berangkat }}</td>
+                <td>{{ $sppd->suratTugas?->first()->tanggal_kembali }}</td>
+                <td>{{ $sppd->uangHarian?->first()->harian }}</td>
+                <td>{{ $sppd->uangHarian?->first()->total_harian }}</td>
+                <td>{{ $sppd->uangHarian?->first()->konsumsi }}</td>
+                <td>{{ $sppd->uangHarian?->first()->total_konsumsi }}</td>
+                <td>{{ $sppd->uangHarian?->first()->transportasi }}</td>
+                <td>{{ $sppd->uangHarian?->first()->total_transportasi }}</td>
+                <td>{{ $sppd->uangHarian?->first()->representasi }}</td>
+                <td>{{ $sppd->uangHarian?->first()->total_representasi }}</td>
+                <td>{{ $sppd->akomodasi?->first()->name_hotel }}</td>
+                <td>{{ $sppd->akomodasi?->first()->tgl_masuk }}</td>
+                <td>{{ $sppd->akomodasi?->first()->tgl_keluar }}</td>
+                <td>{{ $sppd->akomodasi?->first()->no_invoice }}</td>
+                <td>{{ $sppd->akomodasi?->first()->no_kamar }}</td>
+                <td>{{ $sppd->akomodasi?->first()->lama_inap }}</td>
+                <td>{{ $sppd->akomodasi?->first()->nama_kwitansi }}</td>
+                <td>{{ $sppd->akomodasi?->first()->harga_permalam }}</td>
+                <td>{{ $sppd->akomodasi?->first()->harga_permalam2 }}</td>
+                <td>{{ $sppd->akomodasi?->first()->total_uang }}</td>
+                <td>{{ $sppd->akomodasi?->first()->bbm }}</td>
+                <td>{{ $sppd->akomodasi?->first()->dari }}</td>
+                <td>{{ $sppd->akomodasi?->first()->ke }}</td>
+                <td>{{ $sppd->totalPergi?->first()->asal }}</td>
+                <td>{{ $sppd->totalPergi?->first()->tujuan }}</td>
+                <td>{{ $sppd->totalPergi?->first()->tgl_penerbangan }}</td>
+                <td>{{ $sppd->totalPergi?->first()->maskapai }}</td>
+                <td>{{ $sppd->totalPergi?->first()->booking_reference }}</td>
+                <td>{{ $sppd->totalPergi?->first()->no_eticket }}</td>
+                <td>{{ $sppd->totalPergi?->first()->no_penerbangan }}</td>
+                <td>{{ $sppd->totalPergi?->first()->total_harga }}</td>
+                <td>{{ $sppd->totalPulang?->first()->asal }}</td>
+                <td>{{ $sppd->totalPulang?->first()->tujuan }}</td>
+                <td>{{ $sppd->totalPulang?->first()->tgl_penerbangan }}</td>
+                <td>{{ $sppd->totalPulang?->first()->maskapai }}</td>
+                <td>{{ $sppd->totalPulang?->first()->booking_reference }}</td>
+                <td>{{ $sppd->totalPulang?->first()->no_eticket }}</td>
+                <td>{{ $sppd->totalPulang?->first()->no_penerbangan }}</td>
+                <td>{{ $sppd->totalPulang?->first()->total_harga }}</td>
+                @php
+                    $total = $sppd->uangHarian?->first()->total_harian + $sppd->uangHarian?->first()->total_konsumsi
+                             + $sppd->uangHarian?->first()->total_transportasi + $sppd->uangHarian?->first()->total_representasi
+                             + $sppd->akomodasi?->first()->total_uang + $sppd->totalPergi?->first()->total_harga
+                             + $sppd->totalPulang?->first()->total_harga;
+                @endphp
+                <td>{{ $total }}</td>
+            </tr>
+        @endforeach
     @endforeach
     </tbody>
 </table>

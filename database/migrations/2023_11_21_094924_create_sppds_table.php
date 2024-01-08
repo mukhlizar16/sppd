@@ -10,14 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sppds', function (Blueprint $table) {
+        Schema::create('sppd', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pegawai_id')
+            $table->foreignId('jenis_tugas_id')
                 ->index()
-                ->constrained('kepegawaian')
+                ->constrained('jenis_tugas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('jenis_tugas_id')->constrained('jenis_tugas')->onUpdate('cascade')->onDelete('restrict');
+            $table->string('nomor_sp2d');
+            $table->string('kegiatan');
             $table->integer('total_biaya')->nullable();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('sppds');
+        Schema::dropIfExists('sppd');
     }
 };

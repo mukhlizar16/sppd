@@ -10,6 +10,7 @@ use App\Models\Pegawai;
 use App\Models\Sppd;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -21,7 +22,7 @@ class SppdController extends Controller
     public function index()
     {
         $title = 'Data Sppd';
-        $sppds = Sppd::with('pegawai')->get();
+        $sppds = Sppd::with('pegawais')->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
 
@@ -34,12 +35,24 @@ class SppdController extends Controller
     public function store(StoreSppdRequest $request)
     {
         $validatedData = $request->validated();
-
-        $sppd = Sppd::create([
-            'pegawai_id' => $validatedData['pegawai'],
-            'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
-            'total_biaya' => $validatedData['total_biaya']
-        ]);
+        DB::beginTransaction();
+        try {
+            $sppd = Sppd::create([
+                'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
+                'nomor_sp2d' => $validatedData['nomor_sp2d'],
+                'kegiatan' => $validatedData['kegiatan'],
+                'dari' => $validatedData['dari'],
+                'tujuan' => $validatedData['tujuan'],
+                'total_biaya' => $validatedData['total_biaya']
+            ]);
+            foreach ($request->pegawai as $pegawai) {
+                $sppd->pegawais()->attach($pegawai);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
         return redirect()->route('surat.index', ['id' => $sppd->id])->with('success', 'Sppd baru berhasil ditambahkan!');
     }
@@ -96,23 +109,8 @@ class SppdController extends Controller
     public function destroy(Sppd $sppd)
     {
         try {
-            $sppd = Sppd::whereId($sppd->id)->first();
-            $sppd->SuratTugas->each(function ($SuratTugas) {
-                $SuratTugas->delete();
-            });
-            $sppd->Akomodasi->each(function ($Akomodasi) {
-                $Akomodasi->delete();
-            });
-            $sppd->UangHarian->each(function ($UangHarian) {
-                $UangHarian->delete();
-            });
-            $sppd->TotalPergi->each(function ($TotalPergi) {
-                $TotalPergi->delete();
-            });
-            $sppd->TotalPulang->each(function ($TotalPulang) {
-                $TotalPulang->delete();
-            });
-            Sppd::destroy($sppd->id);
+            $sppd->delete();
+            DB::statement('ALTER TABLE sppd AUTO_INCREMENT=1');
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation

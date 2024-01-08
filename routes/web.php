@@ -29,10 +29,6 @@ Route::get('/', function () {
     return view('welcome', compact('title'));
 });
 
-Route::get('/export', function () {
-    return view('export.sppd');
-});
-
 // Export Data Excel
 Route::get('/export-sppd', [SppdController::class, 'exportAll'])->name('sppd.export-all');
 Route::post('/export-excel/{sppdId}', [SppdController::class, 'exportExcel'])->name('sppd.export');
