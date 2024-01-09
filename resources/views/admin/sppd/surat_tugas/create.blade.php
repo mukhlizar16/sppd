@@ -65,33 +65,6 @@
                     <form action="{{ route('surat.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="sppd_id" value="{{ request('id') }}">
-                        <div class="mb-3">
-                            <label for="nomor_sp2d" class="form-label">Nomor Sp2d</label>
-                            <input type="text" class="form-control @error('nomor_sp2d') is-invalid @enderror"
-                                   name="nomor_sp2d" id="nomor_sp2d" value="{{ old('nomor_sp2d') }}" autofocus required>
-                            @error('nomor_sp2d')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="pegawai_id" class="form-label">Pegawai</label>
-                            <select class="form-select @error('pegawai_id') is-invalid @enderror" id="pegawai_id"
-                                    name="pegawai_id">
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->id }}">
-                                        {{ $pegawai->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('pegawai_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
 
                         <div class="mb-3">
                             <label for="nomor_st" class="form-label">Nomor ST/SPT</label>
@@ -148,16 +121,6 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
-                            <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror"
-                                   name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" required>
-                            @error('nama_kegiatan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
 
                         <div class="mb-3">
                             <label for="lama_tugas" class="form-label">Lama Tugas</label>

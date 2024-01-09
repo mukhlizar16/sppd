@@ -31,7 +31,7 @@
                 @csrf
                 <!-- Username -->
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">Email</label>
                     <input class="form-control @error('email') is-invalid @enderror" name="email" id="username"
                            placeholder="Enter your username" value="{{ old('email') }}" autofocus>
                     @error('email')

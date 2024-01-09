@@ -28,16 +28,15 @@ class SuratTugasController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         try {
             $validatedData = $request->validate([
                 'sppd_id' => 'required',
-                'nomor_sp2d' => 'required',
-                'pegawai_id' => 'required',
+                'nomor_spd' => 'required',
                 'nomor_st' => 'required',
                 'kegiatan' => 'required',
                 'dari' => 'required',
                 'tujuan' => 'required',
-                'nama_kegiatan' => 'required',
                 'lama_tugas' => 'required',
                 'tanggal' => 'required',
                 'tanggal_berangkat' => 'required',
@@ -84,13 +83,11 @@ class SuratTugasController extends Controller
 
         try {
             $rules = [
-                'nomor_sp2d' => 'required|integer',
-                'pegawai_id' => 'required',
-                'nomor_st' => 'required|integer',
+                'nomor_st' => 'required',
+                'nomor_spd' => 'required',
                 'kegiatan' => 'required',
                 'dari' => 'required',
                 'tujuan' => 'required',
-                'nama_kegiatan' => 'required',
                 'lama_tugas' => 'required',
                 'tanggal' => 'required',
                 'tanggal_berangkat' => 'required',
@@ -146,13 +143,13 @@ class SuratTugasController extends Controller
     {
         $validatedData = $request->validate([
             'sppd_id' => 'required',
+            'nomor_st' => 'required',
             'nomor_spd' => 'required',
-            'nomor' => 'required',
-            'kegiatan' => 'required|max:255',
-            'dari' => 'required|max:255',
-            'tujuan' => 'required|max:255',
+            'kegiatan' => 'required',
+            'dari' => 'required',
+            'tujuan' => 'required',
             'lama_tugas' => 'required',
-            'tanggal_st' => 'required',
+            'tanggal' => 'required',
             'tanggal_berangkat' => 'required',
             'tanggal_kembali' => 'required',
         ]);

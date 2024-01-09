@@ -35,13 +35,9 @@ class UangHarianController extends Controller
             $validatedData = $request->validate([
                 'sppd_id' => 'required',
                 'harian' => 'required',
-                'total_harian' => 'required',
                 'konsumsi' => 'required',
-                'total_konsumsi' => 'required',
                 'transportasi' => 'required',
-                'total_transportasi' => 'required',
                 'representasi' => 'required',
-                'total_representasi' => 'required',
             ]);
         } catch (\Illuminate\Validation\ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
@@ -76,13 +72,9 @@ class UangHarianController extends Controller
         try {
             $rules = [
                 'harian' => 'required',
-                'total_harian' => 'required',
                 'konsumsi' => 'required',
-                'total_konsumsi' => 'required',
                 'transportasi' => 'required',
-                'total_transportasi' => 'required',
                 'representasi' => 'required',
-                'total_representasi' => 'required',
             ];
 
             unset($rules['sppd_id']);
@@ -134,13 +126,9 @@ class UangHarianController extends Controller
             $validatedData = $request->validate([
                 'sppd_id' => 'required',
                 'harian' => 'required',
-                'total_harian' => 'required',
                 'konsumsi' => 'required',
-                'total_konsumsi' => 'required',
                 'transportasi' => 'required',
-                'total_transportasi' => 'required',
                 'representasi' => 'required',
-                'total_representasi' => 'required',
             ]);
         } catch (\Illuminate\Validation\ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());

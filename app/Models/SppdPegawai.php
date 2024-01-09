@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SuratTugas extends Model
+class SppdPegawai extends Model
 {
     use HasFactory;
 
-    protected $table = 'surat_tugas';
-    protected $fillable = ['sppd_id', 'nomor_st', 'nomor_spd',  'kegiatan', 'dari', 'tujuan', 'lama_tugas', 'tanggal', 'tanggal_berangkat', 'tanggal_kembali'];
+    protected $table = 'sppd_pegawai';
+    protected $fillable = ['sppd_id', 'pegawai_id'];
 
     public function Sppd()
     {

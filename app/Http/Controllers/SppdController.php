@@ -8,6 +8,7 @@ use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
+use App\Models\SppdPegawai;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class SppdController extends Controller
      */
     public function index()
     {
+
         $title = 'Data Sppd';
         $sppds = Sppd::with('pegawais')->get();
         $jenises = JenisTugas::all();
@@ -42,17 +44,23 @@ class SppdController extends Controller
                 'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
                 'nomor_sp2d' => $validatedData['nomor_sp2d'],
                 'kegiatan' => $validatedData['kegiatan'],
-                'dari' => $validatedData['dari'],
-                'tujuan' => $validatedData['tujuan'],
                 'total_biaya' => $validatedData['total_biaya']
             ]);
+            // foreach ($request->pegawai as $pegawai) {
+            //     $sppd->pegawais()->attach($pegawai);
+            // }
+
             foreach ($request->pegawai as $pegawai) {
-                $sppd->pegawais()->attach($pegawai);
+                SppdPegawai::create([
+                    'sppd_id' => $sppd->id,
+                    'pegawai_id' => $pegawai,
+                ]);
             }
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('failed', $e->getMessage());
         }
 
         return redirect()->route('surat.index', ['id' => $sppd->id])->with('success', 'Sppd baru berhasil ditambahkan!');
@@ -71,15 +79,18 @@ class SppdController extends Controller
      */
     public function show(Sppd $sppd)
     {
-
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Sppd $sppd)
     {
-        //
+        $jenises = JenisTugas::all();
+        $users = Pegawai::all();
+        $pegawa = $sppd->pegawais->pluck('id')->toArray();
+        $title = 'Edit Data Sppd';
+        return view('admin.sppd.edit')->with(compact('title', 'sppd', 'jenises', 'users', 'pegawa'));
     }
 
     /**
@@ -89,19 +100,28 @@ class SppdController extends Controller
     {
         try {
             $rules = [
-                'name' => 'required|max:255',
                 'jenis_tugas_id' => 'required',
+                'nomor_sp2d' => 'required',
+                'kegiatan' => 'required',
                 'total_biaya' => 'required',
             ];
 
             $validatedData = $this->validate($request, $rules);
+
+            // Update data SPPD
             $sppd->update($validatedData);
 
-//            foreach ($request->name as $name) {
-//                $sppd->pegawais()->sync($name);
-//            }
+            // Update pegawai terkait
+            $sppd->pegawais()->detach(); // Hapus semua pegawai terkait
 
-            return redirect()->route('sppd.index')->with('success', "Data Sppd $sppd->nomor_sp2d berhasil diperbarui!");
+            foreach ($request->pegawai as $pegawai) {
+                SppdPegawai::create([
+                    'sppd_id' => $sppd->id,
+                    'pegawai_id' => $pegawai,
+                ]);
+            }
+
+            return redirect()->route('sppd.index')->with('success', "Data SPPD $sppd->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
             return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
@@ -127,7 +147,6 @@ class SppdController extends Controller
 
     public function showTemplate(Sppd $sppd)
     {
-
     }
 
     public function exportExcel($sppdId)

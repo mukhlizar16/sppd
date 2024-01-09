@@ -57,11 +57,11 @@
                         @foreach ($surats as $surat)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $surat->nomor }}</td>
+                                <td>{{ $surat->nomor_st }}</td>
                                 <td>{{ $surat->nomor_spd }}</td>
                                 <td>{{ $surat->kegiatan }}</td>
                                 <td>{{ $surat->lama_tugas }}</td>
-                                <td>{{ $surat->tanggal_st }}</td>
+                                <td>{{ $surat->tanggal }}</td>
                                 <td>{{ Carbon\Carbon::parse($surat->tanggal_berangkat)->format('d/m/Y') }}</td>
                                 <td>{{ $surat->tanggal_kembali }}</td>
                                 <td>
@@ -85,7 +85,7 @@
                                     @method('put')
                                 @endslot
                                 @slot('btnPrimaryTitle', 'Perbarui')
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="nomor_sp2d" class="form-label">Nomor Sp2d</label>
                                     <input type="number"
                                            class="form-control @error('nomor_sp2d') is-invalid @enderror"
@@ -96,7 +96,7 @@
                                         {{ $message }}
                                     </div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="mb-3">
                                     <label for="nomor_st" class="form-label">Nomor ST/SPT</label>
@@ -161,19 +161,6 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
-                                    <input type="text"
-                                           class="form-control @error('nama_kegiatan') is-invalid @enderror"
-                                           name="nama_kegiatan" id="nama_kegiatan"
-                                           value="{{ old('nama_kegiatan', $surat->nama_kegiatan) }}" required>
-                                    @error('nama_kegiatan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
                                     <label for="lama_tugas" class="form-label">Lama Tugas</label>
                                     <input type="number"
                                            class="form-control @error('lama_tugas') is-invalid @enderror"
@@ -190,7 +177,7 @@
                                     <label for="tanggal" class="form-label">Tanggal ST</label>
                                     <input type="date"
                                            class="form-control @error('tanggal_st') is-invalid @enderror"
-                                           name="tanggal_st"
+                                           name="tanggal"
                                            id="tanggal" value="{{ old('tanggal', $surat->tanggal) }}" required>
                                     @error('tanggal_st')
                                     <div class="invalid-feedback">
@@ -241,7 +228,7 @@
                                 @slot('btnPrimaryTitle', 'Hapus')
 
                                 <p class="fs-5">Apakah anda yakin akan menghapus data Surat
-                                    <b>{{ $surat->nomor_sp2d }}</b>?
+                                    <b>{{ $surat->nomor_st }}</b>?
                                 </p>
 
                             </x-form_modal>
@@ -275,9 +262,9 @@
             </div>
             <div class="mb-3">
                 <label for="nomor_st" class="form-label">Nomor ST/SPT</label>
-                <input type="text" class="form-control @error('nomor') is-invalid @enderror" name="nomor"
+                <input type="text" class="form-control @error('nomor') is-invalid @enderror" name="nomor_st"
                        id="nomor_st" value="{{ old('nomor') }}" autofocus required>
-                @error('nomor')
+                @error('nomor_st')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -322,9 +309,9 @@
             </div>
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal ST</label>
-                <input type="date" class="form-control @error('tanggal_st') is-invalid @enderror" name="tanggal_st"
-                       id="tanggal" value="{{ old('tanggal_st') }}" required>
-                @error('tanggal_st')
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
+                       id="tanggal" value="{{ old('tanggal') }}" required>
+                @error('tanggal')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

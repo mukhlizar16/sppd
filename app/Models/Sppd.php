@@ -48,4 +48,5 @@ class Sppd extends Model
     {
         return $this->belongsToMany(Pegawai::class, 'sppd_pegawai', 'sppd_id', 'pegawai_id');
     }
+
 }

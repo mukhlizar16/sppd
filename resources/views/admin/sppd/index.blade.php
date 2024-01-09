@@ -66,10 +66,9 @@
                                             <i class="fa-regular fa-file"></i>
                                         </button>
                                     </form>
-                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editSppd{{ $loop->iteration }}">
+                                    <a class="btn btn-sm btn-warning" href="{{ route('sppd.edit', $sppd->id) }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </button>
+                                    </a>
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#hapusSppd{{ $loop->iteration }}">
                                         <i class="fa-regular fa-trash-can fa-lg"></i>
@@ -77,7 +76,7 @@
                                 </td>
                             </tr>
                             {{-- Modal Edit sppd --}}
-                            <x-form_modal>
+                            {{-- <x-form_modal>
                                 @slot('id', "editSppd$loop->iteration")
                                 @slot('title', 'Edit Data Sppd')
                                 @slot('route', route('sppd.update', $sppd->id))
@@ -132,7 +131,7 @@
                                     <div class="form-text" id="basic-addon4">Kosongkan jika belum mempunyai total
                                     </div>
                                 </div>
-                            </x-form_modal>
+                            </x-form_modal> --}}
                             {{-- / Modal Edit sppd --}}
 
                             {{-- Modal Hapus sppd --}}
@@ -233,6 +232,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal Tambah jenis -->
     <x-form_modal>
         @slot('id', 'tambahSppd')
@@ -282,9 +282,9 @@
             </div>
             <div class="mb-3">
                 <label for="kegiatan" class="form-label">Kode Kegiatan</label>
-                <input type="text" name="kode_kegiatan" id="kegiatan"
-                       class="form-control @error('kode_kegiatan') is-invalid @enderror" required>
-                @error('kode_kegiatan')
+                <input type="text" name="kegiatan" id="kegiatan"
+                       class="form-control @error('kegiatan') is-invalid @enderror" required>
+                @error('kegiatan')
                 <div class="invalid_feedback">{{ $message }}</div>
                 @enderror
             </div>

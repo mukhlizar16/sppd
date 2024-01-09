@@ -23,6 +23,10 @@
                 <i class="fa-regular fa-chevron-left me-2"></i>
                 Kembali
             </a>
+            <a class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#tambahSppd">
+                <i class="fa-regular fa-plus me-2"></i>
+                Tambah
+            </a>
             <div class="mt-3 card">
                 <div class="card-body">
                     {{-- Table --}}
@@ -40,7 +44,6 @@
                                 <th>Nama Kwitansi</th>
                                 <th>Harga Permalam</th>
                                 <th>Harga Permalam (30%)</th>
-                                <th>Total Uang</th>
                                 <th>BBM</th>
                                 <th>Dari</th>
                                 <th>Ke</th>
@@ -51,16 +54,15 @@
                             @foreach ($akomodasis as $akomodasi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $akomodasi->name_hotel }}</td>
-                                    <td>{{ $akomodasi->tgl_masuk }}</td>
-                                    <td>{{ $akomodasi->tgl_keluar }}</td>
-                                    <td>{{ $akomodasi->no_invoice }}</td>
-                                    <td>{{ $akomodasi->no_kamar }}</td>
+                                    <td>{{ $akomodasi->nama_hotel }}</td>
+                                    <td>{{ $akomodasi->check_in }}</td>
+                                    <td>{{ $akomodasi->check_out }}</td>
+                                    <td>{{ $akomodasi->nomor_invoice }}</td>
+                                    <td>{{ $akomodasi->nomor_kamar }}</td>
                                     <td>{{ $akomodasi->lama_inap }}</td>
                                     <td>{{ $akomodasi->nama_kwitansi }}</td>
-                                    <td>{{ $akomodasi->harga_permalam }}</td>
-                                    <td>{{ $akomodasi->harga_permalam2 }}</td>
-                                    <td>{{ $akomodasi->total_uang }}</td>
+                                    <td>{{ $akomodasi->harga }}</td>
+                                    <td>{{ $akomodasi->harga_diskon }}</td>
                                     <td>{{ $akomodasi->bbm }}</td>
                                     <td>{{ $akomodasi->dari }}</td>
                                     <td>{{ $akomodasi->ke }}</td>
@@ -90,8 +92,8 @@
                                         <label for="name_hotel" class="form-label">Nama Hotel</label>
                                         <input type="text"
                                             class="form-control @error('name_hotel') is-invalid @enderror"
-                                            name="name_hotel" id="name_hotel"
-                                            value="{{ old('name_hotel', $akomodasi->name_hotel) }}" autofocus required>
+                                            name="nama_hotel" id="name_hotel"
+                                            value="{{ old('name_hotel', $akomodasi->nama_hotel) }}" autofocus required>
                                         @error('name_hotel')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -100,12 +102,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="tgl_masuk" class="form-label">Tanggal Masuk</label>
+                                        <label for="check_in" class="form-label">Tanggal Masuk</label>
                                         <input type="date"
-                                            class="form-control @error('tgl_masuk') is-invalid @enderror"
-                                            name="tgl_masuk" id="tgl_masuk"
-                                            value="{{ old('tgl_masuk', $akomodasi->tgl_masuk) }}" autofocus required>
-                                        @error('tgl_masuk')
+                                            class="form-control @error('check_in') is-invalid @enderror" name="check_in"
+                                            id="check_in" value="{{ old('check_in', $akomodasi->check_in) }}"
+                                            autofocus required>
+                                        @error('check_in')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -113,12 +115,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="tgl_keluar" class="form-label">Tanggal Keluar</label>
+                                        <label for="check_out" class="form-label">Tanggal Keluar</label>
                                         <input type="date"
-                                            class="form-control @error('tgl_keluar') is-invalid @enderror"
-                                            name="tgl_keluar" id="tgl_keluar"
-                                            value="{{ old('tgl_keluar', $akomodasi->tgl_keluar) }}" autofocus required>
-                                        @error('tgl_keluar')
+                                            class="form-control @error('check_out') is-invalid @enderror"
+                                            name="check_out" id="check_out"
+                                            value="{{ old('check_out', $akomodasi->check_out) }}" autofocus required>
+                                        @error('check_out')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -126,12 +128,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="no_invoice" class="form-label">No Invoice</label>
+                                        <label for="nomor_invoice" class="form-label">No Invoice</label>
                                         <input type="text"
-                                            class="form-control @error('no_invoice') is-invalid @enderror"
-                                            name="no_invoice" id="no_invoice"
-                                            value="{{ old('no_invoice', $akomodasi->no_invoice) }}" required>
-                                        @error('no_invoice')
+                                            class="form-control @error('nomor_invoice') is-invalid @enderror"
+                                            name="nomor_invoice" id="nomor_invoice"
+                                            value="{{ old('nomor_invoice', $akomodasi->nomor_invoice) }}" required>
+                                        @error('nomor_invoice')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -139,12 +141,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="no_kamar" class="form-label">No Kamar</label>
+                                        <label for="nomor_kamar" class="form-label">No Kamar</label>
                                         <input type="text"
-                                            class="form-control @error('no_kamar') is-invalid @enderror" name="no_kamar"
-                                            id="no_kamar" value="{{ old('no_kamar', $akomodasi->no_kamar) }}"
-                                            required>
-                                        @error('no_kamar')
+                                            class="form-control @error('nomor_kamar') is-invalid @enderror"
+                                            name="nomor_kamar" id="nomor_kamar"
+                                            value="{{ old('nomor_kamar', $akomodasi->nomor_kamar) }}" required>
+                                        @error('nomor_kamar')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -178,12 +180,11 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="harga_permalam" class="form-label">Harga Permalam</label>
+                                        <label for="harga" class="form-label">Harga Permalam</label>
                                         <input type="number"
-                                            class="form-control @error('harga_permalam') is-invalid @enderror"
-                                            name="harga_permalam" id="harga_permalam"
-                                            value="{{ old('harga_permalam', $akomodasi->harga_permalam) }}" required>
-                                        @error('harga_permalam')
+                                            class="form-control @error('harga') is-invalid @enderror" name="harga"
+                                            id="harga" value="{{ old('harga', $akomodasi->harga) }}" required>
+                                        @error('harga')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -191,31 +192,18 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="harga_permalam2" class="form-label">Harga Permalam (30%)</label>
+                                        <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
                                         <input type="number"
-                                            class="form-control @error('harga_permalam2') is-invalid @enderror"
-                                            name="harga_permalam2" id="harga_permalam2"
-                                            value="{{ old('harga_permalam2', $akomodasi->harga_permalam2) }}"
-                                            required>
-                                        @error('harga_permalam2')
+                                            class="form-control @error('harga_diskon') is-invalid @enderror"
+                                            name="harga_diskon" id="harga_diskon"
+                                            value="{{ old('harga_diskon', $akomodasi->harga_diskon) }}" required>
+                                        @error('harga_diskon')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="total_uang" class="form-label">Total Uang</label>
-                                        <input type="number"
-                                            class="form-control @error('total_uang') is-invalid @enderror"
-                                            name="total_uang" id="total_uang"
-                                            value="{{ old('total_uang', $akomodasi->total_uang) }}" required>
-                                        @error('total_uang')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
 
                                     <div class="mb-3">
                                         <label for="bbm" class="form-label">BBM</label>
@@ -280,4 +268,145 @@
         </div>
     </div>
 
+    <x-form_modal>
+        @slot('id', 'tambahSppd')
+        @slot('title', 'Tambah Data Sppd')
+        @slot('overflow', 'overflow-auto')
+        @slot('route', route('akomodasi.detailStore'))
+
+        @csrf
+
+        <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
+        <div class="mb-3">
+            <label for="nama_hotel" class="form-label">Nama Hotel</label>
+            <input type="text" class="form-control @error('name_hotel') is-invalid @enderror" name="nama_hotel"
+                id="name_hotel" value="{{ old('name_hotel') }}" autofocus required>
+            @error('name_hotel')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="check_in" class="form-label">Tanggal Masuk</label>
+            <input type="date" class="form-control @error('check_in') is-invalid @enderror" name="check_in"
+                id="check_in" value="{{ old('check_in') }}" autofocus required>
+            @error('check_in')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="check_out" class="form-label">Tanggal Keluar</label>
+            <input type="date" class="form-control @error('check_out') is-invalid @enderror" name="check_out"
+                id="check_out" value="{{ old('check_out') }}" autofocus required>
+            @error('check_out')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="nomor_invoice" class="form-label">No Invoice</label>
+            <input type="text" class="form-control @error('nomor_invoice') is-invalid @enderror" name="nomor_invoice"
+                id="nomor_invoice" value="{{ old('nomor_invoice') }}" required>
+            @error('nomor_invoice')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="nomor_kamar" class="form-label">No Kamar</label>
+            <input type="text" class="form-control @error('nomor_kamar') is-invalid @enderror" name="nomor_kamar"
+                id="nomor_kamar" value="{{ old('nomor_kamar') }}" required>
+            @error('nomor_kamar')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="lama_inap" class="form-label">Lama Inap</label>
+            <input type="number" max="50" class="form-control @error('lama_inap') is-invalid @enderror"
+                name="lama_inap" id="lama_inap" value="{{ old('lama_inap') }}" required>
+            @error('lama_inap')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="nama_kwitansi" class="form-label">Nama Kwitansi</label>
+            <input type="text" class="form-control @error('nama_kwitansi') is-invalid @enderror"
+                name="nama_kwitansi" id="nama_kwitansi" value="{{ old('nama_kwitansi') }}" required>
+            @error('nama_kwitansi')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="harga" class="form-label">Harga Permalam</label>
+            <input type="number" class="form-control @error('harga') is-invalid @enderror"
+                name="harga" id="harga" value="{{ old('harga') }}" required>
+            @error('harga')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
+            <input type="number" class="form-control @error('harga_diskon') is-invalid @enderror"
+                name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}" required>
+            @error('harga_diskon')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="bbm" class="form-label">BBM</label>
+            <input type="number" class="form-control @error('bbm') is-invalid @enderror" name="bbm"
+                id="bbm" value="{{ old('bbm') }}" required>
+            @error('bbm')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="dari" class="form-label">Dari</label>
+            <input type="text" class="form-control @error('dari') is-invalid @enderror" name="dari"
+                id="dari" value="{{ old('dari') }}" required>
+            @error('dari')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="ke" class="form-label">Ke</label>
+            <input type="text" class="form-control @error('ke') is-invalid @enderror" name="ke"
+                id="ke" value="{{ old('ke') }}" required>
+            @error('ke')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </x-form_modal>
+    <!-- Akhir Modal Tambah surat -->
 </x-app-layout>

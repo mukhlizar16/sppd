@@ -26,7 +26,8 @@ class StoreSppdRequest extends FormRequest
             'nomor_sp2d' => 'required',
             'jenis_tugas_id' => 'required',
             'kegiatan' => 'required',
-            'total_biaya' => 'required|numeric'
+            'total_biaya' => 'required|numeric',
+            'pegawai' => 'required|array',
         ];
     }
 

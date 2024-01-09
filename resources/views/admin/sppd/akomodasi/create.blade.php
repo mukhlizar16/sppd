@@ -68,7 +68,7 @@
                         <div class="mb-3">
                             <label for="name_hotel" class="form-label">Nama Hotel</label>
                             <input type="text" class="form-control @error('name_hotel') is-invalid @enderror"
-                                name="name_hotel" id="name_hotel" value="{{ old('name_hotel') }}" autofocus required>
+                                name="nama_hotel" id="name_hotel" value="{{ old('nama_hotel') }}" autofocus required>
                             @error('name_hotel')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -77,10 +77,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="tgl_masuk" class="form-label">Tanggal Masuk</label>
-                            <input type="date" class="form-control @error('tgl_masuk') is-invalid @enderror"
-                                name="tgl_masuk" id="tgl_masuk" value="{{ old('tgl_masuk') }}" autofocus required>
-                            @error('tgl_masuk')
+                            <label for="check_in" class="form-label">Tanggal Masuk</label>
+                            <input type="date" class="form-control @error('check_in') is-invalid @enderror"
+                                name="check_in" id="check_in" value="{{ old('check_in') }}" autofocus required>
+                            @error('check_in')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -88,10 +88,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="tgl_keluar" class="form-label">Tanggal Keluar</label>
-                            <input type="date" class="form-control @error('tgl_keluar') is-invalid @enderror"
-                                name="tgl_keluar" id="tgl_keluar" value="{{ old('tgl_keluar') }}" autofocus required>
-                            @error('tgl_keluar')
+                            <label for="check_out" class="form-label">Tanggal Keluar</label>
+                            <input type="date" class="form-control @error('check_out') is-invalid @enderror"
+                                name="check_out" id="check_out" value="{{ old('check_out') }}" autofocus required>
+                            @error('check_out')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -99,10 +99,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="no_invoice" class="form-label">No Invoice</label>
-                            <input type="text" class="form-control @error('no_invoice') is-invalid @enderror"
-                                name="no_invoice" id="no_invoice" value="{{ old('no_invoice') }}" required>
-                            @error('no_invoice')
+                            <label for="nomor_invoice" class="form-label">No Invoice</label>
+                            <input type="text" class="form-control @error('nomor_invoice') is-invalid @enderror"
+                                name="nomor_invoice" id="nomor_invoice" value="{{ old('nomor_invoice') }}" required>
+                            @error('nomor_invoice')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -110,10 +110,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="no_kamar" class="form-label">No Kamar</label>
-                            <input type="text" class="form-control @error('no_kamar') is-invalid @enderror"
-                                name="no_kamar" id="no_kamar" value="{{ old('no_kamar') }}" required>
-                            @error('no_kamar')
+                            <label for="nomor_kamar" class="form-label">No Kamar</label>
+                            <input type="text" class="form-control @error('nomor_kamar') is-invalid @enderror"
+                                name="nomor_kamar" id="nomor_kamar" value="{{ old('nomor_kamar') }}" required>
+                            @error('nomor_kamar')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -144,11 +144,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="harga_permalam" class="form-label">Harga Permalam</label>
-                            <input type="number" class="form-control @error('harga_permalam') is-invalid @enderror"
-                                name="harga_permalam" id="harga_permalam" value="{{ old('harga_permalam') }}"
+                            <label for="harga" class="form-label">Harga Permalam</label>
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror"
+                                name="harga" id="harga" value="{{ old('harga') }}"
                                 required>
-                            @error('harga_permalam')
+                            @error('harga')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -156,22 +156,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="harga_permalam2" class="form-label">Harga Permalam (30%)</label>
-                            <input type="number" class="form-control @error('harga_permalam2') is-invalid @enderror"
-                                name="harga_permalam2" id="harga_permalam2" value="{{ old('harga_permalam2') }}"
+                            <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
+                            <input type="number" class="form-control @error('harga_diskon') is-invalid @enderror"
+                                name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}"
                                 required>
-                            @error('harga_permalam2')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="total_uang" class="form-label">Total Uang</label>
-                            <input type="number" class="form-control @error('total_uang') is-invalid @enderror"
-                                name="total_uang" id="total_uang" value="{{ old('total_uang') }}" required>
-                            @error('total_uang')
+                            @error('harga_diskon')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
