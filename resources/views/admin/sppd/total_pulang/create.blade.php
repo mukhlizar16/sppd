@@ -16,46 +16,45 @@
     </div>
     <div class="row">
         <div class="col col-md-12">
+            <a class="btn btn-outline-secondary" href="{{ route('sppd.index') }}">
+                <i class="fa-regular fa-chevron-left me-2"></i>
+                Kembali
+            </a>
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-outline-secondary">
+                        <a href="{{ route('surat.index', request('id') ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-envelopes-bulk me-2"></i>
                             Surat Tugas
-                        </button>
+                        </a>
                     </div>
                     <div class="col">
-                        <button class="btn btn-outline-secondary">
+                        <a href="{{ route('uang.index', request('id') ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-money-bill me-2"></i>
                             Uang Harian
-                        </button>
+                        </a>
                     </div>
                     <div class="col">
-                        <button class="btn btn-outline-secondary">
+                        <a href="{{ route('akomodasi.index', request('id') ) }}" class="btn btn-outline-secondary" >
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
-                        </button>
+                        </a>
                     </div>
                     <div class="col">
-                        <button class="btn btn-outline-secondary">
+                        <a href="{{ route('pergi.index', request('id') ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
-                        </button>
+                        </a>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary" disabled>
+                        <a href="{{ route('pulang.index', request('id') ) }}" class="btn btn-primary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
-                        </button>
+                        </a>
                     </div>
                 </div>
 
-                <div class="progress mt-4">
-                    <div class="progress-bar" role="progressbar" style="width: 96%;" aria-valuenow="20"
-                        aria-valuemin="0" aria-valuemax="100">
-                        96%
-                    </div>
-                </div>
+
             </div>
 
 

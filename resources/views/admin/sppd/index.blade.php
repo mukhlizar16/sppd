@@ -147,7 +147,7 @@
                                 @slot('btnPrimaryTitle', 'Hapus')
 
                                 <p class="fs-5">Apakah anda yakin akan menghapus data Sppd
-                                    <b>{{ $sppd->name }}</b>?
+                                    <b>{{ $sppd->nomor_sp2d }}</b>?
                                 </p>
 
                             </x-form_modal>

@@ -49,7 +49,7 @@ class TiketPulangController extends Controller
 
         TotalPulang::create($validatedData);
 
-        return redirect()->route('sppd.index')->with('success', 'Sppd baru berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Sppd baru berhasil ditambahkan!');
     }
 
     /**

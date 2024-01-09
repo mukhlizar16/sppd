@@ -25,7 +25,7 @@ class StoreSppdRequest extends FormRequest
         return [
             'nomor_sp2d' => 'required',
             'jenis_tugas_id' => 'required',
-            'kegiatan' => 'required',
+            'kegiatan' => 'required|max:250',
             'total_biaya' => 'required|numeric',
             'pegawai' => 'required|array',
         ];
