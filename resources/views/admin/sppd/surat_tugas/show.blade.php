@@ -100,7 +100,7 @@
 
                                 <div class="mb-3">
                                     <label for="nomor_st" class="form-label">Nomor ST/SPT</label>
-                                    <input type="number"
+                                    <input type="text"
                                            class="form-control @error('nomor_st') is-invalid @enderror" name="nomor_st"
                                            id="nomor_st" value="{{ old('nomor_st', $surat->nomor_st) }}" autofocus
                                            required>
@@ -113,7 +113,7 @@
 
                                 <div class="mb-3">
                                     <label for="nomor_spd" class="form-label">Nomor SPD</label>
-                                    <input type="number"
+                                    <input type="text"
                                            class="form-control @error('nomor_spd') is-invalid @enderror"
                                            name="nomor_spd" id="nomor_spd"
                                            value="{{ old('nomor_spd', $surat->nomor_spd) }}" autofocus required>
