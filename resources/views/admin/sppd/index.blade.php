@@ -28,16 +28,17 @@
             <div class="mt-3 card">
                 <div class="card-body">
                     {{-- Table --}}
-                    <table id="myTable" class="table align-middle responsive nowrap table-bordered table-striped"
+                    <table id="myTable" class="table align-middle responsive table-bordered table-striped"
                            style="width:100%">
-                        <thead>
+                        <thead class="align-middle">
                         <tr>
                             <th>#</th>
                             <th>Nomor SP2D</th>
+                            <th>Kode Kegiatan</th>
                             <th>Pegawai</th>
                             <th>Jenis Tugas</th>
                             <th>Total Biaya</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,6 +47,9 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $sppd->nomor_sp2d }}</td>
                                 <td>
+                                    <div style="min-width: 300px">{{ $sppd->kegiatan }}</div>
+                                </td>
+                                <td class="text-nowrap">
                                     <ul class="mb-0 list-unstyled" style="list-style-type: -">
                                         @foreach ($sppd->pegawais as $pegawai)
                                             <li>- {{ $pegawai->nama_lengkap }}</li>
@@ -53,8 +57,9 @@
                                     </ul>
                                 </td>
                                 <td>{{ $sppd->JenisTugas->name }}</td>
-                                <td>Rp. {{ number_format($sppd->total_biaya, 0, ',', '.') }}</td>
-                                <td>
+                                <td class="text-nowrap text-end">
+                                    Rp. {{ number_format($sppd->total_biaya, 0, ',', '.') }}</td>
+                                <td class="text-nowrap text-center">
                                     <a class="text-white btn btn-sm btn-info" data-bs-toggle="modal"
                                        data-bs-target="#detailSppd{{ $loop->iteration }}">
                                         <i class="fa-regular fa-list"></i>

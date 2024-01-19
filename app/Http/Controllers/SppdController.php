@@ -8,7 +8,6 @@ use App\Http\Requests\StoreSppdRequest;
 use App\Models\JenisTugas;
 use App\Models\Pegawai;
 use App\Models\Sppd;
-use App\Models\SppdPegawai;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -25,7 +24,7 @@ class SppdController extends Controller
     {
 
         $title = 'Data Sppd';
-        $sppds = Sppd::with('pegawais')->get();
+        $sppds = Sppd::with('pegawais')->latest()->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
 
@@ -46,17 +45,9 @@ class SppdController extends Controller
                 'kegiatan' => $validatedData['kegiatan'],
                 'total_biaya' => $validatedData['total_biaya']
             ]);
-            // foreach ($request->pegawai as $pegawai) {
-            //     $sppd->pegawais()->attach($pegawai);
-            // }
 
-            foreach ($request->pegawai as $pegawai) {
-                SppdPegawai::create([
-                    'sppd_id' => $sppd->id,
-                    'pegawai_id' => $pegawai,
-                ]);
-            }
 
+            $sppd->pegawais()->attach($request->pegawai);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -105,21 +96,13 @@ class SppdController extends Controller
                 'kegiatan' => 'required',
                 'total_biaya' => 'required',
             ];
-
             $validatedData = $this->validate($request, $rules);
 
             // Update data SPPD
             $sppd->update($validatedData);
 
             // Update pegawai terkait
-            $sppd->pegawais()->detach(); // Hapus semua pegawai terkait
-
-            foreach ($request->pegawai as $pegawai) {
-                SppdPegawai::create([
-                    'sppd_id' => $sppd->id,
-                    'pegawai_id' => $pegawai,
-                ]);
-            }
+            $sppd->pegawais()->sync($request->pegawai);
 
             return redirect()->route('sppd.index')->with('success', "Data SPPD $sppd->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
