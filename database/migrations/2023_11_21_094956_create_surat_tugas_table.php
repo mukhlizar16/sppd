@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->string('dari');
             $table->string('tujuan');
             $table->tinyInteger('lama_tugas');
-            $table->date('tanggal');
+            $table->date('tanggal_st');
             $table->date('tanggal_berangkat');
             $table->date('tanggal_kembali');
             $table->timestamps();

@@ -177,8 +177,8 @@
                                     <label for="tanggal" class="form-label">Tanggal ST</label>
                                     <input type="date"
                                            class="form-control @error('tanggal_st') is-invalid @enderror"
-                                           name="tanggal"
-                                           id="tanggal" value="{{ old('tanggal', $surat->tanggal) }}" required>
+                                           name="tanggal_st"
+                                           id="tanggal" value="{{ old('tanggal_st', $surat->tanggal_st) }}" required>
                                     @error('tanggal_st')
                                     <div class="invalid-feedback">
                                         {{ $message }}
