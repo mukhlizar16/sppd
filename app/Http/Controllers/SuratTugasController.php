@@ -56,7 +56,7 @@ class SuratTugasController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

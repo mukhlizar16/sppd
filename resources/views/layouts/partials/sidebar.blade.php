@@ -9,7 +9,7 @@
 
     <ul class="menu-inner py-1">
         {{-- Dashboard --}}
-        @role('admin')
+        {{-- @role('admin') --}}
             <li class="menu-item {{ Request::is('dashboard') ? 'active' : '' }}">
                 <a href="/dashboard" class="menu-link">
                     <i class="fa-duotone fa-grid-2 me-3"></i>
@@ -40,7 +40,7 @@
                     <div data-i18n="Analytics">User</div>
                 </a>
             </li>
-        @else
+        {{-- @else
             <li class="menu-item {{ Request::is('dashboard') ? 'active' : '' }}">
                 <a href="/dashboard" class="menu-link">
                     <i class="fa-duotone fa-grid-2 me-3"></i>
@@ -54,6 +54,6 @@
                     <div data-i18n="Analytics">SPPD</div>
                 </a>
             </li>
-        @endrole
+        @endrole --}}
     </ul>
 </aside>

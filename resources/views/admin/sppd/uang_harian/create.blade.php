@@ -23,31 +23,31 @@
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('surat.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('surat.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-envelopes-bulk me-2"></i>
                             Surat Tugas
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('uang.index', request('id') ) }}" class="btn btn-primary">
+                        <a href="{{ route('uang.index', ['id' => request('id')] ) }}" class="btn btn-primary">
                             <i class="fa-regular fa-money-bill me-2"></i>
                             Uang Harian
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('akomodasi.index', request('id') ) }}" class="btn btn-outline-secondary" >
+                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary" >
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pergi.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pulang.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
                         </a>
@@ -74,34 +74,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="total_harian" class="form-label">Total Harian</label>
-                            <input type="number" class="form-control @error('total_harian') is-invalid @enderror"
-                                name="total_harian" id="total_harian" value="{{ old('total_harian') }}" autofocus
-                                required>
-                            @error('total_harian')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
                             <label for="konsumsi" class="form-label">Konsumsi</label>
                             <input type="number" class="form-control @error('konsumsi') is-invalid @enderror"
                                 name="konsumsi" id="konsumsi" value="{{ old('konsumsi') }}" autofocus required>
                             @error('konsumsi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="total_konsumsi" class="form-label">Total Konsumsi</label>
-                            <input type="number" class="form-control @error('total_konsumsi') is-invalid @enderror"
-                                name="total_konsumsi" id="total_konsumsi" value="{{ old('total_konsumsi') }}" autofocus
-                                required>
-                            @error('total_konsumsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -121,36 +97,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="total_transportasi" class="form-label">Total Transportasi</label>
-                            <input type="number" class="form-control @error('total_transportasi') is-invalid @enderror"
-                                name="total_transportasi" id="total_transportasi"
-                                value="{{ old('total_transportasi') }}" autofocus required>
-                            @error('total_transportasi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
                             <label for="representasi" class="form-label">Representasi</label>
                             <input type="number" class="form-control @error('representasi') is-invalid @enderror"
                                 name="representasi" id="representasi" value="{{ old('representasi') }}" autofocus
                                 required>
                             @error('representasi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="total_representasi" class="form-label">Total Representasi</label>
-                            <input type="number"
-                                class="form-control @error('total_representasi') is-invalid @enderror"
-                                name="total_representasi" id="total_representasi"
-                                value="{{ old('total_representasi') }}" autofocus required>
-                            @error('total_representasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
