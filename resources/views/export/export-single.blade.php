@@ -192,7 +192,7 @@
     @foreach($sppd->pegawais as $pegawai)
         <tr>
             <td>{{ $i++ }}</td>
-            <td>{{ $sppd->suratTugas?->first()->nomor_sp2d }}</td>
+            <td>{{ $sppd->suratTugas?->first()->nomor_spd }}</td>
             <td>{{ $pegawai->nama }}</td>
             <td>{{ $pegawai->jabatan }}</td>
             <td>{{ $pegawai->golongan->kode }}</td>

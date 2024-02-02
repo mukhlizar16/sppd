@@ -23,31 +23,31 @@
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('surat.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('surat.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-envelopes-bulk me-2"></i>
                             Surat Tugas
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('uang.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('uang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-money-bill me-2"></i>
                             Uang Harian
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('akomodasi.index', request('id') ) }}" class="btn btn-outline-secondary" >
+                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary" >
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pergi.index', request('id') ) }}" class="btn btn-primary">
+                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}" class="btn btn-primary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pulang.index', request('id') ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
                         </a>

@@ -64,13 +64,13 @@
                                        data-bs-target="#detailSppd{{ $loop->iteration }}">
                                         <i class="fa-regular fa-list"></i>
                                     </a>
-                                    <form action="{{ route('sppd.export', $sppd->id) }}" method="post"
+                                    {{-- <form action="{{ route('sppd.export', $sppd->id) }}" method="post"
                                           class="d-inline">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-success">
                                             <i class="fa-regular fa-file"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                     <a class="btn btn-sm btn-warning" href="{{ route('sppd.edit', $sppd->id) }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
