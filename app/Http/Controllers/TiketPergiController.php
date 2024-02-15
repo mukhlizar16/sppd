@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTotalPergiRequest;
 use App\Models\Sppd;
 use App\Models\TotalPergi;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TiketPergiController extends Controller
 {
@@ -14,42 +18,26 @@ class TiketPergiController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pergi';
+        $tiket = TotalPergi::where('sppd_id', request('id'))->first();
 
-        return view('admin.sppd.total_pergi.create')->with(compact('title'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.sppd.total_pergi.create')->with(compact('title', 'tiket'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTotalPergiRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'asal' => 'required',
-                'tujuan' => 'required',
-                'tgl_penerbangan' => 'required',
-                'maskapai' => 'required',
-                'booking_reference' => 'required',
-                'no_eticket' => 'required',
-                'no_penerbangan' => 'required',
-                'total_harga' => 'required',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            $validatedData = $request->validated();
+            TotalPergi::updateOrCreate(
+                ['sppd_id' => $request->sppd_id],
+                $validatedData
+            );
+            return to_route('pulang.index', ['id' => $request->sppd_id])->with('success', 'Tiket Pergi baru berhasil ditambahkan!');
+        } catch (Exception $e) {
+            return back()->with('failed', $e->getMessage());
         }
-
-        TotalPergi::create($validatedData);
-
-        return redirect()->route('pulang.index', ['id' => $request->sppd_id])->with('success', 'Tiket Pergi baru berhasil ditambahkan!');
     }
 
     /**
@@ -93,7 +81,7 @@ class TiketPergiController extends Controller
             TotalPergi::where('id', $pergi->id)->update($validatedData);
 
             return redirect()->back()->with('success', "Data Tiket Pergi $pergi->asal berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
@@ -105,7 +93,7 @@ class TiketPergiController extends Controller
     {
         try {
             TotalPergi::destroy($pergi->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->back()->with('failed', "Tiket Pergi $pergi->asal tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -142,12 +130,20 @@ class TiketPergiController extends Controller
                 'no_penerbangan' => 'required',
                 'total_harga' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 
         TotalPergi::create($validatedData);
 
         return redirect()->back()->with('success', 'Tiket Pergi baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 }

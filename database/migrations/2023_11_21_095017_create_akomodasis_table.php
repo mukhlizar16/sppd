@@ -17,7 +17,7 @@ return new class extends Migration {
                 ->constrained('sppd')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('nama_hotel');
+            $table->string('name_hotel');
             $table->date('check_in');
             $table->date('check_out');
             $table->string('nomor_invoice');
@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->string('nama_kwitansi');
             $table->integer('harga');
             $table->integer('harga_diskon');
+            $table->integer('total_uang');
             $table->integer('bbm');
             $table->string('dari');
             $table->string('ke');

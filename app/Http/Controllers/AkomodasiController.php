@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAkomodasiRequest;
 use App\Models\Akomodasi;
 use App\Models\Sppd;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use PHPUnit\Exception;
 
 class AkomodasiController extends Controller
 {
@@ -14,46 +19,30 @@ class AkomodasiController extends Controller
     public function index()
     {
         $title = 'Data Akomodasi';
+        $akomodasi = Akomodasi::where('sppd_id', request('id'))->first();
 
-        return view('admin.sppd.akomodasi.create')->with(compact('title'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.sppd.akomodasi.create')->with(compact('title', 'akomodasi'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAkomodasiRequest $request)
     {
+        DB::beginTransaction();
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'nama_hotel' => 'required',
-                'check_in' => 'required',
-                'check_out' => 'required',
-                'nomor_invoice' => 'required',
-                'nomor_kamar' => 'required',
-                'lama_inap' => 'required',
-                'nama_kwitansi' => 'required',
-                'harga' => 'required',
-                'harga_diskon' => 'required',
-                'bbm' => 'required',
-                'dari' => 'required',
-                'ke' => 'required',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            $validatedData = $request->validated();
+            $validatedData['total_uang'] = $request->lama_inap * $request->harga;
+            Akomodasi::updateOrCreate(
+                ['sppd_id' => $request->sppd_id],
+                $validatedData
+            );
+            DB::commit();
+            return redirect()->route('pergi.index', ['id' => $request->sppd_id])->with('success', 'Akomodasi baru berhasil ditambahkan!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('failed', $e->getMessage());
         }
-
-        Akomodasi::create($validatedData);
-
-        return redirect()->route('pergi.index', ['id' => $request->sppd_id])->with('success', 'Akomodasi baru berhasil ditambahkan!');
     }
 
     /**
@@ -101,7 +90,7 @@ class AkomodasiController extends Controller
             Akomodasi::where('id', $akomodasi->id)->update($validatedData);
 
             return redirect()->back()->with('success', "Data Akomodasi $akomodasi->name_hotel berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
@@ -113,7 +102,7 @@ class AkomodasiController extends Controller
     {
         try {
             Akomodasi::destroy($akomodasi->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->back()->with('failed', "Akomodasi $akomodasi->name_hotel tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -154,12 +143,20 @@ class AkomodasiController extends Controller
                 'dari' => 'required',
                 'ke' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 
         Akomodasi::create($validatedData);
 
         return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 }

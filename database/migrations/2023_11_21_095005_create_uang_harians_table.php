@@ -14,9 +14,13 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('sppd_id');
             $table->integer('harian');
+            $table->integer('total_harian');
             $table->integer('konsumsi');
+            $table->integer('total_konsumsi');
             $table->integer('transportasi');
+            $table->integer('total_transportasi');
             $table->integer('representasi');
+            $table->integer('total_representasi');
             $table->timestamps();
         });
     }

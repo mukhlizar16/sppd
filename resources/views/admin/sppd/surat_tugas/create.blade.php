@@ -12,6 +12,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @if($errors->any())
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
     <div class="row">
@@ -35,19 +42,22 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary" >
+                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
                         </a>
@@ -131,10 +141,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                   name="tanggal" id="tanggal" value="{{ old('tanggal') }}" required>
-                            @error('tanggal')
+                            <label for="tanggal" class="form-label">Tanggal ST</label>
+                            <input type="date" class="form-control @error('tanggal_st') is-invalid @enderror"
+                                   name="tanggal_st" id="tanggal" value="{{ old('tanggal_st') }}" required>
+                            @error('tanggal_st')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

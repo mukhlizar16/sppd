@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTotalPulangRequest;
 use App\Models\Sppd;
 use App\Models\TotalPulang;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class TiketPulangController extends Controller
 {
@@ -14,42 +19,28 @@ class TiketPulangController extends Controller
     public function index()
     {
         $title = 'Data Tiket Pulang';
-
-        return view('admin.sppd.total_pulang.create')->with(compact('title'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $tiket = TotalPulang::where('sppd_id', request('id'))->first();
+        return view('admin.sppd.total_pulang.create')->with(compact('title', 'tiket'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTotalPulangRequest $request)
     {
+        DB::beginTransaction();
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'asal' => 'required',
-                'tujuan' => 'required',
-                'tgl_penerbangan' => 'required',
-                'maskapai' => 'required',
-                'booking_reference' => 'required',
-                'no_eticket' => 'required',
-                'no_penerbangan' => 'required',
-                'total_harga' => 'required',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            $validatedData = $request->validated();
+            TotalPulang::updateOrCreate(
+                ['sppd_id' => $request->sppd_id],
+                $validatedData
+            );
+            DB::commit();
+            return back()->with('success', 'Data tiket berhasil ditambahkan!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('failed', $e->getMessage());
         }
-
-        TotalPulang::create($validatedData);
-
-        return redirect()->back()->with('success', 'Sppd baru berhasil ditambahkan!');
     }
 
     /**
@@ -93,7 +84,7 @@ class TiketPulangController extends Controller
             TotalPulang::where('id', $pulang->id)->update($validatedData);
 
             return redirect()->back()->with('success', "Data Tiket Pulang $pulang->asal berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
@@ -105,7 +96,7 @@ class TiketPulangController extends Controller
     {
         try {
             TotalPulang::destroy($pulang->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->back()->with('failed', "Tiket Pulang $pulang->asal tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -142,12 +133,20 @@ class TiketPulangController extends Controller
                 'no_penerbangan' => 'required',
                 'total_harga' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 
         TotalPulang::create($validatedData);
 
         return redirect()->back()->with('success', 'Tiket Pulang baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 }

@@ -61,7 +61,7 @@
                                 <td>{{ $surat->nomor_spd }}</td>
                                 <td>{{ $surat->kegiatan }}</td>
                                 <td>{{ $surat->lama_tugas }}</td>
-                                <td>{{ $surat->tanggal }}</td>
+                                <td>{{ Carbon\Carbon::parse($surat->tanggal_st)->format('d/m/Y') }}</td>
                                 <td>{{ Carbon\Carbon::parse($surat->tanggal_berangkat)->format('d/m/Y') }}</td>
                                 <td>{{ $surat->tanggal_kembali }}</td>
                                 <td>
