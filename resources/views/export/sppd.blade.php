@@ -194,7 +194,7 @@
                 <td>{{ $sppd->nomor_sp2d }}</td>
                 <td>{{ $pegawai->nama }}</td>
                 <td>{{ $pegawai->jabatan }}</td>
-                <td>{{ $pegawai->golongan }}</td>
+                <td>{{ $pegawai->golongan->kode }}</td>
                 <td>{{ $sppd->suratTugas?->first()->nomor_st }}</td>
                 <td>{{ $sppd->suratTugas?->first()->nomor_spd }}</td>
                 <td>{{ $sppd->suratTugas?->first()->kegiatan }}</td>
