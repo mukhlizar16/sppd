@@ -27,16 +27,16 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
-                                    @role('admin')
+                                    {{-- @role('admin') --}}
                                         <small class="text-muted">
                                             Admin
                                         </small>
-                                    @endrole
+                                    {{-- @endrole
                                     @role('user')
                                         <small class="text-muted">
                                             Karyawan
                                         </small>
-                                    @endrole
+                                    @endrole --}}
                                 </div>
                             </div>
                         </a>
