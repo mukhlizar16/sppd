@@ -179,7 +179,7 @@
         <th>49</th>
         <th>50</th>
         <th>51</th>
-        <th>52 = 17+19+20+21+23+33+34+35+36+4+52</th>
+        <th>52 = 17+19+20+21+23+33+34+4+52</th>
     </tr>
     </thead>
 
@@ -254,7 +254,6 @@
                     $total = $total_harian + $total_konsumsi
                              + $total_transportasi + $total_representasi
                              + $total_uang + $sppd->akomodasi?->first()->bbm +
-                             $sppd->akomodasi?->first()->dari + $sppd->akomodasi?->first()->ke +
                               $sppd->totalPergi?->first()->total_harga
                              + $sppd->totalPulang?->first()->total_harga;
                 @endphp
