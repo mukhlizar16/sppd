@@ -53,12 +53,12 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pergi->asal }}</td>
                                 <td>{{ $pergi->tujuan }}</td>
-                                <td>{{ $pergi->tgl_penerbangan }}</td>
+                                <td>{{ $pergi->tgl_penerbangan->format('d/m/Y') }}</td>
                                 <td>{{ $pergi->maskapai }}</td>
                                 <td>{{ $pergi->booking_reference }}</td>
                                 <td>{{ $pergi->no_eticket }}</td>
                                 <td>{{ $pergi->no_penerbangan }}</td>
-                                <td>{{ $pergi->total_harga }}</td>
+                                <td>Rp. {{ number_format($pergi->total_harga, 0, ',', '.') }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">
@@ -214,8 +214,8 @@
         </div>
     </div>
 
-      <!-- Modal Tambah surat -->
-      <x-form_modal>
+    <!-- Modal Tambah surat -->
+    <x-form_modal>
         @slot('id', 'tambahSppd')
         @slot('title', 'Tambah Data Tiket Pergi')
         @slot('overflow', 'overflow-auto')
@@ -223,94 +223,96 @@
 
         @csrf
 
-            <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
-            <div class="mb-3">
-                <label for="asal" class="form-label">Asal</label>
-                <input type="text" class="form-control @error('asal') is-invalid @enderror"
-                    name="asal" id="asal" value="{{ old('asal') }}" autofocus required>
-                @error('asal')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
+        <div class="mb-3">
+            <label for="asal" class="form-label">Asal</label>
+            <input type="text" class="form-control @error('asal') is-invalid @enderror"
+                   name="asal" id="asal" value="{{ old('asal') }}" autofocus required>
+            @error('asal')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="tujuan" class="form-label">Tujuan</label>
-                <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
-                    name="tujuan" id="tujuan" value="{{ old('tujuan') }}" autofocus required>
-                @error('tujuan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="tujuan" class="form-label">Tujuan</label>
+            <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
+                   name="tujuan" id="tujuan" value="{{ old('tujuan') }}" autofocus required>
+            @error('tujuan')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="tgl_penerbangan" class="form-label">Tanggal Penerbangan</label>
-                <input type="date" class="form-control @error('tgl_penerbangan') is-invalid @enderror" name="tgl_penerbangan"
-                    id="tgl_penerbangan" value="{{ old('tgl_penerbangan') }}" required>
-                @error('tgl_penerbangan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="tgl_penerbangan" class="form-label">Tanggal Penerbangan</label>
+            <input type="date" class="form-control @error('tgl_penerbangan') is-invalid @enderror"
+                   name="tgl_penerbangan"
+                   id="tgl_penerbangan" value="{{ old('tgl_penerbangan') }}" required>
+            @error('tgl_penerbangan')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="maskapai" class="form-label">Maskapai</label>
-                <input type="text" class="form-control @error('maskapai') is-invalid @enderror" name="maskapai"
-                    id="maskapai" value="{{ old('maskapai') }}" required>
-                @error('maskapai')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="maskapai" class="form-label">Maskapai</label>
+            <input type="text" class="form-control @error('maskapai') is-invalid @enderror" name="maskapai"
+                   id="maskapai" value="{{ old('maskapai') }}" required>
+            @error('maskapai')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="booking_reference" class="form-label">Booking Reference</label>
-                <input type="text" class="form-control @error('booking_reference') is-invalid @enderror" name="booking_reference"
-                    id="booking_reference" value="{{ old('booking_reference') }}" required>
-                @error('booking_reference')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="booking_reference" class="form-label">Booking Reference</label>
+            <input type="text" class="form-control @error('booking_reference') is-invalid @enderror"
+                   name="booking_reference"
+                   id="booking_reference" value="{{ old('booking_reference') }}" required>
+            @error('booking_reference')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="no_eticket" class="form-label">No Eticket</label>
-                <input type="text" class="form-control @error('no_eticket') is-invalid @enderror" name="no_eticket"
-                    id="no_eticket" value="{{ old('no_eticket') }}" required>
-                @error('no_eticket')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="no_eticket" class="form-label">No Eticket</label>
+            <input type="text" class="form-control @error('no_eticket') is-invalid @enderror" name="no_eticket"
+                   id="no_eticket" value="{{ old('no_eticket') }}" required>
+            @error('no_eticket')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="no_penerbangan" class="form-label">No Penerbangan</label>
-                <input type="text" class="form-control @error('no_penerbangan') is-invalid @enderror" name="no_penerbangan"
-                    id="no_penerbangan" value="{{ old('no_penerbangan') }}" required>
-                @error('no_penerbangan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="no_penerbangan" class="form-label">No Penerbangan</label>
+            <input type="text" class="form-control @error('no_penerbangan') is-invalid @enderror" name="no_penerbangan"
+                   id="no_penerbangan" value="{{ old('no_penerbangan') }}" required>
+            @error('no_penerbangan')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label for="total_harga" class="form-label">Total Harga</label>
-                <input type="number" class="form-control @error('total_harga') is-invalid @enderror" name="total_harga"
-                    id="total_harga" value="{{ old('total_harga') }}" required>
-                @error('total_harga')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <div class="mb-3">
+            <label for="total_harga" class="form-label">Total Harga</label>
+            <input type="number" class="form-control @error('total_harga') is-invalid @enderror" name="total_harga"
+                   id="total_harga" value="{{ old('total_harga') }}" required>
+            @error('total_harga')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+        </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah surat -->
 

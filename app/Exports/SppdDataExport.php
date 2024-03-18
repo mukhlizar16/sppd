@@ -8,10 +8,10 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SppdDataExport implements FromView, ShouldAutoSize, WithStyles
 {
@@ -26,7 +26,7 @@ class SppdDataExport implements FromView, ShouldAutoSize, WithStyles
         ]);
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): void
     {
         $sheet->getStyle('3:5')->applyFromArray([
             'font' => [

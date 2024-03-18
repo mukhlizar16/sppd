@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSuratTugasRequest;
+use App\Http\Requests\UpdateSuratTugasRequest;
 use App\Models\Pegawai;
 use App\Models\Sppd;
 use App\Models\SuratTugas;
@@ -26,27 +28,17 @@ class SuratTugasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSuratTugasRequest $request)
     {
-        // dd($request);
+        $validatedData = $request->validated();
+        DB::beginTransaction();
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'nomor_spd' => 'required',
-                'nomor_st' => 'required',
-                'kegiatan' => 'required',
-                'dari' => 'required',
-                'tujuan' => 'required',
-                'lama_tugas' => 'required',
-                'tanggal' => 'required',
-                'tanggal_berangkat' => 'required',
-                'tanggal_kembali' => 'required',
-            ]);
+            SuratTugas::create($validatedData);
+            DB::commit();
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            DB::rollBack();
+            return back()->with('failed', $exception->getMessage());
         }
-
-        SuratTugas::create($validatedData);
 
         return redirect()->route('uang.index', ['id' => $request->sppd_id])->with('success', 'Surat tugas baru berhasil ditambahkan!');
     }
@@ -78,33 +70,20 @@ class SuratTugasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SuratTugas $surat)
+    public function update(UpdateSuratTugasRequest $request, SuratTugas $surat)
     {
-
+        $validatedData = $request->validated();
+        unset($validatedData['sppd_id']);
+        DB::beginTransaction();
         try {
-            $rules = [
-                'nomor_st' => 'required',
-                'nomor_spd' => 'required',
-                'kegiatan' => 'required',
-                'dari' => 'required',
-                'tujuan' => 'required',
-                'lama_tugas' => 'required',
-                'tanggal' => 'required',
-                'tanggal_berangkat' => 'required',
-                'tanggal_kembali' => 'required',
-            ];
-
-            unset($rules['sppd_id']);
-
-            $validatedData = $this->validate($request, $rules);
             $validatedData['sppd_id'] = $surat->sppd_id;
-
             SuratTugas::where('id', $surat->id)->update($validatedData);
-
-            return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
+            DB::commit();
         } catch (ValidationException $exception) {
+            DB::rollBack();
             return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
+        return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
     }
 
     /**

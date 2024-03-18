@@ -1,19 +1,19 @@
 <x-app-layout :$title>
-<div class="row">
-    <div class="col-sm-6 col-md">
-        @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif (session()->has('failed'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('failed') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    <div class="row">
+        <div class="col-sm-6 col-md">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @elseif (session()->has('failed'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('failed') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
     </div>
-</div>
     <div class="row">
         <div class="col col-md-12">
             <a class="btn btn-outline-secondary" href="{{ route('sppd.index') }}">
@@ -23,7 +23,8 @@
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('surat.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('surat.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-envelopes-bulk me-2"></i>
                             Surat Tugas
                         </a>
@@ -35,19 +36,22 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary" >
+                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}"
+                           class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
                         </a>
@@ -65,46 +69,46 @@
                         <div class="mb-3">
                             <label for="harian" class="form-label">Harian</label>
                             <input type="number" class="form-control @error('harian') is-invalid @enderror"
-                                name="harian" id="harian" value="{{ old('harian') }}" autofocus required>
+                                   name="harian" id="harian" value="{{ old('harian') }}" autofocus required>
                             @error('harian')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="konsumsi" class="form-label">Konsumsi</label>
                             <input type="number" class="form-control @error('konsumsi') is-invalid @enderror"
-                                name="konsumsi" id="konsumsi" value="{{ old('konsumsi') }}" autofocus required>
+                                   name="konsumsi" id="konsumsi" value="{{ old('konsumsi') }}" autofocus required>
                             @error('konsumsi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="transportasi" class="form-label">Transportasi</label>
                             <input type="number" class="form-control @error('transportasi') is-invalid @enderror"
-                                name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus
-                                required>
+                                   name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus
+                                   required>
                             @error('transportasi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="representasi" class="form-label">Representasi</label>
                             <input type="number" class="form-control @error('representasi') is-invalid @enderror"
-                                name="representasi" id="representasi" value="{{ old('representasi') }}" autofocus
-                                required>
+                                   name="representasi" id="representasi" value="{{ old('representasi') }}" autofocus
+                                   required>
                             @error('representasi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 

@@ -61,7 +61,7 @@
                                 <td>{{ $surat->nomor_spd }}</td>
                                 <td>{{ $surat->kegiatan }}</td>
                                 <td>{{ $surat->lama_tugas }}</td>
-                                <td>{{ $surat->tanggal }}</td>
+                                <td>{{ Carbon\Carbon::parse($surat->tanggal_st)->format('d/m/Y') }}</td>
                                 <td>{{ Carbon\Carbon::parse($surat->tanggal_berangkat)->format('d/m/Y') }}</td>
                                 <td>{{ $surat->tanggal_kembali }}</td>
                                 <td>
@@ -177,8 +177,8 @@
                                     <label for="tanggal" class="form-label">Tanggal ST</label>
                                     <input type="date"
                                            class="form-control @error('tanggal_st') is-invalid @enderror"
-                                           name="tanggal"
-                                           id="tanggal" value="{{ old('tanggal', $surat->tanggal) }}" required>
+                                           name="tanggal_st"
+                                           id="tanggal" value="{{ old('tanggal_st', $surat->tanggal_st) }}" required>
                                     @error('tanggal_st')
                                     <div class="invalid-feedback">
                                         {{ $message }}

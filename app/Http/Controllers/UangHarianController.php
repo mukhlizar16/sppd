@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sppd;
+use App\Models\SuratTugas;
 use App\Models\UangHarian;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UangHarianController extends Controller
 {
@@ -19,18 +22,12 @@ class UangHarianController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $st = SuratTugas::where('sppd_id', $request->sppd_id)->first();
+        
         try {
             $validatedData = $request->validate([
                 'sppd_id' => 'required',
@@ -39,13 +36,25 @@ class UangHarianController extends Controller
                 'transportasi' => 'required',
                 'representasi' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            $validatedData['total_harian'] = $request->harian * $st->lama_tugas;
+            $validatedData['total_konsumsi'] = $request->konsumsi * $st->lama_tugas;
+            $validatedData['total_transportasi'] = $request->transportasi * $st->lama_tugas;
+            $validatedData['total_representasi'] = $request->representasi * $st->lama_tugas;
+        } catch (ValidationException $exception) {
+            return back()->with('failed', $exception->getMessage());
         }
 
         UangHarian::create($validatedData);
 
         return redirect()->route('akomodasi.index', ['id' => $request->sppd_id])->with('success', 'Uang Harian baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -85,7 +94,7 @@ class UangHarianController extends Controller
             UangHarian::where('id', $uang->id)->update($validatedData);
 
             return redirect()->back()->with('success', "Data Uang Harian $uang->harian berhasil diperbarui!");
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
@@ -97,7 +106,7 @@ class UangHarianController extends Controller
     {
         try {
             UangHarian::destroy($uang->id);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
                 //SQLSTATE[23000]: Integrity constraint violation
                 return redirect()->back()->with('failed', "Uang Harian $uang->asal tidak dapat dihapus, karena sedang digunakan pada tabel lain!");
@@ -130,7 +139,7 @@ class UangHarianController extends Controller
                 'transportasi' => 'required',
                 'representasi' => 'required',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
 
