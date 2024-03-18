@@ -250,14 +250,14 @@
                 <td>{{ $sppd->totalPulang?->first()->no_eticket }}</td>
                 <td>{{ $sppd->totalPulang?->first()->no_penerbangan }}</td>
                 <td>{{ $sppd->totalPulang?->first()->total_harga }}</td>
-                @php
+                {{-- @php
                     $total = $total_harian + $total_konsumsi
                              + $total_transportasi + $total_representasi
                              + $total_uang + $sppd->akomodasi?->first()->bbm +
                               $sppd->totalPergi?->first()->total_harga
                              + $sppd->totalPulang?->first()->total_harga;
-                @endphp
-                <td>{{ $total }}</td>
+                @endphp --}}
+                <td>{{ $sppd->total_biaya }}</td>
             </tr>
         @endforeach
     @endforeach
