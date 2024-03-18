@@ -81,7 +81,8 @@
                         <div class="mb-3">
                             <label for="check_in" class="form-label">Tanggal Masuk</label>
                             <input type="date" class="form-control @error('check_in') is-invalid @enderror"
-                                   name="check_in" id="check_in" value="{{ old('check_in', $akomodasi?->check_in) }}"
+                                   name="check_in" id="check_in"
+                                   value="{{ old('check_in', $akomodasi?->check_in->format('Y-m-d')) }}"
                                    autofocus>
                             @error('check_in')
                             <div class="invalid-feedback">

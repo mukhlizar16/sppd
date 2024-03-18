@@ -55,15 +55,15 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $akomodasi->name_hotel }}</td>
-                                <td>{{ $akomodasi->check_in->format('d/m/Y') }}</td>
-                                <td>{{ $akomodasi->check_out->format('d/m/Y') }}</td>
+                                <td class="text-center">{{ $akomodasi->check_in->format('d/m/Y') }}</td>
+                                <td class="text-center">{{ $akomodasi->check_out->format('d/m/Y') }}</td>
                                 <td>{{ $akomodasi->nomor_invoice }}</td>
-                                <td>{{ $akomodasi->nomor_kamar }}</td>
-                                <td>{{ $akomodasi->lama_inap }}</td>
+                                <td class="text-center">{{ $akomodasi->nomor_kamar }}</td>
+                                <td class="text-center">{{ $akomodasi->lama_inap }}</td>
                                 <td>{{ $akomodasi->nama_kwitansi }}</td>
-                                <td>Rp. {{ number_format($akomodasi->harga, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($akomodasi->harga_diskon, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($akomodasi->bbm, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp. {{ number_format($akomodasi->harga, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp. {{ number_format($akomodasi->harga_diskon, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp. {{ number_format($akomodasi->bbm, 0, ',', '.') }}</td>
                                 <td>{{ $akomodasi->dari }}</td>
                                 <td>{{ $akomodasi->ke }}</td>
                                 <td>
@@ -107,7 +107,8 @@
                                     <label for="check_in" class="form-label">Tanggal Masuk</label>
                                     <input type="date"
                                            class="form-control @error('check_in') is-invalid @enderror" name="check_in"
-                                           id="check_in" value="{{ old('check_in', $akomodasi->check_in) }}"
+                                           id="check_in"
+                                           value="{{ old('check_in', $akomodasi->check_in->format('Y-m-d')) }}"
                                            autofocus required>
                                     @error('check_in')
                                     <div class="invalid-feedback">
@@ -121,7 +122,8 @@
                                     <input type="date"
                                            class="form-control @error('check_out') is-invalid @enderror"
                                            name="check_out" id="check_out"
-                                           value="{{ old('check_out', $akomodasi->check_out) }}" autofocus required>
+                                           value="{{ old('check_out', $akomodasi->check_out->format('Y-m-d')) }}"
+                                           autofocus required>
                                     @error('check_out')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -183,9 +185,12 @@
 
                                 <div class="mb-3">
                                     <label for="harga" class="form-label">Harga Permalam</label>
-                                    <input type="number"
-                                           class="form-control @error('harga') is-invalid @enderror" name="harga"
-                                           id="harga" value="{{ old('harga', $akomodasi->harga) }}" required>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp.</div>
+                                        <input type="text"
+                                               class="form-control @error('harga') is-invalid @enderror" name="harga"
+                                               id="harga" value="{{ old('harga', $akomodasi->harga) }}" required>
+                                    </div>
                                     @error('harga')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -195,10 +200,13 @@
 
                                 <div class="mb-3">
                                     <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
-                                    <input type="number"
-                                           class="form-control @error('harga_diskon') is-invalid @enderror"
-                                           name="harga_diskon" id="harga_diskon"
-                                           value="{{ old('harga_diskon', $akomodasi->harga_diskon) }}" required>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp.</div>
+                                        <input type="text"
+                                               class="form-control @error('harga_diskon') is-invalid @enderror"
+                                               name="harga_diskon" id="harga_diskon"
+                                               value="{{ old('harga_diskon', $akomodasi->harga_diskon) }}" required>
+                                    </div>
                                     @error('harga_diskon')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -209,9 +217,12 @@
 
                                 <div class="mb-3">
                                     <label for="bbm" class="form-label">BBM</label>
-                                    <input type="number" class="form-control @error('bbm') is-invalid @enderror"
-                                           name="bbm" id="bbm" value="{{ old('bbm', $akomodasi->bbm) }}"
-                                           required>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp.</div>
+                                        <input type="text" class="form-control @error('bbm') is-invalid @enderror"
+                                               name="bbm" id="bbm" value="{{ old('bbm', $akomodasi->bbm) }}"
+                                               required>
+                                    </div>
                                     @error('bbm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -282,8 +293,8 @@
 
         <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
         <div class="mb-3">
-            <label for="nama_hotel" class="form-label">Nama Hotel</label>
-            <input type="text" class="form-control @error('name_hotel') is-invalid @enderror" name="nama_hotel"
+            <label for="name_hotel" class="form-label">Nama Hotel</label>
+            <input type="text" name="name_hotel" class="form-control @error('name_hotel') is-invalid @enderror"
                    id="name_hotel" value="{{ old('name_hotel') }}" autofocus required>
             @error('name_hotel')
             <div class="invalid-feedback">
@@ -338,7 +349,7 @@
 
         <div class="mb-3">
             <label for="lama_inap" class="form-label">Lama Inap</label>
-            <input type="number" max="50" class="form-control @error('lama_inap') is-invalid @enderror"
+            <input type="number" min="1" step="1" max="50" class="form-control @error('lama_inap') is-invalid @enderror"
                    name="lama_inap" id="lama_inap" value="{{ old('lama_inap') }}" required>
             @error('lama_inap')
             <div class="invalid-feedback">
@@ -360,8 +371,11 @@
 
         <div class="mb-3">
             <label for="harga" class="form-label">Harga Permalam</label>
-            <input type="number" class="form-control @error('harga') is-invalid @enderror"
-                   name="harga" id="harga" value="{{ old('harga') }}" required>
+            <div class="input-group">
+                <div class="input-group-text">Rp.</div>
+                <input type="text" class="form-control @error('harga') is-invalid @enderror"
+                       name="harga" id="harga" value="{{ old('harga') }}" required>
+            </div>
             @error('harga')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -371,8 +385,11 @@
 
         <div class="mb-3">
             <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
-            <input type="number" class="form-control @error('harga_diskon') is-invalid @enderror"
-                   name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}" required>
+            <div class="input-group">
+                <div class="input-group-text">Rp.</div>
+                <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror"
+                       name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}" required>
+            </div>
             @error('harga_diskon')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -382,8 +399,11 @@
 
         <div class="mb-3">
             <label for="bbm" class="form-label">BBM</label>
-            <input type="number" class="form-control @error('bbm') is-invalid @enderror" name="bbm"
-                   id="bbm" value="{{ old('bbm') }}" required>
+            <div class="input-group">
+                <div class="input-group-text">Rp.</div>
+                <input type="text" class="form-control @error('bbm') is-invalid @enderror" name="bbm"
+                       id="bbm" value="{{ old('bbm') }}" required>
+            </div>
             @error('bbm')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -413,4 +433,38 @@
         </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah surat -->
+
+    @push('script')
+        <script src="{{ asset('libs/mask-money/jquery.maskMoney.min.js') }}"></script>
+        <script>
+            $(document).ready(function () {
+                const hargaField = $('#harga');
+
+                function initMask() {
+                    $('#harga, #harga_diskon, #bbm').maskMoney({
+                        thousands: '.',
+                        decimal: ',',
+                        allowZero: true,
+                        precision: 0
+                    });
+                }
+
+                initMask();
+
+                hargaField.on('blur', function () {
+                    const harga = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
+                    const diskon = harga * 0.3;
+                    // console.log(diskon, harga, $(this).val())
+                    $('#harga_diskon').val(diskon).trigger('mask.maskMoney');
+                });
+
+                const harga = "{{ $akomodasi->harga }}";
+                const hargaDiskon = "{{ $akomodasi->harga_diskon }}";
+                const bbm = "{{ $akomodasi->bbm }}";
+                hargaField.val(harga).trigger('mask.maskMoney');
+                $('#harga_diskon').val(hargaDiskon).trigger('mask.maskMoney');
+                $('#bbm').val(bbm).trigger('mask.maskMoney');
+            });
+        </script>
+    @endpush
 </x-app-layout>

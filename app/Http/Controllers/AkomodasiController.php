@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAkomodasiRequest;
 use App\Models\Akomodasi;
 use App\Models\Sppd;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use PHPUnit\Exception;
 
 class AkomodasiController extends Controller
 {
@@ -38,7 +38,8 @@ class AkomodasiController extends Controller
                 $validatedData
             );
             DB::commit();
-            return redirect()->route('pergi.index', ['id' => $request->sppd_id])->with('success', 'Akomodasi baru berhasil ditambahkan!');
+            return redirect()->route('pergi.index', ['id' => $request->sppd_id])
+                ->with('success', 'Akomodasi baru berhasil ditambahkan!');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('failed', $e->getMessage());
@@ -125,31 +126,17 @@ class AkomodasiController extends Controller
         return view('admin.sppd.akomodasi.show', compact('akomodasis', 'title', 'sppd'));
     }
 
-    public function storeDetail(Request $request)
+    public function storeDetail(StoreAkomodasiRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'nama_hotel' => 'required',
-                'check_in' => 'required',
-                'check_out' => 'required',
-                'nomor_invoice' => 'required',
-                'nomor_kamar' => 'required',
-                'lama_inap' => 'required',
-                'nama_kwitansi' => 'required',
-                'harga' => 'required',
-                'harga_diskon' => 'required',
-                'bbm' => 'required',
-                'dari' => 'required',
-                'ke' => 'required',
-            ]);
-        } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', $exception->getMessage());
+            $validated = $request->validated();
+            $validated['sppd_id'] = $request->sppd_id;
+            $validated['total_uang'] = $request->lama_inap * $request->harga;
+            Akomodasi::create($validated);
+            return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
+        } catch (Exception $exception) {
+            return redirect()->back()->with('failed', 'Terdapat error...');
         }
-
-        Akomodasi::create($validatedData);
-
-        return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
     }
 
     /**
