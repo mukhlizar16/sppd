@@ -8,16 +8,18 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportSppdById implements FromView, ShouldAutoSize, WithStyles
 {
     use Exportable;
 
-    private $sppdId, $sppd;
+    private $sppdId;
+
+    private $sppd;
 
     public function __construct($sppdId)
     {
@@ -27,7 +29,7 @@ class ExportSppdById implements FromView, ShouldAutoSize, WithStyles
 
     public function view(): View
     {
-//        dd($this->sppd);
+        //        dd($this->sppd);
         return view('export.export-single', [
             'sppd' => $this->sppd,
         ]);

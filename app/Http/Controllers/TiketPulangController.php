@@ -20,6 +20,7 @@ class TiketPulangController extends Controller
     {
         $title = 'Data Tiket Pulang';
         $tiket = TotalPulang::where('sppd_id', request('id'))->first();
+
         return view('admin.sppd.total_pulang.create')->with(compact('title', 'tiket'));
     }
 
@@ -36,9 +37,11 @@ class TiketPulangController extends Controller
                 $validatedData
             );
             DB::commit();
+
             return back()->with('success', 'Data tiket berhasil ditambahkan!');
         } catch (Exception $e) {
             DB::rollBack();
+
             return back()->with('failed', $e->getMessage());
         }
     }
@@ -85,7 +88,7 @@ class TiketPulangController extends Controller
 
             return redirect()->back()->with('success', "Data Tiket Pulang $pulang->asal berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -110,7 +113,7 @@ class TiketPulangController extends Controller
     {
         $sppd = Sppd::find($sppdId);
         $title = 'Data Sppd Detail - Tiket Pulang';
-        if (!$sppd) {
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 

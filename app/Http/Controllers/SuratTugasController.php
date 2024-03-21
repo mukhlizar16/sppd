@@ -37,6 +37,7 @@ class SuratTugasController extends Controller
             DB::commit();
         } catch (ValidationException $exception) {
             DB::rollBack();
+
             return back()->with('failed', $exception->getMessage());
         }
 
@@ -81,8 +82,10 @@ class SuratTugasController extends Controller
             DB::commit();
         } catch (ValidationException $exception) {
             DB::rollBack();
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
+
         return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
     }
 
@@ -109,7 +112,7 @@ class SuratTugasController extends Controller
         $title = 'Surat Tugas';
         $subtitle = 'Data Sppd Detail - Surat Tugas';
         $pegawais = Pegawai::select('id', 'nama')->get();
-        if (!$sppd) {
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
@@ -136,9 +139,11 @@ class SuratTugasController extends Controller
         try {
             SuratTugas::create($validatedData);
             DB::commit();
+
             return redirect()->back()->with('success', 'Surat tugas baru berhasil ditambahkan!');
         } catch (ValidationException $exception) {
             DB::rollBack();
+
             return redirect()->back()->with('failed', $exception->getMessage());
         }
     }

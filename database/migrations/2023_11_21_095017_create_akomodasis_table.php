@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,16 +18,16 @@ return new class extends Migration {
                 ->constrained('sppd')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('name_hotel');
-            $table->date('check_in');
-            $table->date('check_out');
-            $table->string('nomor_invoice');
-            $table->string('nomor_kamar');
-            $table->tinyInteger('lama_inap');
-            $table->string('nama_kwitansi');
-            $table->integer('harga');
-            $table->integer('harga_diskon');
-            $table->integer('total_uang');
+            $table->string('name_hotel')->nullable();
+            $table->date('check_in')->nullable();
+            $table->date('check_out')->nullable();
+            $table->string('nomor_invoice')->nullable();
+            $table->string('nomor_kamar')->nullable();
+            $table->tinyInteger('lama_inap')->nullable();
+            $table->string('nama_kwitansi')->nullable();
+            $table->integer('harga')->nullable();
+            $table->integer('harga_diskon')->nullable();
+            $table->integer('total_uang')->nullable();
             $table->integer('bbm');
             $table->string('dari');
             $table->string('ke');

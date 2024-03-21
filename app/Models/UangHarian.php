@@ -10,6 +10,7 @@ class UangHarian extends Model
     use HasFactory;
 
     protected $table = 'uang_harian';
+
     protected $fillable = ['sppd_id', 'harian', 'total_harian', 'konsumsi', 'total_konsumsi', 'transportasi', 'total_transportasi', 'representasi', 'total_representasi'];
 
     public function Sppd()

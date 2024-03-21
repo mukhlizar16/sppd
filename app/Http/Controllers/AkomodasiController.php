@@ -8,7 +8,6 @@ use App\Models\Sppd;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class AkomodasiController extends Controller
@@ -29,21 +28,18 @@ class AkomodasiController extends Controller
      */
     public function store(StoreAkomodasiRequest $request)
     {
-        DB::beginTransaction();
-        try {
-            $validatedData = $request->validated();
-            $validatedData['total_uang'] = $request->lama_inap * $request->harga;
-            Akomodasi::updateOrCreate(
-                ['sppd_id' => $request->sppd_id],
-                $validatedData
-            );
-            DB::commit();
-            return redirect()->route('pergi.index', ['id' => $request->sppd_id])
-                ->with('success', 'Akomodasi baru berhasil ditambahkan!');
-        } catch (Exception $e) {
-            DB::rollBack();
-            return back()->with('failed', $e->getMessage());
-        }
+        $validatedData = $request->validated();
+        $harga = $validatedData['harga'] ?: 0;
+        $lama_inap = $validatedData['lama_inap'] ?: 0;
+//            dd($validatedData);
+        $validatedData['total_uang'] = $request->lama_inap != null ? $lama_inap * $harga : $validatedData['harga_diskon'];
+        Akomodasi::updateOrCreate(
+            ['sppd_id' => $request->sppd_id],
+            $validatedData
+        );
+
+        return redirect()->route('pergi.index', ['id' => $request->sppd_id])
+            ->with('success', 'Akomodasi baru berhasil ditambahkan!');
     }
 
     /**
@@ -131,8 +127,9 @@ class AkomodasiController extends Controller
         try {
             $validated = $request->validated();
             $validated['sppd_id'] = $request->sppd_id;
-            $validated['total_uang'] = $request->lama_inap * $request->harga;
+            $validated['total_uang'] = $request->lama_inap != '' ? $request->lama_inap * $request->harga : $validated['harga_diskon'];
             Akomodasi::create($validated);
+
             return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
         } catch (Exception $exception) {
             return redirect()->back()->with('failed', 'Terdapat error...');

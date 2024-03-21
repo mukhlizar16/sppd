@@ -43,7 +43,7 @@ class StoreSuratTugasRequest extends FormRequest
             'nomor_st' => 'Nomor ST',
             'tanggal_st' => 'Tanggal ST',
             'lama_tugas' => 'Lama tugas',
-            'tanggal_berangkat' => 'Tanggal berangkat'
+            'tanggal_berangkat' => 'Tanggal berangkat',
         ];
     }
 }

@@ -43,14 +43,14 @@ class SppdController extends Controller
                 'jenis_tugas_id' => $validatedData['jenis_tugas_id'],
                 'nomor_sp2d' => $validatedData['nomor_sp2d'],
                 'kegiatan' => $validatedData['kegiatan'],
-                'total_biaya' => $validatedData['total_biaya']
+                'total_biaya' => $validatedData['total_biaya'],
             ]);
-
 
             $sppd->pegawais()->attach($request->pegawai);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+
             return redirect()->back()->with('failed', $e->getMessage());
         }
 
@@ -81,6 +81,7 @@ class SppdController extends Controller
         $users = Pegawai::all();
         $pegawa = $sppd->pegawais->pluck('id')->toArray();
         $title = 'Edit Data Sppd';
+
         return view('admin.sppd.edit')->with(compact('title', 'sppd', 'jenises', 'users', 'pegawa'));
     }
 
@@ -106,7 +107,7 @@ class SppdController extends Controller
 
             return redirect()->route('sppd.index')->with('success', "Data SPPD $sppd->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 

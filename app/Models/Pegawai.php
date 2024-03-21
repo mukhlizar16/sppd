@@ -28,10 +28,10 @@ class Pegawai extends Model
     public function namaLengkap(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => ($this->attributes['gelar_depan'] != null ?
-                    $this->attributes['gelar_depan'] . ' '
-                    : '') . $this->attributes['nama'] . ($this->attributes['gelar_belakang'] != null ?
-                    ', ' . $this->attributes['gelar_belakang']
+            get: fn ($value) => ($this->attributes['gelar_depan'] != null ?
+                    $this->attributes['gelar_depan'].' '
+                    : '').$this->attributes['nama'].($this->attributes['gelar_belakang'] != null ?
+                    ', '.$this->attributes['gelar_belakang']
                     : ''),
         );
     }

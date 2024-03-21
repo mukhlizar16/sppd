@@ -10,11 +10,12 @@ class Akomodasi extends Model
     use HasFactory;
 
     protected $table = 'akomodasi';
+
     protected $fillable = ['sppd_id', 'name_hotel', 'check_in', 'check_out', 'nomor_invoice', 'nomor_kamar', 'lama_inap', 'nama_kwitansi', 'harga', 'harga_diskon', 'total_uang', 'bbm', 'dari', 'ke'];
 
     protected $casts = [
         'check_in' => 'date',
-        'check_out' => 'date'
+        'check_out' => 'date',
     ];
 
     public function Sppd()

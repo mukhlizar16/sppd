@@ -27,7 +27,7 @@ class UangHarianController extends Controller
     public function store(Request $request)
     {
         $st = SuratTugas::where('sppd_id', $request->sppd_id)->first();
-        
+
         try {
             $validatedData = $request->validate([
                 'sppd_id' => 'required',
@@ -95,7 +95,7 @@ class UangHarianController extends Controller
 
             return redirect()->back()->with('success', "Data Uang Harian $uang->harian berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -120,7 +120,7 @@ class UangHarianController extends Controller
     {
         $sppd = Sppd::find($sppdId);
         $title = 'Data Sppd Detail - Uang Harian ';
-        if (!$sppd) {
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
