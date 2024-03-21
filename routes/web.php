@@ -10,6 +10,7 @@ use App\Http\Controllers\TiketPergiController;
 use App\Http\Controllers\TiketPulangController;
 use App\Http\Controllers\UangHarianController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +88,11 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::post('/pulang/detail', [TiketPulangController::class, 'storeDetail'])->name('pulang.detailStore');
 
     Route::put('/resetpassword/{user}', [UserController::class, 'resetPasswordAdmin'])->name('resetpassword.resetPasswordAdmin')->middleware('auth');
+});
+
+Route::get('/tes', function () {
+    $user = User::find(1);
+    $user->assignRole('admin');
 });
 
 require __DIR__ . '/auth.php';

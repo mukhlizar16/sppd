@@ -20,7 +20,8 @@ class SppdDataExport implements FromView, ShouldAutoSize, WithStyles
     public function view(): View
     {
         $data = Sppd::with('pegawais.golongan', 'suratTugas', 'uangHarian', 'akomodasi', 'totalPergi', 'totalPulang')->get();
-//        dd($data);
+
+        //        dd($data);
         return view('export.sppd', [
             'spdds' => $data,
         ]);

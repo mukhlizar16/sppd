@@ -12,6 +12,7 @@ class Sppd extends Model
     use HasFactory;
 
     protected $table = 'sppd';
+
     protected $fillable = ['jenis_tugas_id', 'nomor_sp2d', 'kegiatan', 'total_biaya'];
 
     public function jenisTugas()
@@ -48,5 +49,4 @@ class Sppd extends Model
     {
         return $this->belongsToMany(Pegawai::class, 'sppd_pegawai', 'sppd_id', 'pegawai_id');
     }
-
 }

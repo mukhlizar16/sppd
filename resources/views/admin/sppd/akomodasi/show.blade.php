@@ -54,13 +54,13 @@
                         @foreach ($akomodasis as $akomodasi)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $akomodasi->name_hotel }}</td>
-                                <td class="text-center">{{ $akomodasi->check_in->format('d/m/Y') }}</td>
-                                <td class="text-center">{{ $akomodasi->check_out->format('d/m/Y') }}</td>
-                                <td>{{ $akomodasi->nomor_invoice }}</td>
-                                <td class="text-center">{{ $akomodasi->nomor_kamar }}</td>
-                                <td class="text-center">{{ $akomodasi->lama_inap }}</td>
-                                <td>{{ $akomodasi->nama_kwitansi }}</td>
+                                <td>{{ $akomodasi->name_hotel ?: '-' }}</td>
+                                <td class="text-center">{{ $akomodasi->check_in?->format('d/m/Y') ?:'-' }}</td>
+                                <td class="text-center">{{ $akomodasi->check_out?->format('d/m/Y') ?:'-' }}</td>
+                                <td>{{ $akomodasi->nomor_invoice ?:'-' }}</td>
+                                <td class="text-center">{{ $akomodasi->nomor_kamar?:'-' }}</td>
+                                <td class="text-center">{{ $akomodasi->lama_inap?:'-' }}</td>
+                                <td>{{ $akomodasi->nama_kwitansi?:'-' }}</td>
                                 <td class="text-end">Rp. {{ number_format($akomodasi->harga, 0, ',', '.') }}</td>
                                 <td class="text-end">Rp. {{ number_format($akomodasi->harga_diskon, 0, ',', '.') }}</td>
                                 <td class="text-end">Rp. {{ number_format($akomodasi->bbm, 0, ',', '.') }}</td>
@@ -95,7 +95,7 @@
                                     <input type="text"
                                            class="form-control @error('name_hotel') is-invalid @enderror"
                                            name="nama_hotel" id="name_hotel"
-                                           value="{{ old('name_hotel', $akomodasi->nama_hotel) }}" autofocus required>
+                                           value="{{ old('name_hotel', $akomodasi->nama_hotel) }}" autofocus>
                                     @error('name_hotel')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -108,8 +108,7 @@
                                     <input type="date"
                                            class="form-control @error('check_in') is-invalid @enderror" name="check_in"
                                            id="check_in"
-                                           value="{{ old('check_in', $akomodasi->check_in->format('Y-m-d')) }}"
-                                           autofocus required>
+                                           value="{{ old('check_in', $akomodasi->check_in?->format('Y-m-d')) }}">
                                     @error('check_in')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -122,8 +121,7 @@
                                     <input type="date"
                                            class="form-control @error('check_out') is-invalid @enderror"
                                            name="check_out" id="check_out"
-                                           value="{{ old('check_out', $akomodasi->check_out->format('Y-m-d')) }}"
-                                           autofocus required>
+                                           value="{{ old('check_out', $akomodasi->check_out?->format('Y-m-d')) }}">
                                     @error('check_out')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -136,7 +134,7 @@
                                     <input type="text"
                                            class="form-control @error('nomor_invoice') is-invalid @enderror"
                                            name="nomor_invoice" id="nomor_invoice"
-                                           value="{{ old('nomor_invoice', $akomodasi->nomor_invoice) }}" required>
+                                           value="{{ old('nomor_invoice', $akomodasi->nomor_invoice) }}">
                                     @error('nomor_invoice')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -149,7 +147,7 @@
                                     <input type="text"
                                            class="form-control @error('nomor_kamar') is-invalid @enderror"
                                            name="nomor_kamar" id="nomor_kamar"
-                                           value="{{ old('nomor_kamar', $akomodasi->nomor_kamar) }}" required>
+                                           value="{{ old('nomor_kamar', $akomodasi->nomor_kamar) }}">
                                     @error('nomor_kamar')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -162,7 +160,7 @@
                                     <input type="number" max="50"
                                            class="form-control @error('lama_inap') is-invalid @enderror"
                                            name="lama_inap" id="lama_inap"
-                                           value="{{ old('lama_inap', $akomodasi->lama_inap) }}" required>
+                                           value="{{ old('lama_inap', $akomodasi->lama_inap) }}">
                                     @error('lama_inap')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -175,7 +173,7 @@
                                     <input type="text"
                                            class="form-control @error('nama_kwitansi') is-invalid @enderror"
                                            name="nama_kwitansi" id="nama_kwitansi"
-                                           value="{{ old('nama_kwitansi', $akomodasi->nama_kwitansi) }}" required>
+                                           value="{{ old('nama_kwitansi', $akomodasi->nama_kwitansi) }}">
                                     @error('nama_kwitansi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -189,7 +187,7 @@
                                         <div class="input-group-text">Rp.</div>
                                         <input type="text"
                                                class="form-control @error('harga') is-invalid @enderror" name="harga"
-                                               id="harga" value="{{ old('harga', $akomodasi->harga) }}" required>
+                                               id="harga" value="{{ old('harga', $akomodasi->harga) }}">
                                     </div>
                                     @error('harga')
                                     <div class="invalid-feedback">
@@ -205,7 +203,7 @@
                                         <input type="text"
                                                class="form-control @error('harga_diskon') is-invalid @enderror"
                                                name="harga_diskon" id="harga_diskon"
-                                               value="{{ old('harga_diskon', $akomodasi->harga_diskon) }}" required>
+                                               value="{{ old('harga_diskon', $akomodasi->harga_diskon) }}">
                                     </div>
                                     @error('harga_diskon')
                                     <div class="invalid-feedback">
@@ -295,7 +293,7 @@
         <div class="mb-3">
             <label for="name_hotel" class="form-label">Nama Hotel</label>
             <input type="text" name="name_hotel" class="form-control @error('name_hotel') is-invalid @enderror"
-                   id="name_hotel" value="{{ old('name_hotel') }}" autofocus required>
+                   id="name_hotel" value="{{ old('name_hotel') }}" autofocus>
             @error('name_hotel')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -306,7 +304,7 @@
         <div class="mb-3">
             <label for="check_in" class="form-label">Tanggal Masuk</label>
             <input type="date" class="form-control @error('check_in') is-invalid @enderror" name="check_in"
-                   id="check_in" value="{{ old('check_in') }}" autofocus required>
+                   id="check_in" value="{{ old('check_in') }}">
             @error('check_in')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -317,7 +315,7 @@
         <div class="mb-3">
             <label for="check_out" class="form-label">Tanggal Keluar</label>
             <input type="date" class="form-control @error('check_out') is-invalid @enderror" name="check_out"
-                   id="check_out" value="{{ old('check_out') }}" autofocus required>
+                   id="check_out" value="{{ old('check_out') }}">
             @error('check_out')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -328,7 +326,7 @@
         <div class="mb-3">
             <label for="nomor_invoice" class="form-label">No Invoice</label>
             <input type="text" class="form-control @error('nomor_invoice') is-invalid @enderror" name="nomor_invoice"
-                   id="nomor_invoice" value="{{ old('nomor_invoice') }}" required>
+                   id="nomor_invoice" value="{{ old('nomor_invoice') }}">
             @error('nomor_invoice')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -339,7 +337,7 @@
         <div class="mb-3">
             <label for="nomor_kamar" class="form-label">No Kamar</label>
             <input type="text" class="form-control @error('nomor_kamar') is-invalid @enderror" name="nomor_kamar"
-                   id="nomor_kamar" value="{{ old('nomor_kamar') }}" required>
+                   id="nomor_kamar" value="{{ old('nomor_kamar') }}">
             @error('nomor_kamar')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -350,7 +348,7 @@
         <div class="mb-3">
             <label for="lama_inap" class="form-label">Lama Inap</label>
             <input type="number" min="1" step="1" max="50" class="form-control @error('lama_inap') is-invalid @enderror"
-                   name="lama_inap" id="lama_inap" value="{{ old('lama_inap') }}" required>
+                   name="lama_inap" id="lama_inap" value="{{ old('lama_inap') }}">
             @error('lama_inap')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -361,7 +359,7 @@
         <div class="mb-3">
             <label for="nama_kwitansi" class="form-label">Nama Kwitansi</label>
             <input type="text" class="form-control @error('nama_kwitansi') is-invalid @enderror"
-                   name="nama_kwitansi" id="nama_kwitansi" value="{{ old('nama_kwitansi') }}" required>
+                   name="nama_kwitansi" id="nama_kwitansi" value="{{ old('nama_kwitansi') }}">
             @error('nama_kwitansi')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -374,7 +372,7 @@
             <div class="input-group">
                 <div class="input-group-text">Rp.</div>
                 <input type="text" class="form-control @error('harga') is-invalid @enderror"
-                       name="harga" id="harga" value="{{ old('harga') }}" required>
+                       name="harga" id="harga" value="{{ old('harga') }}">
             </div>
             @error('harga')
             <div class="invalid-feedback">
@@ -388,7 +386,7 @@
             <div class="input-group">
                 <div class="input-group-text">Rp.</div>
                 <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror"
-                       name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}" required>
+                       name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}">
             </div>
             @error('harga_diskon')
             <div class="invalid-feedback">

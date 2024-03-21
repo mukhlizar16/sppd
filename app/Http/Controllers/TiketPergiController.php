@@ -34,6 +34,7 @@ class TiketPergiController extends Controller
                 ['sppd_id' => $request->sppd_id],
                 $validatedData
             );
+
             return to_route('pulang.index', ['id' => $request->sppd_id])->with('success', 'Tiket Pergi baru berhasil ditambahkan!');
         } catch (Exception $e) {
             return back()->with('failed', $e->getMessage());
@@ -82,7 +83,7 @@ class TiketPergiController extends Controller
 
             return redirect()->back()->with('success', "Data Tiket Pergi $pergi->asal berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
         }
     }
 
@@ -107,7 +108,7 @@ class TiketPergiController extends Controller
     {
         $sppd = Sppd::find($sppdId);
         $title = 'Data Sppd Detail - Tiket Pergi';
-        if (!$sppd) {
+        if (! $sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 

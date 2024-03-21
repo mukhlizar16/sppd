@@ -8,7 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Laratrust\Models\Role;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -102,7 +102,7 @@ class UserController extends Controller
 
             return redirect()->route('user.index')->with('success', 'Password berhasil diubah!');
         } catch (Exception $e) {
-            return back()->with('failed', 'Terjadi kesalahan: '.$e->getMessage());
+            return back()->with('failed', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -114,8 +114,7 @@ class UserController extends Controller
         try {
             $rules = [
                 'name' => 'required|max:255',
-                'username' => 'required|min:5|max:16|unique:users,username,'.$user->id,
-                'isAdmin' => 'required',
+                'username' => 'required|min:5|max:16|unique:users,username,' . $user->id,
             ];
 
             $validatedData = $this->validate($request, $rules);
@@ -124,7 +123,7 @@ class UserController extends Controller
 
             return redirect()->route('user.index')->with('success', "Data User $user->name berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->route('user.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->route('user.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
 }

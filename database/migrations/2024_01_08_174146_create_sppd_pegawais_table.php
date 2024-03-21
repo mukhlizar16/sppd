@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('sppd_pegawai', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sppd_id')
-            ->index()
-            ->constrained('sppd')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->index()
+                ->constrained('sppd')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('pegawai_id')
-            ->index()
-            ->constrained('kepegawaian')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->index()
+                ->constrained('kepegawaian')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -10,10 +10,11 @@ class TotalPergi extends Model
     use HasFactory;
 
     protected $table = 'total_pergi';
+
     protected $fillable = ['sppd_id', 'asal', 'maskapai', 'tujuan', 'tgl_penerbangan', 'no_penerbangan', 'booking_reference', 'no_eticket', 'total_harga'];
 
     protected $casts = [
-        'tgl_penerbangan' => 'date'
+        'tgl_penerbangan' => 'date',
     ];
 
     public function Sppd()

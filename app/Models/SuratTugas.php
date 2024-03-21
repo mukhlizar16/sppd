@@ -10,6 +10,7 @@ class SuratTugas extends Model
     use HasFactory;
 
     protected $table = 'surat_tugas';
+
     protected $fillable = ['sppd_id', 'nomor_st', 'nomor_spd', 'kegiatan', 'dari', 'tujuan', 'lama_tugas', 'tanggal_st', 'tanggal_berangkat', 'tanggal_kembali'];
 
     public function Sppd()

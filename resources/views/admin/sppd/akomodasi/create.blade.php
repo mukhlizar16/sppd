@@ -23,33 +23,31 @@
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('surat.index', ['id' => request('id')] ) }}"
-                           class="btn btn-outline-secondary">
+                        <a href="{{ route('surat.index', ['id' => request('id')]) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-envelopes-bulk me-2"></i>
                             Surat Tugas
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('uang.index', ['id' => request('id')] ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('uang.index', ['id' => request('id')]) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-money-bill me-2"></i>
                             Uang Harian
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('akomodasi.index', ['id' => request('id')] ) }}" class="btn btn-primary">
+                        <a href="{{ route('akomodasi.index', ['id' => request('id')]) }}" class="btn btn-primary">
                             <i class="fa-regular fa-cars me-2"></i>
                             Akomodasi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pergi.index', ['id' => request('id')] ) }}"
-                           class="btn btn-outline-secondary">
+                        <a href="{{ route('pergi.index', ['id' => request('id')]) }}" class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-departure me-2"></i>
                             Tiket Pergi
                         </a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('pulang.index', ['id' => request('id')] ) }}"
+                        <a href="{{ route('pulang.index', ['id' => request('id')]) }}"
                            class="btn btn-outline-secondary">
                             <i class="fa-regular fa-plane-arrival me-2"></i>
                             Tiket Pulang
@@ -82,8 +80,7 @@
                             <label for="check_in" class="form-label">Tanggal Masuk</label>
                             <input type="date" class="form-control @error('check_in') is-invalid @enderror"
                                    name="check_in" id="check_in"
-                                   value="{{ old('check_in', $akomodasi?->check_in->format('Y-m-d')) }}"
-                                   autofocus>
+                                   value="{{ old('check_in', $akomodasi?->check_in?->format('Y-m-d')) }}" autofocus>
                             @error('check_in')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -94,7 +91,8 @@
                         <div class="mb-3">
                             <label for="check_out" class="form-label">Tanggal Keluar</label>
                             <input type="date" class="form-control @error('check_out') is-invalid @enderror"
-                                   name="check_out" id="check_out" value="{{ old('check_out',$akomodasi?->check_out) }}"
+                                   name="check_out" id="check_out"
+                                   value="{{ old('check_out', $akomodasi?->check_out?->format('Y-m-d')) }}"
                                    autofocus>
                             @error('check_out')
                             <div class="invalid-feedback">
@@ -107,7 +105,7 @@
                             <label for="nomor_invoice" class="form-label">No Invoice</label>
                             <input type="text" class="form-control @error('nomor_invoice') is-invalid @enderror"
                                    name="nomor_invoice" id="nomor_invoice"
-                                   value="{{ old('nomor_invoice',$akomodasi?->nomor_invoice) }}">
+                                   value="{{ old('nomor_invoice', $akomodasi?->nomor_invoice) }}">
                             @error('nomor_invoice')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -156,8 +154,7 @@
                             <div class="input-group @error('harga') is-invalid @enderror">
                                 <div class="input-group-text">Rp.</div>
                                 <input type="text" class="form-control @error('harga') is-invalid @enderror"
-                                       name="harga" id="harga" value="{{ old('harga', $akomodasi?->harga) }}"
-                                >
+                                       name="harga" id="harga" value="{{ old('harga', $akomodasi?->harga) }}">
                             </div>
                             @error('harga')
                             <div class="invalid-feedback">
@@ -170,9 +167,10 @@
                             <label for="harga_diskon" class="form-label">Harga Permalam (30%)</label>
                             <div class="input-group @error('harga_diskon') is-invalid @enderror">
                                 <div class="input-group-text">Rp.</div>
-                                <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror"
+                                <input type="text"
+                                       class="form-control @error('harga_diskon') is-invalid @enderror"
                                        name="harga_diskon" id="harga_diskon"
-                                       value="{{ old('harga_diskon', $akomodasi?->harga_diskon) }}" readonly>
+                                       value="{{ old('harga_diskon', $akomodasi?->harga_diskon) }}">
                             </div>
                             @error('harga_diskon')
                             <div class="invalid-feedback">
@@ -240,12 +238,12 @@
                 }
 
                 initMask();
-                $('#harga').on('blur', function () {
-                    const harga = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
-                    const diskon = harga * 0.3;
-                    console.log(diskon, $(this).val())
-                    $('#harga_diskon').val(diskon).trigger('mask.maskMoney');
-                });
+                // $('#harga').on('blur', function() {
+                //     const harga = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
+                //     const diskon = harga * 0.3;
+                //     console.log(diskon, $(this).val())
+                //     $('#harga_diskon').val(diskon).trigger('mask.maskMoney');
+                // });
             });
         </script>
     @endpush

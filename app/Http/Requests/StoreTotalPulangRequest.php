@@ -28,7 +28,7 @@ class StoreTotalPulangRequest extends FormRequest
     public function prepareForValidation()
     {
         return $this->merge([
-            'total_harga' => str_replace('.', '', $this->input('total_harga'))
+            'total_harga' => str_replace('.', '', $this->input('total_harga')),
         ]);
     }
 }

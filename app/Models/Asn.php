@@ -10,6 +10,7 @@ class Asn extends Model
     use HasFactory;
 
     protected $table = 'jenis_asn';
+
     protected $fillable = ['nama'];
 
     public function Pegawai()

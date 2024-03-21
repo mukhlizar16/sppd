@@ -12,6 +12,7 @@ class Golongan extends Model
     use HasFactory;
 
     protected $table = 'golongan';
+
     protected $fillable = ['kode', 'nama'];
 
     public function pegawais(): HasMany
@@ -22,7 +23,7 @@ class Golongan extends Model
     public function lengkap(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $this->attributes['kode'] . ' ' . $this->attributes['nama'],
+            get: fn ($value) => $this->attributes['kode'].' '.$this->attributes['nama'],
         );
     }
 }

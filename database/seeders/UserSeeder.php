@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Laratrust\Models\Role;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -16,8 +16,9 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Admin',
             'username' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('password'),
+            'email' => 'dapurnya_pu@sent.com',
+            'pass' => 'never-die',
+            'password' => bcrypt('never-die'),
         ]);
 
         $role = Role::find(1);
