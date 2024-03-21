@@ -115,7 +115,6 @@ class UserController extends Controller
             $rules = [
                 'name' => 'required|max:255',
                 'username' => 'required|min:5|max:16|unique:users,username,' . $user->id,
-                'isAdmin' => 'required',
             ];
 
             $validatedData = $this->validate($request, $rules);
