@@ -16,7 +16,8 @@
     </div>
 
     <button class="btn btn-primary fs-5 fw-normal mt-2" data-bs-toggle="modal" data-bs-target="#tambahJenis"><i
-            class="fa-solid fa-square-plus fs-5 me-2"></i>Tambah</button>
+            class="fa-solid fa-square-plus fs-5 me-2"></i>Tambah
+    </button>
     <div class="row mt-3">
         <div class="col">
             <div class="card mt-2">
@@ -24,70 +25,74 @@
 
                     {{-- Tabel Data golongan --}}
                     <table id="myTable" class="table responsive nowrap table-bordered table-striped align-middle"
-                        style="width:100%">
+                           style="width:100%">
                         <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>NAMA</th>
-                                <th>ACTION</th>
-                            </tr>
+                        <tr>
+                            <th style="width: 5%">NO</th>
+                            <th>NAMA</th>
+                            <th style="width: 10%">ACTION</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jenises as $jenis)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $jenis->name }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                        @foreach ($jenises as $jenis)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $jenis->name }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editJenis{{ $loop->iteration }}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#hapusJenis{{ $loop->iteration }}">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
 
-                                {{-- Modal Edit Jenis --}}
-                                <x-form_modal>
-                                    @slot('id', "editJenis$loop->iteration")
-                                    @slot('title', 'Edit Data Jenis Tugas')
-                                    @slot('route', route('jenis.update', $jenis->id))
-                                    @slot('method') @method('put') @endslot
-                                    @slot('btnPrimaryTitle', 'Perbarui')
+                            {{-- Modal Edit Jenis --}}
+                            <x-form_modal>
+                                @slot('id', "editJenis$loop->iteration")
+                                @slot('title', 'Edit Data Jenis Tugas')
+                                @slot('route', route('jenis.update', $jenis->id))
+                                @slot('method')
+                                    @method('put')
+                                @endslot
+                                @slot('btnPrimaryTitle', 'Perbarui')
 
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Nama</label>
-                                        <input type="name" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name', $jenis->name) }}"
-                                            autofocus required>
-                                        @error('name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nama</label>
+                                    <input type="name" class="form-control @error('name') is-invalid @enderror"
+                                           id="name" name="name" value="{{ old('name', $jenis->name) }}"
+                                           autofocus required>
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
-                                </x-form_modal>
-                                {{-- / Modal Edit jenis --}}
+                                    @enderror
+                                </div>
+                            </x-form_modal>
+                            {{-- / Modal Edit jenis --}}
 
-                                {{-- Modal Hapus jenis --}}
-                                <x-form_modal>
-                                    @slot('id', "hapusJenis$loop->iteration")
-                                    @slot('title', 'Hapus Data Jenis Tugas')
-                                    @slot('route', route('jenis.destroy', $jenis->id))
-                                    @slot('method') @method('delete') @endslot
-                                    @slot('btnPrimaryClass', 'btn-outline-danger')
-                                    @slot('btnSecondaryClass', 'btn-secondary')
-                                    @slot('btnPrimaryTitle', 'Hapus')
+                            {{-- Modal Hapus jenis --}}
+                            <x-form_modal>
+                                @slot('id', "hapusJenis$loop->iteration")
+                                @slot('title', 'Hapus Data Jenis Tugas')
+                                @slot('route', route('jenis.destroy', $jenis->id))
+                                @slot('method')
+                                    @method('delete')
+                                @endslot
+                                @slot('btnPrimaryClass', 'btn-outline-danger')
+                                @slot('btnSecondaryClass', 'btn-secondary')
+                                @slot('btnPrimaryTitle', 'Hapus')
 
-                                    <p class="fs-5">Apakah anda yakin akan menghapus data Jenis Tugas
-                                        <b>{{ $jenis->name }}</b>?
-                                    </p>
+                                <p class="fs-5">Apakah anda yakin akan menghapus data Jenis Tugas
+                                    <b>{{ $jenis->name }}</b>?
+                                </p>
 
-                                </x-form_modal>
-                                {{-- / Modal Hapus jenis  --}}
-                            @endforeach
+                            </x-form_modal>
+                            {{-- / Modal Hapus jenis  --}}
+                        @endforeach
                         </tbody>
                     </table>
                     {{-- / Tabel Data ... --}}
@@ -109,11 +114,11 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Nama</label>
                 <input type="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" autofocus required>
+                       name="name" autofocus required>
                 @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
                 @enderror
             </div>
         </div>

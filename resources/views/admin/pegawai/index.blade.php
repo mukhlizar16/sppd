@@ -20,34 +20,39 @@
     <div class="row">
         <div class="col">
             <div class="mt-3 card">
-                <div class="card-body table-responsive">
-                    <table id="myTable" class="table align-middle responsive nowrap table-bordered table-striped"
-                           style="width:100%">
-                        <thead class="text-center">
-                        <tr>
-                            <th>#</th>
-                            <th>Nama</th>
-                            <th>Nip</th>
-                            <th>Jabatan</th>
-                            <th>Golongan</th>
-                            <th>Jabatan</th>
-                            <th>Instansi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($pegawais as $pegawai)
+                <div class="card-body">
+                    <div class="mb-2 text-end">
+                        <button class="btn btn-primary"><i class="fa fa-sync me-2"></i> Sinkron Database</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="myTable" class="table align-middle responsive nowrap table-bordered table-striped"
+                               style="width:100%">
+                            <thead class="text-center">
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pegawai->nama_lengkap }}</td>
-                                <td>{{ $pegawai->nip_baru }}</td>
-                                <td>{{ $pegawai->jabatan }}</td>
-                                <td>{{ $pegawai->Golongan->nama }}</td>
-                                <td>{{ $pegawai->jabatan }}</td>
-                                <td>{{ $pegawai->unit_kerja }}</td>
+                                <th>#</th>
+                                <th>Nama</th>
+                                <th>Nip</th>
+                                <th>Jabatan</th>
+                                <th>Golongan</th>
+                                <th>Jabatan</th>
+                                <th>Instansi</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach ($pegawais as $pegawai)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $pegawai->nama_lengkap }}</td>
+                                    <td>{{ $pegawai->nip_baru }}</td>
+                                    <td>{{ $pegawai->jabatan }}</td>
+                                    <td>{{ $pegawai->Golongan->nama }}</td>
+                                    <td>{{ $pegawai->jabatan }}</td>
+                                    <td>{{ $pegawai->unit_kerja }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

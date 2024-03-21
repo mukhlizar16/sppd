@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAkomodasiRequest;
+use App\Http\Requests\UpdateAkomodasiRequest;
 use App\Models\Akomodasi;
 use App\Models\Sppd;
-use Exception;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class AkomodasiController extends Controller
@@ -61,27 +60,11 @@ class AkomodasiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Akomodasi $akomodasi)
+    public function update(UpdateAkomodasiRequest $request, Akomodasi $akomodasi)
     {
         try {
-            $rules = [
-                'nama_hotel' => 'required',
-                'check_in' => 'required',
-                'check_out' => 'required',
-                'nomor_invoice' => 'required',
-                'nomor_kamar' => 'required',
-                'lama_inap' => 'required',
-                'nama_kwitansi' => 'required',
-                'harga' => 'required',
-                'harga_diskon' => 'required',
-                'bbm' => 'required',
-                'dari' => 'required',
-                'ke' => 'required',
-            ];
 
-            unset($rules['sppd_id']);
-
-            $validatedData = $this->validate($request, $rules);
+            $validatedData = $request->validated();
             $validatedData['sppd_id'] = $akomodasi->sppd_id;
 
             Akomodasi::where('id', $akomodasi->id)->update($validatedData);
@@ -124,16 +107,12 @@ class AkomodasiController extends Controller
 
     public function storeDetail(StoreAkomodasiRequest $request)
     {
-        try {
-            $validated = $request->validated();
-            $validated['sppd_id'] = $request->sppd_id;
-            $validated['total_uang'] = $request->lama_inap != '' ? $request->lama_inap * $request->harga : $validated['harga_diskon'];
-            Akomodasi::create($validated);
+        $validated = $request->validated();
+        $validated['sppd_id'] = $request->sppd_id;
+        $validated['total_uang'] = $request->lama_inap != '' ? $request->lama_inap * $request->harga : $validated['harga_diskon'];
+        Akomodasi::create($validated);
 
-            return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
-        } catch (Exception $exception) {
-            return redirect()->back()->with('failed', 'Terdapat error...');
-        }
+        return redirect()->back()->with('success', 'Akomodasi baru berhasil ditambahkan!');
     }
 
     /**
