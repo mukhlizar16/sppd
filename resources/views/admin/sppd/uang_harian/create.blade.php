@@ -122,4 +122,15 @@
         </div>
     </div>
 
+    @push('script')
+        <script src="{{ asset('libs/mask-money/jquery.maskMoney.min.js') }}"></script>
+        <script>
+            $('#harian, #transportasi').maskMoney({
+                thousands: '.',
+                decimal: ',',
+                allowZero: true,
+                precision: 0
+            });
+        </script>
+    @endpush
 </x-app-layout>

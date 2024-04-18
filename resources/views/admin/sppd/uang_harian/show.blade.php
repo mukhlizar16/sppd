@@ -76,7 +76,7 @@
                                 <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
                                 <div class="mb-3">
                                     <label for="harian" class="form-label">Harian</label>
-                                    <input type="number" class="form-control @error('harian') is-invalid @enderror"
+                                    <input type="text" class="form-control @error('harian') is-invalid @enderror"
                                            name="harian" id="harian" value="{{ old('harian', $uang->harian) }}"
                                            autofocus required>
                                     @error('harian')
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="transportasi" class="form-label">Transportasi</label>
-                                    <input type="number"
+                                    <input type="text"
                                            class="form-control @error('transportasi') is-invalid @enderror"
                                            name="transportasi" id="transportasi"
                                            value="{{ old('transportasi', $uang->transportasi) }}" autofocus required>
@@ -165,7 +165,7 @@
         <input type="hidden" name="sppd_id" value="{{ $sppd->id }}">
         <div class="mb-3">
             <label for="harian" class="form-label">Harian</label>
-            <input type="number" class="form-control @error('harian') is-invalid @enderror"
+            <input type="text" class="form-control @error('harian') is-invalid @enderror"
                    name="harian" id="harian" value="{{ old('harian') }}" autofocus required>
             @error('harian')
             <div class="invalid-feedback">
@@ -187,7 +187,7 @@
 
         <div class="mb-3">
             <label for="transportasi" class="form-label">Transportasi</label>
-            <input type="number" class="form-control @error('transportasi') is-invalid @enderror"
+            <input type="text" class="form-control @error('transportasi') is-invalid @enderror"
                    name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus required>
             @error('transportasi')
             <div class="invalid-feedback">
@@ -208,5 +208,17 @@
         </div>
     </x-form_modal>
     <!-- Akhir Modal Tambah surat -->
+
+    @push('script')
+        <script src="{{ asset('libs/mask-money/jquery.maskMoney.min.js') }}"></script>
+        <script>
+            $('#harian, #transportasi').maskMoney({
+                thousands: '.',
+                decimal: ',',
+                allowZero: true,
+                precision: 0
+            });
+        </script>
+    @endpush
 
 </x-app-layout>

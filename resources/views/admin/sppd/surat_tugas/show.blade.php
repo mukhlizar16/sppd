@@ -63,7 +63,7 @@
                                 <td>{{ $surat->lama_tugas }}</td>
                                 <td>{{ Carbon\Carbon::parse($surat->tanggal_st)->format('d/m/Y') }}</td>
                                 <td>{{ Carbon\Carbon::parse($surat->tanggal_berangkat)->format('d/m/Y') }}</td>
-                                <td>{{ $surat->tanggal_kembali }}</td>
+                                <td>{{ Carbon\Carbon::parse($surat->tanggal_kembali)->format('d/m/Y') }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editSppd{{ $loop->iteration }}">

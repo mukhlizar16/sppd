@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUangHarianRequest;
+use App\Http\Requests\UpdateUangHarianRequest;
 use App\Models\Sppd;
 use App\Models\SuratTugas;
 use App\Models\UangHarian;
@@ -24,18 +26,12 @@ class UangHarianController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUangHarianRequest $request)
     {
         $st = SuratTugas::where('sppd_id', $request->sppd_id)->first();
 
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'harian' => 'required',
-                'konsumsi' => 'required',
-                'transportasi' => 'required',
-                'representasi' => 'required',
-            ]);
+            $validatedData = $request->validated();
             $validatedData['total_harian'] = $request->harian * $st->lama_tugas;
             $validatedData['total_konsumsi'] = $request->konsumsi * $st->lama_tugas;
             $validatedData['total_transportasi'] = $request->transportasi * $st->lama_tugas;
@@ -76,26 +72,17 @@ class UangHarianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UangHarian $uang)
+    public function update(UpdateUangHarianRequest $request, UangHarian $uang)
     {
         try {
-            $rules = [
-                'harian' => 'required',
-                'konsumsi' => 'required',
-                'transportasi' => 'required',
-                'representasi' => 'required',
-            ];
-
-            unset($rules['sppd_id']);
-
-            $validatedData = $this->validate($request, $rules);
+            $validatedData = $request->validated();
             $validatedData['sppd_id'] = $uang->sppd_id;
 
-            UangHarian::where('id', $uang->id)->update($validatedData);
+            $uang->update($validatedData);
 
             return redirect()->back()->with('success', "Data Uang Harian $uang->harian berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
 
@@ -120,7 +107,7 @@ class UangHarianController extends Controller
     {
         $sppd = Sppd::find($sppdId);
         $title = 'Data Sppd Detail - Uang Harian ';
-        if (! $sppd) {
+        if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 
