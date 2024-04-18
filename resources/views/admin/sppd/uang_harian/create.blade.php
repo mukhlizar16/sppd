@@ -68,7 +68,7 @@
                         <input type="hidden" name="sppd_id" value="{{ request('id') }}">
                         <div class="mb-3">
                             <label for="harian" class="form-label">Harian</label>
-                            <input type="number" class="form-control @error('harian') is-invalid @enderror"
+                            <input type="text" class="form-control @error('harian') is-invalid @enderror"
                                    name="harian" id="harian" value="{{ old('harian') }}" autofocus required>
                             @error('harian')
                             <div class="invalid-feedback">
@@ -90,7 +90,7 @@
 
                         <div class="mb-3">
                             <label for="transportasi" class="form-label">Transportasi</label>
-                            <input type="number" class="form-control @error('transportasi') is-invalid @enderror"
+                            <input type="text" class="form-control @error('transportasi') is-invalid @enderror"
                                    name="transportasi" id="transportasi" value="{{ old('transportasi') }}" autofocus
                                    required>
                             @error('transportasi')
