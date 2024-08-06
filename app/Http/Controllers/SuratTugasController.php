@@ -20,9 +20,9 @@ class SuratTugasController extends Controller
     public function index()
     {
         $title = 'Data Surat';
-        $pegawais = Pegawai::select('id', 'nama')->get();
+        $pegawais = Pegawai::all();
 
-        return view('admin.sppd.surat_tugas.create')->with(compact('title', 'pegawais'));
+        return view('admin.sppd.surat_tugas.create', compact('title', 'pegawais'));
     }
 
     /**

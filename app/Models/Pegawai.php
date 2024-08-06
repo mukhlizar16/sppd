@@ -7,20 +7,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pegawai extends Model
 {
+    use HasFactory;
+
     protected $table = 'kepegawaian';
 
     protected $fillable = ['nama'];
-
-    use HasFactory;
 
     protected $appends = [
         'nama_lengkap',
     ];
 
-    public function SuratTugas()
+    public function SuratTugas(): HasMany
     {
         return $this->hasMany(SuratTugas::class, 'pegawai_id');
     }

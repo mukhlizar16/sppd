@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained('jenis_tugas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('nomor_sp2d');
+            $table->string('nomor_sp2d')->nullable();
             $table->string('kegiatan');
             $table->integer('total_biaya')->nullable();
             $table->timestamps();

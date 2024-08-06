@@ -166,8 +166,7 @@ a.berita {
 
 /* Akhir CSS Administrasi */
 btn
-
-/* CSS Keuangan */
+    /* CSS Keuangan */
 .laporan {
     display: flex;
     flex: auto;

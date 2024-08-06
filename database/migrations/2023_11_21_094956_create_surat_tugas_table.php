@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nomor_spd');
             $table->text('kegiatan');
             $table->string('dari');
-            $table->string('tujuan');
+            $table->text('tujuan');
             $table->tinyInteger('lama_tugas');
             $table->date('tanggal_st');
             $table->date('tanggal_berangkat');

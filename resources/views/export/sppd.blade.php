@@ -36,27 +36,40 @@
         hr {
             border-top: 2px solid #000;
         }
+
+        thead.center th {
+            text-align: center;
+        }
+
+        thead.small th {
+            font-size: 10pt;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .text-right {
+            text-align: right !important;
+        }
     </style>
 </head>
 
-<body style="padding-left: 0px 20px 0px 20px; ">
+<body>
 <table>
     <tbody width="100%">
     <tr>
         <td>
-
         </td>
         <td>
-            <div style=" font-weight: 600; margin-left: 20px">
-                Nama OPD : DINAS PEKERJAAN UMUM DAN PENATAAN RUANG KAB. ACEH BARAT<br>
-            </div>
+            Nama OPD : DINAS PEKERJAAN UMUM DAN PENATAAN RUANG KAB. ACEH BARAT
         </td>
     </tr>
     </tbody>
 </table>
 
 <table class="table" style="width: 100%;">
-    <thead>
+    <thead class="center">
     <tr>
         <th rowspan="3">No</th>
         <th colspan="13">SURAT TUGAS/PERJALANAN DINAS (S.P.T)</th>
@@ -126,7 +139,7 @@
         <th>KE (PP)</th>
     </tr>
     </thead>
-    <thead>
+    <thead class="center small">
     <tr>
         <th>1</th>
         <th>2</th>
@@ -144,13 +157,13 @@
         <th>14</th>
         <th>15</th>
         <th>16 = (11x16)</th>
-        <th>17 </th>
+        <th>17</th>
         <th>18 = (11x18)</th>
-        <th>19 </th>
+        <th>19</th>
         <th>20 = (11x20)</th>
-        <th>21 </th>
+        <th>21</th>
         <th>22 = (11x22)</th>
-        <th>23 </th>
+        <th>23</th>
         <th>24</th>
         <th>25</th>
         <th>26</th>
@@ -160,7 +173,7 @@
         <th>30</th>
         <th>31</th>
         <th>32 = (28x30+31)</th>
-        <th>33 </th>
+        <th>33</th>
         <th>34</th>
         <th>35</th>
         <th>36</th>
@@ -187,77 +200,77 @@
     @php
         $i = 1;
     @endphp
-    @foreach ($spdds as $sppd)
+    @foreach ($sppds as $sppd)
+        @php
+            $total_harian = $sppd->uangHarian?->harian  *  $sppd->suratTugas?->lama_tugas ;
+            $total_konsumsi =  $sppd->uangHarian?->konsumsi  *  $sppd->suratTugas?->lama_tugas ;
+            $total_transportasi =  $sppd->uangHarian?->transportasi  *  $sppd->suratTugas?->lama_tugas ;
+            $total_representasi =  $sppd->uangHarian?->representasi  *  $sppd->suratTugas?->lama_tugas ;
+        @endphp
         @foreach($sppd->pegawais as $pegawai)
             <tr>
                 <td>{{ $i++ }}</td>
                 <td>{{ $sppd->nomor_sp2d }}</td>
                 <td>{{ $pegawai->nama }}</td>
                 <td>{{ $pegawai->jabatan }}</td>
-                <td>{{ $pegawai->golongan->kode }}</td>
-                <td>{{ $sppd->suratTugas?->first()->nomor_st }}</td>
-                <td>{{ $sppd->suratTugas?->first()->nomor_spd }}</td>
-                <td>{{ $sppd->suratTugas?->first()->kegiatan }}</td>
-                <td>{{ $sppd->suratTugas?->first()->dari }}</td>
-                <td>{{ $sppd->suratTugas?->first()->tujuan }}</td>
-                <td>{{ $sppd->suratTugas?->first()->lama_tugas }}</td>
-                <td>{{ $sppd->suratTugas?->first()->tanggal }}</td>
-                <td>{{ $sppd->suratTugas?->first()->tanggal_berangkat }}</td>
-                <td>{{ $sppd->suratTugas?->first()->tanggal_kembali }}</td>
-                <td>{{ $sppd->uangHarian?->first()->harian }}</td>
+                <td align="center">{{ $pegawai->golongan->kode }}</td>
+                <td>{{ $sppd->suratTugas?->nomor_st }}</td>
+                <td>{{ $sppd->suratTugas?->nomor_spd }}</td>
+                <td>{{ $sppd->suratTugas?->kegiatan }}</td>
+                <td>{{ $sppd->suratTugas?->dari }}</td>
+                <td>{{ $sppd->suratTugas?->tujuan }}</td>
+                <td>{{ $sppd->suratTugas?->lama_tugas }}</td>
+                <td align="center">{{ $sppd->suratTugas?->tanggal_st->format('d/m/Y') }}</td>
+                <td align="center">{{ $sppd->suratTugas?->tanggal_berangkat->format('d/m/Y') }}</td>
+                <td align="center">{{ $sppd->suratTugas?->tanggal_kembali->format('d/m/Y') }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $sppd->uangHarian?->harian }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $total_harian }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $sppd->uangHarian?->konsumsi }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $total_konsumsi }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $sppd->uangHarian?->transportasi }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $total_transportasi }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $sppd->uangHarian?->representasi }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $total_representasi }}</td>
+                <td>{{ $sppd->akomodasi?->nama_hotel }}</td>
+                <td align="center">{{ $sppd->akomodasi?->check_in->format('d/m/Y') }}</td>
+                <td align="center">{{ $sppd->akomodasi?->check_out->format('d/m/Y') }}</td>
+                <td>{{ $sppd->akomodasi?->nomor_invoice }}</td>
+                <td>{{ $sppd->akomodasi?->nomor_kamar }}</td>
+                <td align="center">{{ $sppd->akomodasi?->lama_inap }}</td>
+                <td>{{ $sppd->akomodasi?->nama_kwitansi }}</td>
+                <td>{{ $sppd->akomodasi?->harga }}</td>
+                <td>{{ $sppd->akomodasi?->harga_diskon }}</td>
                 @php
-                    $total_harian = $sppd->uangHarian?->first()->harian  *  $sppd->suratTugas?->first()->lama_tugas ;
-                    $total_konsumsi =  $sppd->uangHarian?->first()->konsumsi  *  $sppd->suratTugas?->first()->lama_tugas ;
-                    $total_transportasi =  $sppd->uangHarian?->first()->transportasi  *  $sppd->suratTugas?->first()->lama_tugas ;
-                    $total_representasi =  $sppd->uangHarian?->first()->representasi  *  $sppd->suratTugas?->first()->lama_tugas ;
+                    $total_uang =  $sppd->akomodasi?->lama_inap * $sppd->akomodasi?->harga + $sppd->akomodasi?->harga_diskon
                 @endphp
-                <td>{{ $total_harian }}</td>
-                <td>{{ $sppd->uangHarian?->first()->konsumsi }}</td>
-                <td>{{ $total_konsumsi }}</td>
-                <td>{{ $sppd->uangHarian?->first()->transportasi }}</td>
-                <td>{{ $total_transportasi }}</td>
-                <td>{{ $sppd->uangHarian?->first()->representasi }}</td>
-                <td>{{ $total_representasi }}</td>
-                <td>{{ $sppd->akomodasi?->first()->nama_hotel }}</td>
-                <td>{{ $sppd->akomodasi?->first()->check_in }}</td>
-                <td>{{ $sppd->akomodasi?->first()->check_out }}</td>
-                <td>{{ $sppd->akomodasi?->first()->nomor_invoice }}</td>
-                <td>{{ $sppd->akomodasi?->first()->nomor_kamar }}</td>
-                <td>{{ $sppd->akomodasi?->first()->lama_inap }}</td>
-                <td>{{ $sppd->akomodasi?->first()->nama_kwitansi }}</td>
-                <td>{{ $sppd->akomodasi?->first()->harga }}</td>
-                <td>{{ $sppd->akomodasi?->first()->harga_diskon }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $total_uang }}</td>
+                <td align="right" data-format="Rp #,##0">{{ $sppd->akomodasi?->bbm }}</td>
+                <td>{{ $sppd->akomodasi?->dari }}</td>
+                <td>{{ $sppd->akomodasi?->ke }}</td>
+                <td>{{ $sppd->totalPergi?->asal }}</td>
+                <td>{{ $sppd->totalPergi?->tujuan }}</td>
+                <td align="center">{{ $sppd->totalPergi?->tgl_penerbangan->format('d/m/Y') }}</td>
+                <td>{{ $sppd->totalPergi?->maskapai }}</td>
+                <td>{{ $sppd->totalPergi?->booking_reference }}</td>
+                <td>{{ $sppd->totalPergi?->no_eticket }}</td>
+                <td>{{ $sppd->totalPergi?->no_penerbangan }}</td>
+                <td>{{ $sppd->totalPergi?->total_harga }}</td>
+                <td>{{ $sppd->totalPulang?->asal }}</td>
+                <td>{{ $sppd->totalPulang?->tujuan }}</td>
+                <td align="center">{{ $sppd->totalPulang?->tgl_penerbangan->format('d/m/Y') }}</td>
+                <td>{{ $sppd->totalPulang?->maskapai }}</td>
+                <td>{{ $sppd->totalPulang?->booking_reference }}</td>
+                <td>{{ $sppd->totalPulang?->no_eticket }}</td>
+                <td>{{ $sppd->totalPulang?->no_penerbangan }}</td>
+                <td>{{ $sppd->totalPulang?->total_harga }}</td>
                 @php
-                $total_uang =  $sppd->akomodasi?->first()->lama_inap * $sppd->akomodasi?->first()->harga + $sppd->akomodasi?->first()->harga_diskon
-                @endphp
-                <td>{{ $total_uang }}</td>
-                <td>{{ $sppd->akomodasi?->first()->bbm }}</td>
-                <td>{{ $sppd->akomodasi?->first()->dari }}</td>
-                <td>{{ $sppd->akomodasi?->first()->ke }}</td>
-                <td>{{ $sppd->totalPergi?->first()->asal }}</td>
-                <td>{{ $sppd->totalPergi?->first()->tujuan }}</td>
-                <td>{{ $sppd->totalPergi?->first()->tgl_penerbangan }}</td>
-                <td>{{ $sppd->totalPergi?->first()->maskapai }}</td>
-                <td>{{ $sppd->totalPergi?->first()->booking_reference }}</td>
-                <td>{{ $sppd->totalPergi?->first()->no_eticket }}</td>
-                <td>{{ $sppd->totalPergi?->first()->no_penerbangan }}</td>
-                <td>{{ $sppd->totalPergi?->first()->total_harga }}</td>
-                <td>{{ $sppd->totalPulang?->first()->asal }}</td>
-                <td>{{ $sppd->totalPulang?->first()->tujuan }}</td>
-                <td>{{ $sppd->totalPulang?->first()->tgl_penerbangan }}</td>
-                <td>{{ $sppd->totalPulang?->first()->maskapai }}</td>
-                <td>{{ $sppd->totalPulang?->first()->booking_reference }}</td>
-                <td>{{ $sppd->totalPulang?->first()->no_eticket }}</td>
-                <td>{{ $sppd->totalPulang?->first()->no_penerbangan }}</td>
-                <td>{{ $sppd->totalPulang?->first()->total_harga }}</td>
-                {{-- @php
                     $total = $total_harian + $total_konsumsi
                              + $total_transportasi + $total_representasi
-                             + $total_uang + $sppd->akomodasi?->first()->bbm +
-                              $sppd->totalPergi?->first()->total_harga
-                             + $sppd->totalPulang?->first()->total_harga;
-                @endphp --}}
-                <td>{{ $sppd->total_biaya }}</td>
+                             + $total_uang + $sppd->akomodasi?->bbm +
+                              $sppd->totalPergi?->total_harga
+                             + $sppd->totalPulang?->total_harga;
+                @endphp
+                <td align="right" data-format="Rp #,##0">{{ $sppd->total_biaya }}</td>
             </tr>
         @endforeach
     @endforeach

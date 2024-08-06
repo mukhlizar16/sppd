@@ -27,6 +27,7 @@ class SppdController extends Controller
         $sppds = Sppd::with('pegawais')->latest()->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
+        //        dd($sppds->toArray());
 
         return view('admin.sppd.index')->with(compact('title', 'sppds', 'jenises', 'users'));
     }

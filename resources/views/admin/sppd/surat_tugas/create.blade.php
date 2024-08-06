@@ -119,8 +119,8 @@
 
                         <div class="mb-3">
                             <label for="tujuan" class="form-label">Tujuan</label>
-                            <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
-                                   name="tujuan" id="tujuan" value="{{ old('tujuan') }}" required>
+                            <textarea type="text" class="form-control @error('tujuan') is-invalid @enderror"
+                                      name="tujuan" id="tujuan" value="{{ old('tujuan') }}" required></textarea>
                             @error('tujuan')
                             <div class="invalid-feedback">
                                 {{ $message }}

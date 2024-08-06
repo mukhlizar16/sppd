@@ -23,7 +23,7 @@ class SppdDataExport implements FromView, ShouldAutoSize, WithStyles
 
         //        dd($data);
         return view('export.sppd', [
-            'spdds' => $data,
+            'sppds' => $data,
         ]);
     }
 
