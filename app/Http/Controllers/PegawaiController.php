@@ -49,7 +49,7 @@ class PegawaiController extends Controller
             $userData = [
                 'name' => $validatedData['nama'],
                 'username' => $validatedData['nip'],
-                'email' => $validatedData['nama'].'@gmail.com',
+                'email' => $validatedData['nama'] . '@gmail.com',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make($validatedData['nip']),
                 'isAdmin' => 0,
