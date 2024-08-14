@@ -18,11 +18,11 @@ class SyncKepegawaianController extends Controller
 
         // Menghapus data yang tidak ada di API
         Kepegawaian::whereIn('id_lama', $nipsToDelete)->delete();
-        // dd($apiNips, $localNips, $nipsToDelete);
+        //        dd($apiNips, $localNips, $nipsToDelete);
 
         foreach ($data as $pegawai) {
             Kepegawaian::updateOrCreate(
-                ['id_lama' => $pegawai['id'], 'nip_baru' => $pegawai['nip_baru']],
+                ['id_lama' => $pegawai['id']],
                 [
                     'nama' => $pegawai['nama'],
                     'gelar_depan' => $pegawai['gelar_depan'],
@@ -30,6 +30,7 @@ class SyncKepegawaianController extends Controller
                     'tempat_lahir' => $pegawai['tempat_lahir'],
                     'tanggal_lahir' => $pegawai['tanggal_lahir'],
                     'nip_lama' => $pegawai['nip_lama'],
+                    'nip_baru' => $pegawai['nip_baru'],
                     'universitas' => $pegawai['universitas'],
                     'jurusan' => $pegawai['jurusan'],
                     'tingkat_ijazah' => $pegawai['tingkat_ijazah'],
@@ -49,6 +50,7 @@ class SyncKepegawaianController extends Controller
                 ]
             );
         }
+
         return response()->json(['message' => 'Data berhasil disinkronisasi']);
     }
 }
