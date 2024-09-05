@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUangHarianRequest;
+use App\Http\Requests\UangHarianRequest;
 use App\Http\Requests\UpdateUangHarianRequest;
 use App\Models\Sppd;
 use App\Models\SuratTugas;
@@ -35,7 +36,7 @@ class UangHarianController extends Controller
             $validatedData['total_harian'] = $request->harian * $st->lama_tugas;
             $validatedData['total_konsumsi'] = $request->konsumsi * $st->lama_tugas;
             $validatedData['total_transportasi'] = $request->transportasi * $st->lama_tugas;
-            $validatedData['total_representasi'] = $request->representasi * $st->lama_tugas;
+            $validatedData['total_representasi'] = $request->representasi;
         } catch (ValidationException $exception) {
             return back()->with('failed', $exception->getMessage());
         }
@@ -116,19 +117,18 @@ class UangHarianController extends Controller
         return view('admin.sppd.uang_harian.show', compact('uangs', 'title', 'sppd'));
     }
 
-    public function storeDetail(Request $request)
+    public function storeDetail(UangHarianRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'sppd_id' => 'required',
-                'harian' => 'required',
-                'konsumsi' => 'required',
-                'transportasi' => 'required',
-                'representasi' => 'required',
-            ]);
+            $validatedData = $request->validated();
         } catch (ValidationException $exception) {
             return redirect()->back()->with('failed', $exception->getMessage());
         }
+
+        $suratTugas = SuratTugas::where('sppd_id', $validatedData['sppd_id'])->firstOrFail();
+        $validatedData['total_harian'] = $validatedData['harian'] * $suratTugas->lama_tugas;
+        $validatedData['total_konsumsi'] = $validatedData['konsumsi'] * $suratTugas->lama_tugas;
+        $validatedData['total_transportasi'] = $validatedData['transportasi'] * $suratTugas->lama_tugas;
 
         UangHarian::create($validatedData);
 

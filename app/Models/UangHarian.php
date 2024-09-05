@@ -11,7 +11,7 @@ class UangHarian extends Model
 
     protected $table = 'uang_harian';
 
-    protected $fillable = ['sppd_id', 'harian', 'total_harian', 'konsumsi', 'total_konsumsi', 'transportasi', 'total_transportasi', 'representasi', 'total_representasi'];
+    protected $fillable = ['sppd_id', 'harian', 'total_harian', 'konsumsi', 'total_konsumsi', 'transportasi', 'total_transportasi', 'representasi'];
 
     public function Sppd()
     {
