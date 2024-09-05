@@ -71,6 +71,7 @@ class SppdController extends Controller
      */
     public function show(Sppd $sppd)
     {
+        $title = 'Detail Data Sppd';
     }
 
     /**
@@ -108,7 +109,7 @@ class SppdController extends Controller
 
             return redirect()->route('sppd.index')->with('success', "Data SPPD $sppd->nomor_sp2d berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->route('sppd.index')->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
 

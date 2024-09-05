@@ -10,6 +10,7 @@ use App\Http\Controllers\TiketPergiController;
 use App\Http\Controllers\TiketPulangController;
 use App\Http\Controllers\UangHarianController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewSppdController;
 use App\Models\Sppd;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/sppd', SppdController::class);
     Route::resource('/jenis', JenisTugasController::class);
+
+    // View All SPPD
+    Route::get('/all-sppd', ViewSppdController::class)->name('sppd.view');
 
     // surat
     Route::resource('/surat', SuratTugasController::class)->parameters([
