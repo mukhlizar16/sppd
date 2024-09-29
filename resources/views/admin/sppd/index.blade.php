@@ -33,9 +33,11 @@
                         <thead class="align-middle">
                             <tr>
                                 <th>#</th>
+                                <th>Nomor ST</th>
                                 <th>Nomor SP2D</th>
                                 <th>Kode Kegiatan</th>
                                 <th>Pegawai</th>
+                                <th>Tujuan</th>
                                 <th>Jenis Tugas</th>
                                 <th>Total Biaya</th>
                                 <th class="text-center">Action</th>
@@ -45,6 +47,7 @@
                             @foreach ($sppds as $sppd)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $sppd->suratTugas?->nomor_st ?? '-' }}</td>
                                     <td>{{ $sppd->nomor_sp2d }}</td>
                                     <td>
                                         <div style="min-width: 300px">{{ $sppd->kegiatan }}</div>
@@ -55,6 +58,11 @@
                                                 <li>- {{ $pegawai->nama_lengkap }}</li>
                                             @endforeach
                                         </ul>
+                                    </td>
+                                    <td>
+                                        <div style="width: 200px">
+                                            {{ $sppd->suratTugas?->tujuan ?? '-' }}
+                                        </div>
                                     </td>
                                     <td>{{ $sppd->JenisTugas->name }}</td>
                                     <td class="text-nowrap text-end">
@@ -80,66 +88,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                {{-- Modal Edit sppd --}}
-                                {{-- <x-form_modal>
-                                @slot('id', "editSppd$loop->iteration")
-                                @slot('title', 'Edit Data Sppd')
-                                @slot('route', route('sppd.update', $sppd->id))
-                                @slot('method')
-                                    @method('put')
-                                @endslot
-                                @slot('btnPrimaryTitle', 'Perbarui')
 
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Nama Pegawai</label>
-                                    <select class="form-select @error('name') is-invalid @enderror" id="name"
-                                            multiple="multiple"
-                                            name="name" required style="width: 100%">
-                                        <option value="">-- pilih pegawai --</option>
-                                        @foreach ($users as $pegawai)
-                                            <option value="{{ $pegawai->id }}">{{ $pegawai->nama_lengkap }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="jenis_tugas_id" class="form-label">Jenis Tugas</label>
-                                    <select class="form-select @error('jenis_tugas_id') is-invalid @enderror"
-                                            id="jenis_tugas_id" name="jenis_tugas_id">
-                                        @foreach ($jenises as $jenis)
-                                            <option value="{{ $jenis->id }}">
-                                                {{ $jenis->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('jenis_tugas_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="total_biaya" class="form-label">Total Biaya</label>
-                                    <input type="total_biaya"
-                                           class="form-control @error('total_biaya') is-invalid @enderror"
-                                           id="total_biaya" name="total_biaya"
-                                           value="{{ old('total_biaay', $sppd->total_biaya) }}">
-                                    @error('total_biaya')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                    <div class="form-text" id="basic-addon4">Kosongkan jika belum mempunyai total
-                                    </div>
-                                </div>
-                            </x-form_modal> --}}
-                                {{-- / Modal Edit sppd --}}
-
-                                {{-- Modal Hapus sppd --}}
                                 <x-form_modal>
                                     @slot('id', "hapusSppd$loop->iteration")
                                     @slot('title', 'Hapus Data Sppd')
@@ -154,9 +103,7 @@
                                     <p class="fs-5">Apakah anda yakin akan menghapus data Sppd
                                         <b>{{ $sppd->nomor_sp2d }}</b>?
                                     </p>
-
                                 </x-form_modal>
-                                {{-- / Modal Hapus sppd  --}}
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="detailSppd{{ $loop->iteration }}" tabindex="-1"
@@ -238,7 +185,7 @@
         </div>
     </div>
 
-    <!-- Modal Tambah jenis -->
+    <!-- Modal Tambah -->
     <x-form_modal>
         @slot('id', 'tambahSppd')
         @slot('title', 'Tambah Data Sppd')
@@ -311,7 +258,7 @@
             </div>
         </div>
     </x-form_modal>
-    <!-- Akhir Modal Tambah jenis -->
+    <!-- Akhir Modal Tambah -->
 
     @push('css')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -331,6 +278,10 @@
                     decimal: ',',
                     allowZero: true,
                     precision: 0
+                });
+                $('#tambahSppd').on('hidden.bs.modal', function() {
+                    $(this).find('form').trigger('reset');
+                    $(this).find('.select2').val('').trigger('change');
                 });
             });
         </script>

@@ -24,7 +24,7 @@ class SppdController extends Controller
     {
 
         $title = 'Data Sppd';
-        $sppds = Sppd::with('pegawais')->latest()->get();
+        $sppds = Sppd::with('suratTugas', 'pegawais')->latest()->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
         //        dd($sppds->toArray());

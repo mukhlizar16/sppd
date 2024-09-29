@@ -133,7 +133,6 @@
                                 <th>52 = 17+19+20+21+23+33+34+4+52</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             @php
                                 $i = 1;
@@ -149,7 +148,7 @@
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $sppd->nomor_sp2d }}</td>
-                                        <td>{{ $pegawai->nama }}</td>
+                                        <td class="text-nowrap">{{ $pegawai->nama }}</td>
                                         <td>{{ $pegawai->jabatan }}</td>
                                         <td align="center">{{ $pegawai->golongan->kode }}</td>
                                         <td>{{ $sppd->suratTugas?->nomor_st }}</td>
@@ -185,8 +184,8 @@
                                             {{ $pegawai->jabatan == 'KEPALA DINAS' ? number_format($total_representasi, 0, ',', '.') : 0 }}
                                         </td>
                                         <td>{{ $sppd->akomodasi?->nama_hotel }}</td>
-                                        <td align="center">{{ $sppd->akomodasi?->check_in->format('d/m/Y') }}</td>
-                                        <td align="center">{{ $sppd->akomodasi?->check_out->format('d/m/Y') }}</td>
+                                        <td align="center">{{ $sppd->akomodasi?->check_in?->format('d/m/Y') }}</td>
+                                        <td align="center">{{ $sppd->akomodasi?->check_out?->format('d/m/Y') }}</td>
                                         <td>{{ $sppd->akomodasi?->nomor_invoice }}</td>
                                         <td>{{ $sppd->akomodasi?->nomor_kamar }}</td>
                                         <td align="center">{{ $sppd->akomodasi?->lama_inap }}</td>
