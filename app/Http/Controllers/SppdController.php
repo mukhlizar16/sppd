@@ -24,7 +24,7 @@ class SppdController extends Controller
     public function index()
     {
 
-        $title = 'Data Sppd';
+        $title = 'Data SPPD';
         $sppds = Sppd::with('suratTugas', 'pegawais')->latest()->get();
         $jenises = JenisTugas::all();
         $users = Pegawai::all();
