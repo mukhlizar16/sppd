@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AkomodasiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokumenSuratTugasController;
 use App\Http\Controllers\JenisTugasController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
@@ -35,19 +37,21 @@ Route::get('/', function () {
 Route::get('/export-sppd', [SppdController::class, 'exportAll'])->name('sppd.export-all');
 Route::post('/export-excel/{sppdId}', [SppdController::class, 'exportExcel'])->name('sppd.export');
 
-Route::get('/dashboard', function () {
-    $title = __('Dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    return view('dashboard', compact('title'));
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware('auth')->group(function () {
+    // Dokumen ST
+    Route::controller(DokumenSuratTugasController::class)->prefix('surat-tugas')
+        ->name('surat-tugas.')->group(function () {
+            Route::get('/', 'index')->name('index');
+        });
+
     Route::resource('/user', UserController::class);
     Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/sppd', SppdController::class);
