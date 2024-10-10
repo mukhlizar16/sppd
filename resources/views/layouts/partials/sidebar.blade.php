@@ -22,7 +22,7 @@
                     <div data-i18n="Analytics">SPPD</div>
                 </a>
             </li>
-            <li class="menu-item {{ Request::is('surat-tugas*') ? 'active' : '' }}">
+            <li class="menu-item {{ routeActive('surat-tugas*') }}">
                 <a href="{{ route('surat-tugas.index') }}" class="menu-link">
                     <i class="fa-duotone fa-file-contract me-3"></i>
                     <div data-i18n="Analytics">Surat Tugas</div>
