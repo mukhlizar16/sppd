@@ -159,6 +159,15 @@
                                                             </div>
                                                         </a>
                                                     </div>
+                                                    <div class="mb-2 col-lg-4">
+                                                        <a href="#">
+                                                            <div class="shadow card">
+                                                                <div class="text-center card-body">
+                                                                    Upload ST
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
