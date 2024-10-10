@@ -10,6 +10,7 @@ use App\Models\SuratTugas;
 use App\Models\UangHarian;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 
 class UangHarianController extends Controller
@@ -20,8 +21,11 @@ class UangHarianController extends Controller
     public function index(Request $request)
     {
         $title = 'Data Uang Harian';
+        $sppdId = $request->id;
+        $jenis = $request->jenis;
+        $tipe = Crypt::decrypt($request->jenis);
 
-        return view('admin.sppd.uang_harian.create')->with(compact('title'));
+        return view('admin.sppd.uang_harian.create', compact('title', 'sppdId', 'jenis', 'tipe'));
     }
 
     /**

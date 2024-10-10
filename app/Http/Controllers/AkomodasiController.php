@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateAkomodasiRequest;
 use App\Models\Akomodasi;
 use App\Models\Sppd;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 
 class AkomodasiController extends Controller
@@ -14,12 +16,15 @@ class AkomodasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Data Akomodasi';
         $akomodasi = Akomodasi::where('sppd_id', request('id'))->first();
+        $sppdId = $request->id;
+        $jenis = $request->jenis;
+        $tipe = Crypt::decrypt($request->jenis);
 
-        return view('admin.sppd.akomodasi.create')->with(compact('title', 'akomodasi'));
+        return view('admin.sppd.akomodasi.create', compact('title', 'akomodasi', 'sppdId', 'jenis', 'tipe'));
     }
 
     /**
@@ -30,7 +35,7 @@ class AkomodasiController extends Controller
         $validatedData = $request->validated();
         $harga = $validatedData['harga'] ?: 0;
         $lama_inap = $validatedData['lama_inap'] ?: 0;
-//            dd($validatedData);
+        //            dd($validatedData);
         $validatedData['total_uang'] = $request->lama_inap != null ? $lama_inap * $harga : $validatedData['harga_diskon'];
         Akomodasi::updateOrCreate(
             ['sppd_id' => $request->sppd_id],

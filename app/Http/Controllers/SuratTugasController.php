@@ -9,6 +9,7 @@ use App\Models\Sppd;
 use App\Models\SuratTugas;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -17,12 +18,15 @@ class SuratTugasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Data Surat';
         $pegawais = Pegawai::all();
+        $sppdId = $request->id;
+        $jenis = $request->jenis;
+        $tipe = Crypt::decrypt($request->jenis);
 
-        return view('admin.sppd.surat_tugas.create', compact('title', 'pegawais'));
+        return view('admin.sppd.surat_tugas.create', compact('title', 'pegawais', 'sppdId', 'jenis', 'tipe'));
     }
 
     /**
@@ -83,7 +87,7 @@ class SuratTugasController extends Controller
         } catch (ValidationException $exception) {
             DB::rollBack();
 
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
 
         return redirect()->back()->with('success', "Data Surat Tugas $surat->nomor_sp2d berhasil diperbarui!");
@@ -112,7 +116,7 @@ class SuratTugasController extends Controller
         $title = 'Surat Tugas';
         $subtitle = 'Data Sppd Detail - Surat Tugas';
         $pegawais = Pegawai::select('id', 'nama')->get();
-        if (! $sppd) {
+        if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 

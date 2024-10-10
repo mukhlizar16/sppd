@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTotalPulangRequest;
+use Exception;
 use App\Models\Sppd;
 use App\Models\TotalPulang;
-use Exception;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\StoreTotalPulangRequest;
 use Illuminate\Validation\ValidationException;
 
 class TiketPulangController extends Controller
@@ -16,12 +17,15 @@ class TiketPulangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Data Tiket Pulang';
         $tiket = TotalPulang::where('sppd_id', request('id'))->first();
+        $sppdId = $request->id;
+        $jenis = $request->jenis;
+        $tipe = Crypt::decrypt($request->jenis);
 
-        return view('admin.sppd.total_pulang.create')->with(compact('title', 'tiket'));
+        return view('admin.sppd.total_pulang.create', compact('title', 'tiket', 'sppdId', 'jenis', 'tipe'));
     }
 
     /**
@@ -88,7 +92,7 @@ class TiketPulangController extends Controller
 
             return redirect()->back()->with('success', "Data Tiket Pulang $pulang->asal berhasil diperbarui!");
         } catch (ValidationException $exception) {
-            return redirect()->back()->with('failed', 'Data gagal diperbarui! '.$exception->getMessage());
+            return redirect()->back()->with('failed', 'Data gagal diperbarui! ' . $exception->getMessage());
         }
     }
 
@@ -113,7 +117,7 @@ class TiketPulangController extends Controller
     {
         $sppd = Sppd::find($sppdId);
         $title = 'Data Sppd Detail - Tiket Pulang';
-        if (! $sppd) {
+        if (!$sppd) {
             abort(404); // Or handle the case when the Sppd is not found
         }
 

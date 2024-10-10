@@ -72,13 +72,6 @@
                                             data-bs-target="#detailSppd{{ $loop->iteration }}">
                                             <i class="fa-regular fa-list"></i>
                                         </a>
-                                        {{-- <form action="{{ route('sppd.export', $sppd->id) }}" method="post"
-                                          class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            <i class="fa-regular fa-file"></i>
-                                        </button>
-                                    </form> --}}
                                         <a class="btn btn-sm btn-warning" href="{{ route('sppd.edit', $sppd->id) }}">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
@@ -100,7 +93,7 @@
                                     @slot('btnSecondaryClass', 'btn-secondary')
                                     @slot('btnPrimaryTitle', 'Hapus')
 
-                                    <p class="fs-5">Apakah anda yakin akan menghapus data Sppd
+                                    <p class="fs-5">Apakah anda yakin akan menghapus data sppd
                                         <b>{{ $sppd->nomor_sp2d }}</b>?
                                     </p>
                                 </x-form_modal>
